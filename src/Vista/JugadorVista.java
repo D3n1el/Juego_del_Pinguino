@@ -2,25 +2,25 @@ package Vista;
 
 public class JugadorVista {
 	
-	private Partida partida;
+	private Jugador jugador;
 	
-	public JugadorVista(Partida partida) {
-		this.partida = partida;
+	public JugadorVista(Jugador jugador) {
+		this.jugador = jugador;
 	}
 	
-	public Partida getPartida() {
-		return this.partida;
+	public Jugador getPartida() {
+		return this.jugador;
 	}
 	
-	public void setPartida(Partida PARTIDA) {
-		this.partida = PARTIDA;
+	public void setPartida(Jugador JUGADOR) {
+		this.jugador = JUGADOR;
 	}
 	
-	public void iniciarVistaJuego() {
+	public void mostrarPerfilJugador() {
 		
 	}
 	
-	public void actualizarVista() {
+	public void actualizarVistaJugador() {
 		
 	}
 	
