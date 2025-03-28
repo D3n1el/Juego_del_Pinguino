@@ -3,16 +3,16 @@ package Vista;
 public class TableroVista {
 	private Tablero tablero;
 	
-	public JugadorVista(Jugador jugador) {
+	public TableroVista(Tablero tablero) {
 		this.tablero = tablero;
 	}
 	
-	public Tablero getPartida() {
+	public Tablero getTablero() {
 		return this.tablero;
 	}
 	
-	public void setPartida(Tablero JUGADOR) {
-		this.tablero = JUGADOR;
+	public void setTablero(Tablero TABLERO) {
+		this.tablero = TABLERO;
 	}
 	
 	public void mostrarTablero() {
