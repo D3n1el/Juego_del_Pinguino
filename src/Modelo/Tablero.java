@@ -1,0 +1,28 @@
+package Modelo;
+
+import java.util.ArrayList;
+
+public class Tablero{
+
+private ArrayList<Casilla> casillas;
+
+public Tablero (ArrayList casillas) {
+	
+this.casillas = casillas;
+
+}
+
+
+static void generarTablero() {
+	
+}
+
+static void obtenerEstadoTablero() {
+	
+}
+
+public ArrayList<Casilla> getCasillas() {
+    return this.casillas;
+}
+
+}
