@@ -4,13 +4,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Evento {
+public class Evento extends Partida {
 	
 	//CONSTRUCTOR
-	public Evento(Jugador Jugadores, int turnoActual) {
-		super(Jugadores, turnoActual);
+	public Evento(ArrayList Jugadores, int turnoActual, Tablero tablero) {
+		super(Jugadores, turnoActual, tablero);
 	}
-	
+
 	//FUNCIONES
 	public void ejecutarEvento(Jugador jugador) {
 		

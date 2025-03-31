@@ -2,27 +2,25 @@ package Modelo;
 
 import java.util.ArrayList;
 
-public class Tablero{
+public class Tablero {
 
 private ArrayList<Casilla> casillas;
-
-public Tablero (ArrayList casillas) {
+	//Constructor
+	public Tablero (ArrayList casillas) {
+		this.casillas = casillas;
+	}
 	
-this.casillas = casillas;
-
-}
-
-
-static void generarTablero() {
+	//Metodos
+	public void generarTablero() {
+		
+	}
 	
-}
-
-static void obtenerEstadoTablero() {
+	public void obtenerEstadoTablero() {
+		
+	}
 	
-}
-
-public ArrayList<Casilla> getCasillas() {
-    return this.casillas;
-}
-
-}
+	public ArrayList<Casilla> getCasillas() {
+	    return this.casillas;
+	}
+	
+	}

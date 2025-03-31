@@ -19,9 +19,6 @@ public class Partida {
 	}
 	
 	//GETTERS
-	public Jugador getJugadores() {
-		return this.Jugadores;
-	}
 	public int getTurnoActual() {
 		return this.turnoActual;
 	}
@@ -30,9 +27,6 @@ public class Partida {
 	}
 	
 	//SETTERS
-	public void setJugadores(Jugador Jugadores) {
-		this.Jugadores = Jugadores;
-	}
 	public void setTurnoActual(int turnoActual) {
 		this.turnoActual = turnoActual;
 	}
@@ -44,7 +38,7 @@ public class Partida {
 	public void guardarPartida() {
 		
 	}
-	public void cargarPartida() {
+	public void cargarPartida() { 
 		
 	}
 	public void gestionarTurno() {

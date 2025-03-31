@@ -6,10 +6,12 @@ import Vista.TableroVista;
 
 public class ControladorTablero extends TableroVista  {
 	
+	//Constructor
 	public ControladorTablero(Tablero tablero) {
 		super(tablero);
 	}
 	
+	//Metodos
 	public void actualizarTablero() {
 		
 	}

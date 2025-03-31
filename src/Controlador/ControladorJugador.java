@@ -5,10 +5,12 @@ import Vista.JugadorVista;
 
 public class ControladorJugador extends JugadorVista {
 	
+	//Constructor
 	public ControladorJugador (Jugador jugador){
 		super(jugador);
 	}
 	
+	//Metodos
 	public void iniciarPartida() {
 		
 	}
