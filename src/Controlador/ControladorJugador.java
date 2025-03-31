@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Jugador;
 import Vista.JugadorVista;
 
 public class ControladorJugador extends JugadorVista {

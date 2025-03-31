@@ -1,5 +1,7 @@
 package Vista;
 
+import Modelo.Tablero;
+
 public class TableroVista {
 	private Tablero tablero;
 	

@@ -1,8 +1,10 @@
 package Controlador;
 
 import Modelo.Casilla;
+import Modelo.Tablero;
+import Vista.TableroVista;
 
-public class ContorladorTablero extends TableroVista  {
+public class ControladorTablero extends TableroVista  {
 	
 	public ControladorTablero(Tablero tablero) {
 		super(tablero);

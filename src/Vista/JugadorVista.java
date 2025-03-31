@@ -1,5 +1,7 @@
 package Vista;
 
+import Modelo.Jugador;
+
 public class JugadorVista {
 	private Jugador jugador;
 	
