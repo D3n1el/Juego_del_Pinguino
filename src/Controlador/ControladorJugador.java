@@ -9,14 +9,6 @@ public class ControladorJugador extends JugadorVista {
 		super(jugador);
 	}
 	
-	public Jugador getJugador() {
-		return this.jugador;
-	}
-	
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
-	
 	public void iniciarPartida() {
 		
 	}

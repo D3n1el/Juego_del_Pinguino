@@ -9,14 +9,6 @@ public class ControladorPartida extends JuegoVista {
 		super(partida);
 	}
 	
-	public Partida getPartida() {
-		return this.partida;	
-	}
-	
-	public void setPartida(Partida PARTIDA) {
-		this.partida = PARTIDA;
-	}
-	
 	public void iniciarPartida() {
 		
 	}

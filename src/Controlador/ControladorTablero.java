@@ -10,14 +10,6 @@ public class ControladorTablero extends TableroVista  {
 		super(tablero);
 	}
 	
-	public Tablero getTablero() {
-		return this.tablero;	
-	}
-	
-	public void setTablero(Tablero TABLERO) {
-		this.tablero = TABLERO;
-	}
-	
 	public void actualizarTablero() {
 		
 	}
