@@ -1,10 +1,11 @@
 package Controlador;
 
-public class ControladorJugador {
-	private Jugador jugador;
+import Vista.JugadorVista;
+
+public class ControladorJugador extends JugadorVista {
 	
-	public ControladorJugador {
-		this.jugador = jugador;
+	public ControladorJugador (Jugador jugador){
+		super(jugador);
 	}
 	
 	public Jugador getJugador() {

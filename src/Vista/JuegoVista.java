@@ -1,7 +1,6 @@
 package Vista;
 
 public class JuegoVista {
-	
 	private Tablero tablero;
 	
 	public JuegoVista(Tablero tablero) {

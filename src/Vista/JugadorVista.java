@@ -1,7 +1,6 @@
 package Vista;
 
 public class JugadorVista {
-	
 	private Jugador jugador;
 	
 	public JugadorVista(Jugador jugador) {
