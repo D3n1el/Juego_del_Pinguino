@@ -9,7 +9,9 @@ public class CasillaOso extends Casilla {
 	}
 
 
-
+ public void regresarInicio () {
+	 
+ }
 
 	
 

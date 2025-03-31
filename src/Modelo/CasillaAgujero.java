@@ -8,4 +8,10 @@ public class CasillaAgujero extends Casilla{
 	super(tipo, posicion, casillas);
 	}
 
+	public void enviarJugadorAgujero() {
+		
+	}
+	
+	
+	
 }
