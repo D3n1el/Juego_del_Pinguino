@@ -1,5 +1,7 @@
 package Modelo;
 
-public class CasillaInterrogante {
+public class CasillaInterrogante extends Casilla {
+	
+	
 
 }

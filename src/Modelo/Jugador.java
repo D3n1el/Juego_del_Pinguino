@@ -1,5 +1,6 @@
 package Modelo;
 
-public class Jugador {
+public class Jugador extends ControladorJugador{
 
+	
 }

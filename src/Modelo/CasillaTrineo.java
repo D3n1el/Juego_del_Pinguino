@@ -1,5 +1,5 @@
 package Modelo;
 
-public class CasillaTrineo {
+public class CasillaTrineo extends Casilla {
 
 }
