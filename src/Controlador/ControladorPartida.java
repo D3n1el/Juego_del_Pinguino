@@ -1,12 +1,12 @@
 package Controlador;
 
-import Modelo.Partida;
+import Modelo.Tablero;
 import Vista.JuegoVista;
 
 public class ControladorPartida extends JuegoVista {
 
-	public ControladorPartida(Partida partida) {
-		super(partida);
+	public ControladorPartida(Tablero tablero) {
+		super(tablero);
 	}
 	
 	public void iniciarPartida() {
