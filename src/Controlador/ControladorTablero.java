@@ -4,12 +4,9 @@ import Modelo.Casilla;
 import Modelo.Tablero;
 import Vista.TableroVista;
 
-public class ControladorTablero extends TableroVista  {
+public class ControladorTablero {
 	
-	//Constructor
-	public ControladorTablero(Tablero tablero) {
-		super(tablero);
-	}
+	
 	
 	//Metodos
 	public void actualizarTablero() {
