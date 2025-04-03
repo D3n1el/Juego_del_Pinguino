@@ -2,7 +2,7 @@ package Modelo;
 
 import java.util.ArrayList;
 
-public class Casilla extends Tablero { //Subclase de la clase "Tablero"
+public class Casilla { //Subclase de la clase "Tablero"
 
 	//Declaración de atributos
 	private String Tipo;
@@ -10,7 +10,6 @@ public class Casilla extends Tablero { //Subclase de la clase "Tablero"
 	
 	//Constructor
 	public Casilla(String tipo, int posicion, ArrayList<Casilla> casillas) {
-        super(casillas); //Obtiene el atributo de otra clase
         this.Tipo = Tipo;
         this.Posicion = Posicion;
     }
