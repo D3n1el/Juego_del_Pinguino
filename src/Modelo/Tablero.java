@@ -1,46 +1,24 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import Controlador.ControladorTablero;
-import Vista.TableroVista;
-
-public class Tablero extends TableroVista {
-	
-	private int valor;
-	
-	public Tablero(int valor) {
-		super(null);
-		this.valor = valor;
-	}
+public class Tablero {
 
 	//Metodos
 	public void generarTablero() {
-		ArrayList<Tablero[][]> tableros = new ArrayList<>();
+		Random r = new Random();
+		int numero_filas = 5;
+		int numero_columnas = 10;
+		int numRandom = 0;
+		int k = 0;
 		
-		Tablero[][] tablero1 = {
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)}
-		    };
-		
-		tableros.add(tablero1);
-		
-		Tablero[][] tablero2 = {
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)},
-		        {new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1), new Tablero(1)}
-		    };
-		tableros.add(tablero2);
-	}
-	
-	
-	public void obtenerEstadoTablero() {
+		Casilla[][] tablero = new Casilla[numero_filas][numero_columnas];
 		
 	}
 	
+	public void obtenerCasillaTablero() {
+		
 	}
+	
+}

@@ -3,12 +3,7 @@ package Controlador;
 import Modelo.Tablero;
 import Vista.JuegoVista;
 
-public class ControladorPartida extends JuegoVista {
-	
-	//Constructor
-	public ControladorPartida(Tablero tablero) {
-		super(tablero);
-	}
+public class ControladorPartida {
 	
 	//Metodos
 	public void iniciarPartida() {
