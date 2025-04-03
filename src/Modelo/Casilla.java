@@ -9,7 +9,7 @@ public class Casilla { //Subclase de la clase "Tablero"
 	private int Posicion;
 	
 	//Constructor
-	public Casilla(String tipo, int posicion, ArrayList<Casilla> casillas) {
+	public Casilla(String tipo, int posicion) {
         this.Tipo = Tipo;
         this.Posicion = Posicion;
     }
