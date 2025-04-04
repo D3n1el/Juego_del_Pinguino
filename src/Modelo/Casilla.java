@@ -5,20 +5,20 @@ import java.util.ArrayList;
 public class Casilla { //Subclase de la clase "Tablero"
 
 	//Declaración de atributos
-	private String Tipo;
+	private int Tipo;
 	private int Posicion;
 	
 	//Constructor
-	public Casilla(String tipo, int posicion) {
+	public Casilla(int tipo, int posicion) {
         this.Tipo = Tipo;
         this.Posicion = Posicion;
     }
 	
-	public String getTipo() { //Getter del atributo "Tipo"
+	public int getTipo() { //Getter del atributo "Tipo"
     return Tipo;
     }
 	
-	public void setTipo(String tipo) { //Setter del atributo "Tipo"
+	public void setTipo(int tipo) { //Setter del atributo "Tipo"
     this.Tipo = tipo;
     }
 	
