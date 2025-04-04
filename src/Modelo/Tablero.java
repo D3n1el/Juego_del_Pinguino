@@ -1,24 +1,28 @@
 package Modelo;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Tablero {
-
-	//Metodos
-	public void generarTablero() {
-		Random r = new Random();
-		int numero_filas = 5;
-		int numero_columnas = 10;
-		int numRandom = 0;
-		int k = 0;
-		
-		Casilla[][] tablero = new Casilla[numero_filas][numero_columnas];
-		
+	
+	private Casilla[][] casillas;
+	
+	public Tablero() {
+		generarTablero();
 	}
 	
+	//Metodos
+	public void generarTablero() {
+        // Inicializar la matriz con las casillas necesarias
+        casillas = new Casilla[10][5];
+        for (int i = 0; i < casillas.length; i++) {
+            for (int j = 0; j < casillas[i].length; j++) {
+                casillas[i][j] = new Casilla("TipoEjemplo", i * 10 + j); // Creación de casillas
+            }
+        }
+    }
+	
 	public void obtenerCasillaTablero() {
-		
+		Casilla casilla_obtenida;
 	}
 	
 }
