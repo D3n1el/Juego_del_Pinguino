@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CasillaInterrogante extends Casilla {
 	
 	//Constructor
-	public CasillaInterrogante(String tipo, int posicion) {
+	public CasillaInterrogante(int tipo, int posicion) {
 		super(tipo, posicion);
 		
 	}
@@ -14,6 +14,7 @@ public class CasillaInterrogante extends Casilla {
 	public void activarEventoAleatorio() {	
 		
 	}
-
+	
+//añadir llamar a la funcion de alejandro de eventos cuando se caiga en esta casilla
 
 }

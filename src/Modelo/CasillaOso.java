@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CasillaOso extends Casilla { //Subclase que extiende de la clase "Casilla"
 	
 	//Constructor
-	public CasillaOso(String tipo, int posicion) {
+	public CasillaOso(int tipo, int posicion) {
 	super(tipo, posicion);
 	}
 
