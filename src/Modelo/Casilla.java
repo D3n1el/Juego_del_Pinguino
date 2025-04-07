@@ -29,7 +29,6 @@ public class Casilla { //Subclase de la clase "Tablero"
 	public void setPosicion(int posicion) { //Setter del atributo "Posicion"
         this.Posicion = posicion;
     }
-	
 
 	public String obtenerEstado() { //Método que muestra datos
         return "Tipo: " + Tipo + ", Posición: " + Posicion;

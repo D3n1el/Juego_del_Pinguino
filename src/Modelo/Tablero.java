@@ -12,8 +12,6 @@ public class Tablero extends Casilla {
 
 	private Casilla[][] casillas = new Casilla[10][5];
 	
-	
-	
 	//Metodos
 	public void generarTablero() {
 		int cont = 0;
@@ -48,4 +46,28 @@ public class Tablero extends Casilla {
 		Casilla casilla_obtenida;
 	}
 	
+
+	public void moverJugador(Jugador jugador, int fila, int columna) {
+	    Casilla casillaDestino = obtenerCasilla(fila, columna);
+	    jugador.setPosicionActual(casillaDestino.getPosicion()); // Actualizas posición
+	    casillaDestino.activarCasilla(jugador); // Activar efecto según tipo de casilla
+	}
+	
+	//Método que busca y devuelve una casilla del tablero según su posición
+	
+	private Casilla obtenerCasilla(int fila, int columna) {
+	
+	for (int i = 0; i < casillas.length; i++) {
+	
+	        for (int j = 0; j < casillas[i].length; j++) {
+	       
+	            if (casillas[i][j].getPosicion() == getPosicion()) {
+	                return casillas[i][j];
+	            }
+	        }
+	    }
+
+
+	return null;
+	}
 }
