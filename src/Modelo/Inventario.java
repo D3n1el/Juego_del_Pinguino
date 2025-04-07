@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Inventario {
+public class Inventario extends Jugador {
 
 	//ATRIBUTOS
 	private int dados;
@@ -12,7 +12,8 @@ public class Inventario {
 	private int bolasDeNieve;
 	
 	//CONSTRUCTOR
-	public Inventario(int dados, int peces, int bolasDeNieve) {
+	public Inventario(int dados, int peces, int bolasDeNieve, Jugador jugador, int idJugador, String Nombre, int PosicionActual, Inventario inventario, boolean esCPU) {
+		super(jugador, idJugador, Nombre, PosicionActual, inventario, esCPU);
 		this.dados = dados;
 		this.peces = peces;
 		this.bolasDeNieve = bolasDeNieve;
@@ -47,4 +48,22 @@ public class Inventario {
 	public void quitarObjetos(String tipo) {
 		
 	}
+	public void comprobarObjetos() {
+		if(dados > 3) {
+			System.out.println("No se puede obtener mas de 3 dados");
+			dados = 3;
+			return;
+		}
+		if(peces > 2) {
+			System.out.println("No se pueden obtener mas de 2 peces");
+			peces = 2;
+			return;
+		}
+		if(bolasDeNieve > 6) {
+			System.out.println("No puedes obtener mas de 6 bolas de nieve");
+			bolasDeNieve = 6;
+			return;
+		}
+	}
+	
 }

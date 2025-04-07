@@ -1,18 +1,19 @@
 package Modelo;
-
+import java.util.Scanner;
+import java.util.ArrayList;
 import Controlador.ControladorJugador;
 
 public class Jugador extends ControladorJugador{
 	
 	//Declaración de atributos
-	private String idJugador;
+	private int idJugador;
 	private String Nombre;
 	private int PosicionActual;
 	private Inventario inventario;
 	private boolean esCPU;
 	
 	//Constructor
-	public Jugador(Jugador jugador, String idJugador, String Nombre, int PosicionActual, Inventario inventario, boolean esCPU) {
+	public Jugador(Jugador jugador, int idJugador, String Nombre, int PosicionActual, Inventario inventario, boolean esCPU) {
 		super(jugador);
 		this.idJugador = idJugador;
 		this.Nombre = Nombre;
@@ -21,11 +22,111 @@ public class Jugador extends ControladorJugador{
 		this.esCPU = esCPU;
 	}
 	
-	public void usarBolaDeNieve(Jugador jugador) { //Método que permite a un usuario usar bolas de nieve
+	//GETTERS 
+	public int getIdJugador() {
+		return this.idJugador;
+	}
+	public String getNombre() {
+		return this.Nombre;
+	}
+	public int getPosicionActual() {
+		return this.PosicionActual;
+	}
+	public Inventario getInventario() {
+		return this.inventario;
+	}
+	public boolean getEsCPU() {
+		return this.esCPU;
+	}
+	
+	//SETTERS 
+	public void setIdJugador(int idJugador) {
+		this.idJugador = idJugador;
+	}
+	public void setNombre(String Nombre) {
+		this.Nombre = Nombre;
+	}
+	public void setPosicionActual(int PosicionActual) {
+		this.PosicionActual = PosicionActual;
+	}
+	public void setInventario(Inventario inventario) {
+		this.inventario = inventario;
+	}
+	public void setEsCPU(boolean esCPU) {
+		this.esCPU = esCPU;
+	}
+	
+	//FUNCIONES
+	public void usarBolaDeNieve(ArrayList<Jugador> jugadores) { //Método que permite a un usuario usar bolas de nieve
+		
+		boolean bolasJ = false;
+		for (Jugador jugador : jugadores) {
+			if(jugador.getInventario().getBolasDeNieve() > 0) {
+				bolasJ = true;
+			}
+		}
+		
+		if(!bolasJ) {
+			System.out.println("Ningun de los dos jugadores tiene bolas de nieve");
+			return;
+		}
+		
+		int max = 0;
+		Jugador ganador = null;
+		
+		for (Jugador jugador : jugadores) {
+			int bolas = jugador.getInventario().getBolasDeNieve();
+			System.out.println("El jugador " + jugador.getNombre() + " Tiene " + bolas + " bolas");
+			
+			if(bolas > max) {
+				max = bolas;
+				ganador = jugador;
+			}else {
+				ganador = null;
+			}
+			
+			jugador.inventario.setBolasDeNieve(0);
+		}
+		
+		if(ganador != null) {
+			System.out.println("El ganador ha sido " + ganador.getNombre());
+		}else {
+			System.out.println("Hay empate");
+		}
+		
+		for (Jugador jugador : jugadores) {
+			if(jugador != ganador) {
+				System.out.println("El jugador " + jugador + " va a retroceder " + max + " casillas");
+				jugador.PosicionActual -= max; //RETROCEDIRA TANTAS CASILLAS COMO TENGA EL JUGADOR CON MAS BOLAS DE NIEVE
+			}
+		}
+		
 		
 	}
 	public void gestionarTurno() { //Método que permite tomar una decision en el turno de un jugador seleccionado
+		Scanner x = new Scanner(System.in);
 		
+		if(this.esCPU){
+			
+		}else {
+			System.out.println("-- ES TURNO DE " + this.Nombre + " --");
+			System.out.println("1- Tirar dado");
+			System.out.println("2- Saltar turno");
+			System.out.print("inserta: ");
+			int opcion = x.nextInt();
+			
+			while(opcion < 1 && opcion > 2) {
+				System.out.print("Opcion incorrecta, intente de nuevo: ");
+				opcion = x.nextInt();
+			}
+			
+			switch(opcion) {
+			case 1:
+				
+			case 2:
+				
+			}
+		}
 	}
 	public void mover(int posicion) { //Método que permite al jugador moverse
 		

@@ -4,13 +4,15 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CPU {
+
+public class CPU extends Jugador{
 	
 	//ATRIBUTOS
 	private String dificultad;
 	
 	//CONSTRUCTOR
-	public CPU(String dificultad) {
+	public CPU(String dificultad, Jugador jugador, int idJugador, String Nombre, int PosicionActual, Inventario inventario, boolean esCPU) {
+		super(jugador, idJugador, Nombre, PosicionActual, inventario, esCPU);
 		this.dificultad = dificultad;
 	}
 	
