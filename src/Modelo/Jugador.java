@@ -2,24 +2,9 @@ package Modelo;
 
 import Controlador.ControladorJugador;
 
-public class Jugador extends ControladorJugador{
+public class Jugador{
 	
-	//Declaración de atributos
-	private String idJugador;
-	private String Nombre;
-	private int PosicionActual;
-	private Inventario inventario;
-	private boolean esCPU;
-	
-	//Constructor
-	public Jugador(Jugador jugador, String idJugador, String Nombre, int PosicionActual, Inventario inventario, boolean esCPU) {
-		super(jugador);
-		this.idJugador = idJugador;
-		this.Nombre = Nombre;
-		this.PosicionActual = PosicionActual;
-		this.inventario = inventario;
-		this.esCPU = esCPU;
-	}
+
 	
 	public void usarBolaDeNieve(Jugador jugador) { //Método que permite a un usuario usar bolas de nieve
 		
