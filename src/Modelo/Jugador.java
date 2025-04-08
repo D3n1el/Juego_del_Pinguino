@@ -27,10 +27,16 @@ public class Jugador extends ControladorJugador{
 	public void gestionarTurno() { //Método que permite tomar una decision en el turno de un jugador seleccionado
 		
 	}
-	public void mover(int posicion) { //Método que permite al jugador moverse
+	public void setPosicionActual(int f, int c) {
+	    this.PosicionActual = f * 10 + c; //10 columnas por fila
+	}
+	
+	public void afectarPorCasilla (Casilla casilla) {
 		
 	}
-	public void afectarPorCasilla (Casilla casilla) {
+
+	public void setPosicionActual(int posicion) {
+		// TODO Auto-generated method stub
 		
 	}
 

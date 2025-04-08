@@ -9,7 +9,7 @@ public class Casilla { //Subclase de la clase "Tablero"
 	private int Posicion;
 	
 	//Constructor
-	public Casilla(int tipo, int posicion) {
+	public Casilla(int Tipo, int Posicion) {
         this.Tipo = Tipo;
         this.Posicion = Posicion;
     }
@@ -33,5 +33,10 @@ public class Casilla { //Subclase de la clase "Tablero"
 	public String obtenerEstado() { //Método que muestra datos
         return "Tipo: " + Tipo + ", Posición: " + Posicion;
     }
+
+	public void activarCasilla(Jugador jugador) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

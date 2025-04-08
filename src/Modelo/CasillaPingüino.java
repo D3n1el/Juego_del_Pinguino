@@ -2,12 +2,11 @@ package Modelo;
 
 import java.util.ArrayList;
 
-public class CasillaPingüino extends Casilla { //Esta sublcase complementa la clase "Casilla"
-	
-	//Constructor
-	public CasillaPingüino(String tipo, int posicion, ArrayList<Casilla> casillas) {
-	super(tipo, posicion, casillas);
-	
-	}
+public class CasillaPingüino extends Casilla {
+
+	public CasillaPingüino(int tipo, int posicion) {
+		super(tipo, posicion);
+		// TODO Auto-generated constructor stub
+	} //Esta sublcase complementa la clase "Casilla"
 
 }
