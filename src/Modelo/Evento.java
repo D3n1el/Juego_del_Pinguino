@@ -46,9 +46,9 @@ public class Evento {
 
     // Evento: Obtener entre 1 y 3 bolas de nieve
     private void ejecutarEventoBolasDeNieve(Jugador jugador) {
-        int cantidad = random.nextInt(3) + 1;  // Genera un número aleatorio entre 1 y 3
-        jugador.getInventario().añadirBolasNieve(cantidad);
-        System.out.println(jugador.getNombre() + " ha conseguido " + cantidad + " bolas de nieve ❄️.");
+        
+        jugador.getInventario().añadirBolasNieve();
+     
     }
 
     // Evento: Obtener dado rápido (probabilidad baja)
