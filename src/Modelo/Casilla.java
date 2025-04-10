@@ -48,7 +48,10 @@ public class Casilla { //Subclase de la clase "Tablero"
 	    
 	    break;
 
-	    
+	    case 3: // Oso
+			((CasillaOso) this).regresarInicio(jugador);
+			break;
+
         case 4: // Interrogante
             ((CasillaInterrogante) this).activarEventoAleatorio(jugador);
             break;

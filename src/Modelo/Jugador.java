@@ -134,7 +134,12 @@ public class Jugador extends ControladorJugador{
 		public void mover(int posicion) { //Método que permite al jugador moverse
 			
 		}
+		
+		
+		
+		
 		public void afectarPorCasilla (Casilla casilla) {
+			
 			
 		}
 
