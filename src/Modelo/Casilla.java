@@ -38,12 +38,12 @@ public class Casilla { //Subclase de la clase "Tablero"
 	
 	//Método que gestiona el comportamiento según el tipo de casilla
 
-	 public void activarCasilla(Jugador jugador) {
+	 public void activarCasilla(Jugador jugador, Tablero tablero) {
 		 
 	    switch (Tipo) {
 	    case 1: // Agujero
 	    	
-	    ((CasillaAgujero)this).enviarJugadorAgujero(jugador);
+	    ((CasillaAgujero)this).enviarJugadorAgujero(jugador, tablero);
 
 	    
 	    break;

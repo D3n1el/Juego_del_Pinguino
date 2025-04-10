@@ -11,17 +11,24 @@ public class CasillaAgujero extends Casilla{
 	
 	}
 
-	public void enviarJugadorAgujero(Jugador jugador) {
-        // Aqui se retrocede la posicion del jugador 3 casillas
-        int nuevaPosicion = jugador.getPosicionActual() - 3;
-        
-        // Evitar que el jugador retroceda más allá de la posición 0
-        if (nuevaPosicion < 0) {
-            nuevaPosicion = 0;
-        }
-        
-        jugador.setPosicionActual(nuevaPosicion); // Actualizar la posición del jugador
-        System.out.println(jugador.getNombre() + " ha caido en un agujero y retrocedio a la posicion: " + nuevaPosicion);
-    }
+	public void enviarJugadorAgujero(Jugador jugador, Tablero tablero) {
+	    int posicionActual = jugador.getPosicionActual();
+	    Casilla[][] casillas = tablero.getCasillas();
 
+	    // Buscar la casilla de agujero anterior (Tipo 1)
+	    for (int i = casillas.length - 1; i >= 0; i--) {
+	    	
+	     for (int j = casillas[i].length - 1; j >= 0; j--) {
+	       if (casillas[i][j].getPosicion() < posicionActual && casillas[i][j].getTipo() == 1) {
+	                
+	         jugador.setPosicionActual(casillas[i][j].getPosicion());
+	         System.out.println(jugador.getNombre() + " ha retrocedido al agujero en la posicion: " + casillas[i][j].getPosicion());
+	         return;
+	     }
+	  }
+	}
+
+	    // Si no encontró ningún agujero atrás
+	    System.out.println(jugador.getNombre() + " no encontro otro agujero atras, se queda en la misma posición.");
+	}
 }
