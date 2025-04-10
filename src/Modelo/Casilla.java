@@ -36,7 +36,30 @@ public class Casilla { //Subclase de la clase "Tablero"
         return "Tipo: " + Tipo + ", Posición: " + Posicion;
     }
 	
-	
-	
+	//Método que gestiona el comportamiento según el tipo de casilla
+
+	 public void activarCasilla(Jugador jugador) {
+		 
+	    switch (Tipo) {
+	    case 1: // Agujero
+	    	
+	    ((CasillaAgujero)this).enviarJugadorAgujero(jugador);
+
+	    
+	    break;
+
+	    
+        case 4: // Interrogante
+            ((CasillaInterrogante) this).activarEventoAleatorio(jugador);
+            break;
+            
+	    // aqui añadir más cases con otros efectos de casillas (tipo 2, 3...)
+
+	    default:
+	    System.out.println("Casilla normal. No pasa nada.");
+	    break;
+	        }
+	    }
 	
 }
+
