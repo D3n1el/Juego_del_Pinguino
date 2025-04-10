@@ -1,9 +1,8 @@
 package Controlador;
 
 import Modelo.Tablero;
-import Vista.JuegoVista;
 
-public class ControladorPartida {
+public class GestorPartidas {
 	
 	//Metodos
 	public void iniciarPartida() {
