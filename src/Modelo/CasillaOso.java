@@ -10,7 +10,7 @@ public class CasillaOso extends Casilla { //Subclase que extiende de la clase "C
 	}
 
 	//Sublcase que devuelve al principio del tablero al jugador seleccionado
-	public void regresarInicio() {
+	public void regresarInicio(Jugador jugador) {
 		 
 	}
 

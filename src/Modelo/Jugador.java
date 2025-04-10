@@ -46,8 +46,8 @@ public class Jugador extends ControladorJugador{
 	public void setNombre(String Nombre) {
 		this.Nombre = Nombre;
 	}
-	public void setPosicionActual(int PosicionActual) {
-		this.PosicionActual = PosicionActual;
+	public void setPosicionActual(int f, int c) {
+		this.PosicionActual = f * 10 + c;
 	}
 	public void setInventario(Inventario inventario) {
 		this.inventario = inventario;
@@ -129,10 +129,36 @@ public class Jugador extends ControladorJugador{
 		}
 	}
 	public void mover(int posicion) { //Método que permite al jugador moverse
+		int nuevaPosicion = this.PosicionActual + posicion;
+		
+		if(nuevaPosicion >= 50) {
+			nuevaPosicion = 50;
+		}else if(nuevaPosicion <= 0) {
+			nuevaPosicion = 0;
+		}
+		
+		this.PosicionActual = nuevaPosicion;
+		System.out.println("El Jugador: " + this.Nombre + " esta en la casilla " + this.PosicionActual);
 		
 	}
 	public void afectarPorCasilla (Casilla casilla) {
-		
+		switch(casilla.getTipo()) {
+		case 0:
+			break;
+		case 1:
+			((CasillaAgujero)casilla).enviarJugadorAgujero(this);
+			break;
+		case 2:	
+			((CasillaTrineo)casilla).enviarJugadorTrineo(this);
+			break;
+		case 3:
+			((CasillaOso)casilla).regresarInicio(this);
+			break;
+		case 4:
+			((CasillaInterrogante)casilla).activarEventoAleatorio(this);
+			break;
+		}
+		this.PosicionActual = casilla.getPosicion();
 	}
 
 }

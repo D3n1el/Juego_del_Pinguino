@@ -9,7 +9,7 @@ public class CasillaAgujero extends Casilla{
 	super(tipo, posicion, casillas); 
 	}
 
-	public void enviarJugadorAgujero() { //Método para enviar al jugador seleccionado al agujero
+	public void enviarJugadorAgujero(Jugador jugador) { //Método para enviar al jugador seleccionado al agujero
 		
 	}
 	

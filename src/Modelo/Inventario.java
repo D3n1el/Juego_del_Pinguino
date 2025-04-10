@@ -42,27 +42,81 @@ public class Inventario extends Jugador {
 	}
 	
 	//FUNCIONES
-	public void agregarObjetos(String tipo) {
+	public void añadirPez() {
+		int cantidad = 1;
+		this.peces += cantidad;
+		
+		if(this.peces >= 2) {
+			this.peces = 2;
+		}else if(this.peces <= 0) {
+			this.peces = 0;
+		}
+		System.out.println("El jugador " + this.getNombre() + " ha conseguido " + cantidad + " Peces. ");
+	}
+	
+	public void añadirDados(String tipo) {
+		
+		if(tipo == "Rapido") {
+			
+		}else if(tipo == "Lento") {
+			
+		}else if(tipo == "Normal") {
+			
+		}
 		
 	}
-	public void quitarObjetos(String tipo) {
+	
+	public void añadirBolasNieve() {
+		Random r = new Random();
+		int cantidad = r.nextInt(3)+1;
+		bolasDeNieve += cantidad;
 		
+		System.out.println("El jugador " + this.getNombre() + " Ha conseguido " + cantidad + " Bolas de Nieve.");
+		
+		if(this.bolasDeNieve >= 6) {
+			this.bolasDeNieve = 6;
+		}else if(this.bolasDeNieve <= 0) {
+			this.bolasDeNieve = 0;
+		}
+		
+		System.out.println("El jugador " + this.getNombre() + " Tiene " + this.bolasDeNieve + " Bolas de nieve. ");
 	}
+	
+	public void quitarPez() {
+		int cantidad = 1;
+		
+		if(this.peces >= 1) {
+			this.peces -= cantidad;
+		}else {
+			System.out.println("No tienes suficientes peces");
+		}
+		
+		System.out.println("El jugador " + this.getNombre() + " tiene " + this.peces + " Peces. ");
+	}
+	
 	public void comprobarObjetos() {
 		if(dados > 3) {
 			System.out.println("No se puede obtener mas de 3 dados");
 			dados = 3;
 			return;
+		}else if(dados < 1) {
+			dados = 1;
 		}
+		
 		if(peces > 2) {
 			System.out.println("No se pueden obtener mas de 2 peces");
 			peces = 2;
 			return;
+		}else if(peces < 0) {
+			peces = 0;
 		}
+		
 		if(bolasDeNieve > 6) {
 			System.out.println("No puedes obtener mas de 6 bolas de nieve");
 			bolasDeNieve = 6;
 			return;
+		}else if(bolasDeNieve < 0) {
+			bolasDeNieve = 0;
 		}
 	}
 	

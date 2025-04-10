@@ -11,7 +11,7 @@ public class CasillaInterrogante extends Casilla {
 	}
 	
 	//Método que permite activar un evento aleatorio al jugador seleccionado
-	public void activarEventoAleatorio() {	
+	public void activarEventoAleatorio(Jugador jugador) {	
 		
 	}
 
