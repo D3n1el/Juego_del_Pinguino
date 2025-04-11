@@ -94,6 +94,10 @@ public class Inventario extends Jugador {
 		System.out.println("El jugador " + this.getNombre() + " tiene " + this.peces + " Peces. ");
 	}
 	
+	public boolean puedeAñadirDado() { //ESTA FUNCION ESTA CONECTADA CON EVENTO
+		return this.dados < 3;
+	}
+	
 	public void comprobarObjetos() {
 		if(dados > 3) {
 			System.out.println("No se puede obtener mas de 3 dados");

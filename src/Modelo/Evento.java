@@ -54,7 +54,7 @@ public class Evento {
     // Evento: Obtener dado rápido (probabilidad baja)
     private void ejecutarEventoDadoRapido(Jugador jugador) {
         if (jugador.getInventario().puedeAñadirDado()) {
-            jugador.getInventario().añadirDado("rapido");
+            jugador.getInventario().añadirDados("rapido");
             System.out.println(jugador.getNombre() + " ha encontrado un dado rápido 🚀.");
         } else {
             System.out.println(jugador.getNombre() + " no puede guardar más dados.");
@@ -64,7 +64,7 @@ public class Evento {
     // Evento: Obtener dado lento (probabilidad más alta)
     private void ejecutarEventoDadoLento(Jugador jugador) {
         if (jugador.getInventario().puedeAñadirDado()) {
-            jugador.getInventario().añadirDado("lento");
+            jugador.getInventario().añadirDados("lento");
             System.out.println(jugador.getNombre() + " ha conseguido un dado lento 🐢.");
         } else {
             System.out.println(jugador.getNombre() + " no puede guardar más dados.");
