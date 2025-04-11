@@ -122,9 +122,12 @@ public class Jugador extends ControladorJugador{
 			
 			switch(opcion) {
 			case 1:
-				
+				System.out.println("Has decidido tirar el dado!!");
+				//lanzar();
+				//System.out.println("resultado del dado: " + lanzar());
 			case 2:
-				
+				System.out.println("Has saltado tu turno");
+				break;
 			}
 		}
 	}

@@ -101,6 +101,7 @@ public class Inventario extends Jugador {
 			return;
 		}else if(dados < 1) {
 			dados = 1;
+			
 		}
 		
 		if(peces > 2) {
