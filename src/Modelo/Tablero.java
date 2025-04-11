@@ -58,10 +58,4 @@ public class Tablero extends Casilla {
 		return null;
 	}
 
-	public void moverJugador(Jugador jugador, int fila, int columna) {
-	    Casilla casillaDestino = obtenerCasilla(fila, columna);
-	    jugador.setPosicionActual(casillaDestino.getPosicion()); // Actualizas posición
-	    casillaDestino.activarCasilla(jugador); // Activar efecto según tipo de casilla
-	}
-
 }

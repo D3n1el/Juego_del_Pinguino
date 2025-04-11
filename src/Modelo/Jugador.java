@@ -57,6 +57,7 @@ public class Jugador extends ControladorJugador{
 	}
 	
 	//FUNCIONES
+	/*
 	public void usarBolaDeNieve(ArrayList<Jugador> jugadores) { //Método que permite a un usuario usar bolas de nieve
 		
 		boolean bolasJ = false;
@@ -108,7 +109,7 @@ public class Jugador extends ControladorJugador{
 		
 		if(this.esCPU){
 			
-		}else {
+		} else {
 			System.out.println("-- ES TURNO DE " + this.Nombre + " --");
 			System.out.println("1- Tirar dado");
 			System.out.println("2- Saltar turno");
@@ -131,6 +132,8 @@ public class Jugador extends ControladorJugador{
 			}
 		}
 	}
+	*/
+	
 	public void mover(int posicion) { //Método que permite al jugador moverse
 		int nuevaPosicion = this.PosicionActual + posicion;
 		
@@ -149,10 +152,10 @@ public class Jugador extends ControladorJugador{
 		case 0:
 			break;
 		case 1:
-			((CasillaAgujero)casilla).enviarJugadorAgujero(this);
+			((CasillaAgujero)casilla).enviarJugadorAgujero(this, null);
 			break;
 		case 2:	
-			((CasillaTrineo)casilla).enviarJugadorTrineo(this);
+			((CasillaTrineo)casilla).enviarJugadorTrineo(this, null);
 			break;
 		case 3:
 			((CasillaOso)casilla).regresarInicio(this);
@@ -163,7 +166,7 @@ public class Jugador extends ControladorJugador{
 		}
 		this.PosicionActual = casilla.getPosicion();
 	}
-
+	
 }
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

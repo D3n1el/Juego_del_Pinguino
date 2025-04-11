@@ -22,7 +22,7 @@ public class Partida {
 
     /*
      * Gestiona el turno de un jugador: lanzar dado o usar bolas de nieve
-     */
+     *
     public void gestionarTurno(Jugador jugador) {
         // Crear un dado normal para el turno del jugador
         Dado dado = new Dado("normal"); // Por defecto, dado normal
@@ -37,6 +37,7 @@ public class Partida {
             evento.ejecutarEvento(jugador); // Ejecutar el evento para el jugador
         }
     }
+     */
 
     public void guardarPartida() {
         // Lógica para guardar en base de datos con encriptación
