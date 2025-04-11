@@ -58,6 +58,6 @@ public class Dado {
         int resultado = lanzar();
         
         // Mueve al jugador según el resultado del dado
-        jugador.mover(resultado, tablero.getNumCasillas()); // Mueve al jugador en el tablero
+        jugador.mover(resultado); // Mueve al jugador en el tablero
     }
 }

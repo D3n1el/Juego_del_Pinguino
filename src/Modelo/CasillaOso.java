@@ -25,11 +25,11 @@ public class CasillaOso extends Casilla { //Subclase que extiende de la clase "C
 				System.out.println("Has calmado al oso con un pez.");
 			} else {
 				System.out.println("El oso te ha mandado al inicio del tablero.");
-				jugador.setPosicionActual(0);
+				jugador.setPosActual(0);
 			}
 		} else {
 			System.out.println("No tienes peces. El oso te manda al inicio del tablero.");
-			jugador.setPosicionActual(0);
+			jugador.setPosActual(0);
 		}
 	}
 

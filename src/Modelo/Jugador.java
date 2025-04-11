@@ -56,6 +56,14 @@ public class Jugador extends ControladorJugador{
 		this.esCPU = esCPU;
 	}
 	
+	//////////////
+	//ESTE SETTER ES EL MISMO QUE EL ANTERIOR PERO PARA LA CASILLA OSO Y PARA CASILLA AGUJERO
+	public void setPosActual(int PosicionActual) { 
+		this.PosicionActual = PosicionActual;
+	}
+	/////////////
+	
+	
 	//FUNCIONES
 	/*
 	public void usarBolaDeNieve(ArrayList<Jugador> jugadores) { //Método que permite a un usuario usar bolas de nieve

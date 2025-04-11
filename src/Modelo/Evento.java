@@ -35,7 +35,7 @@ public class Evento {
     }
 
     // Evento: Obtener un pez
-    private void ejecutarEventoPez(Jugador jugador) {
+    public void ejecutarEventoPez(Jugador jugador) {
         if (jugador.getInventario().getPeces() < 2) {  // Aseguramos que no haya más de 2 peces
             jugador.getInventario().añadirPez();
             System.out.println(jugador.getNombre() + " ha encontrado un pez 🐟.");
@@ -45,14 +45,14 @@ public class Evento {
     }
 
     // Evento: Obtener entre 1 y 3 bolas de nieve
-    private void ejecutarEventoBolasDeNieve(Jugador jugador) {
+    public void ejecutarEventoBolasDeNieve(Jugador jugador) {
         
         jugador.getInventario().añadirBolasNieve();
      
     }
 
     // Evento: Obtener dado rápido (probabilidad baja)
-    private void ejecutarEventoDadoRapido(Jugador jugador) {
+    public void ejecutarEventoDadoRapido(Jugador jugador) {
         if (jugador.getInventario().puedeAñadirDado()) {
             jugador.getInventario().añadirDados("rapido");
             System.out.println(jugador.getNombre() + " ha encontrado un dado rápido 🚀.");
@@ -62,7 +62,7 @@ public class Evento {
     }
 
     // Evento: Obtener dado lento (probabilidad más alta)
-    private void ejecutarEventoDadoLento(Jugador jugador) {
+    public void ejecutarEventoDadoLento(Jugador jugador) {
         if (jugador.getInventario().puedeAñadirDado()) {
             jugador.getInventario().añadirDados("lento");
             System.out.println(jugador.getNombre() + " ha conseguido un dado lento 🐢.");

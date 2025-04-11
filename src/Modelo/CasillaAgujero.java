@@ -21,7 +21,7 @@ public class CasillaAgujero extends Casilla{
 	     for (int j = casillas[i].length - 1; j >= 0; j--) {
 	       if (casillas[i][j].getPosicion() < posicionActual && casillas[i][j].getTipo() == 1) {
 	                
-	         jugador.setPosicionActual(casillas[i][j].getPosicion());
+	         jugador.setPosActual(casillas[i][j].getPosicion());
 	         System.out.println(jugador.getNombre() + " ha retrocedido al agujero en la posicion: " + casillas[i][j].getPosicion());
 	         return;
 	     }
