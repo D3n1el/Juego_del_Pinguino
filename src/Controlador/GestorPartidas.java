@@ -3,19 +3,17 @@ package Controlador;
 import Modelo.Tablero;
 
 public class GestorPartidas {
+	private String urlBDD;
+	private String username;
+	private String password;
 	
 	//Metodos
-	public void iniciarPartida() {
-		
-	}
-	
-	public void finalizarPartida() {
-		
-	}
-	
 	public void guardarPartida() {
 	
 	}
 	
+	public void cargarPartida() {
+		
+	}
 	
 }
