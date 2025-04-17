@@ -1,25 +1,27 @@
 package Controlador;
 
 import Modelo.Jugador;
-import Vista.JugadorVista;
+import Modelo.Tablero;
 
-public class ControladorJugador extends JugadorVista {
+public class ControladorJugador {
+	
+	private Jugador jugador;
+	//private Tablero tablero;
 	
 	//Constructor
 	public ControladorJugador (Jugador jugador){
-		super(jugador);
+		this.jugador = jugador;
+		//this.tablero = tablero;
 	}
 	
 	//Metodos
-	public void iniciarPartida() {
-		
+	public void moverJugador(int posicion) {
+		jugador.mover(posicion);
 	}
-	
-	public void finalizarPartida() {
-		
+	/*
+	public void usarBolasDeNieve(Jugador objetivo) {
 	}
-	
-	public void guardarPartida() {
-		
-	}
+	public void gestionarTurno() {
+    }
+	*/
 }
