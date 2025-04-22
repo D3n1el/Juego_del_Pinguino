@@ -2,7 +2,7 @@ package Vista;
 
 import java.util.Scanner;
 
-public class Menu {
+public class MainMenu {
 	
 	public static int mostrarMenu() {
 		Scanner s = new Scanner (System.in);
@@ -31,6 +31,7 @@ public class Menu {
 			
 			switch(elecc) {
 			case 1:
+				
 				break;
 			case 2:
 				break;

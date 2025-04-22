@@ -18,9 +18,11 @@ public class ControladorJugador {
 	public void moverJugador(int posicion) {
 		jugador.mover(posicion);
 	}
+	
 	/*
 	public void usarBolasDeNieve(Jugador objetivo) {
 	}
+	
 	public void gestionarTurno() {
     }
 	*/

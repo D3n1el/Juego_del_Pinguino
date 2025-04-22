@@ -52,9 +52,9 @@ public class Tablero extends Casilla {
 			for (int j = 0; j < casillas[i].length; j++) {
 				if (casillas[i][j].getPosicion() == getPosicion()) {
 					return casillas[i][j];
-			       }
-			   }
-		}
+			       	}
+			   	}
+			}
 		return null;
 	}
 

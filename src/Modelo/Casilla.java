@@ -42,12 +42,9 @@ public class Casilla { //Subclase de la clase "Tablero"
 		 
 	    switch (Tipo) {
 	    case 1: // Agujero
+	    	((CasillaAgujero)this).enviarJugadorAgujero(jugador, tablero);
+	    	break;
 	    	
-	    ((CasillaAgujero)this).enviarJugadorAgujero(jugador, tablero);
-
-	    
-	    break;
-
 	    case 3: // Oso
 			((CasillaOso) this).regresarInicio(jugador);
 			break;
@@ -56,13 +53,12 @@ public class Casilla { //Subclase de la clase "Tablero"
             ((CasillaInterrogante) this).activarEventoAleatorio(jugador);
             break;
             
-	    // aqui añadir más cases con otros efectos de casillas (tipo 2, 3...)
+            // aqui añadir más cases con otros efectos de casillas (tipo 2, 3...)
 
-	    default:
-	    System.out.println("Casilla normal. No pasa nada.");
-	    break;
-	        }
+		    default:
+		    System.out.println("Casilla normal. No pasa nada.");
+		    break;
 	    }
-	
+	} 
 }
 
