@@ -56,11 +56,11 @@ public class menu {
 					//En el siguiente ejemplo vamos a seleccionar las columnas NACTOR | NOMBRE | FECHAN
 					//Y simplemente las guardamos en unas variables, descomenta el codigo para que funcione
 					
-					/*
+					
                     int nactor = rs.getInt("NACTOR");
                     String nombre = rs.getString("NOMBRE");
                     String fechan = rs.getString("FECHAN");
-                    */
+                    
 				}
 			} else {
 				System.out.println("No se ha encontrado nada");
