@@ -3,72 +3,75 @@ package Controlador;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class menu {
-	public static Connection con;
+    public static Connection con;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+        con = bbdd.conectarBaseDatos();
 
-		// Ejemplo de uso con la tabla ACTOR y las columnas NACTOR NOMBRE FECHAN
-		// Si veis escrito el simbolo \ se usa para poder escribir como String ciertos
-		// caracteres reservados como "" o /
-		con = bbdd.conectarBaseDatos();
-		System.out.println("Print");
-		String[] a = { "NACTOR", "NOMBRE", "FECHAN" };
-		bbdd.print(con, "SELECT * FROM ACTOR", a);
-		////////////////////////////////////////////////////////////////////////////////////
-		System.out.println("Insert");
-		bbdd.insert(con, "INSERT INTO ACTOR (\"NACTOR\", \"NOMBRE\", \"FECHAN\")\n"
-				+ "VALUES (2, 'John Doe', TO_DATE('2024-01-18', 'YYYY-MM-DD'))");
-		bbdd.print(con, "SELECT * FROM ACTOR", a);
-		////////////////////////////////////////////////////////////////////////////////////
-		System.out.println("Update");
-		bbdd.update(con, "UPDATE ACTOR\n" + "SET \"NOMBRE\" = 'New Name'\n" + "WHERE \"NACTOR\" = 2 ");
-		bbdd.print(con, "SELECT * FROM ACTOR", a);
-		////////////////////////////////////////////////////////////////////////////////////
-		System.out.println("Delete");
-		bbdd.delete(con, "DELETE FROM ACTOR\n" + "WHERE \"NACTOR\" = 2");
-		bbdd.print(con, "SELECT * FROM ACTOR", a);
-		////////////////////////////////////////////////////////////////////////////////////
-		System.out.println("Select");
-		procesamientoSelect(con, "SELECT FROM ACTOR\n" + "WHERE \"NACTOR\" = 1");
-	}
+        if (con == null) {
+            System.out.println("No se pudo establecer conexión con la base de datos. Finalizando programa.");
+            return;
+        }
 
-	/**
-	 * Funcion auxiliar para realizar select en bbdd
-	 * ¡¡AVISO!! TENDREIS QUE MODIFICAR ESTA FUNCION PARA QUE SE ADAPTE A VUESTRAS COLUMNAS
-	 * @param con Objeto Connection que representa la conexión a la base de datos.
-	 * @param sql Sentencia SQL de consulta.
-	 */
-	public static void procesamientoSelect(Connection con, String sql) {
-		//ResultSet contiene todas las columnas encontradas con vuestra query
-		//Cada fila contendra sus columnas
-		ResultSet rs = bbdd.select(con, sql);
+        String[] columnas = { "ID_JUGADOR", "NICKNAME", "CONTRASENYA", "NUM_PARTIDAS_JUGADAS" };
 
-		try {
-			if (rs.isBeforeFirst()) {
-				//Bucle para iterar por todos los resultados que haya encontrado en la query que habeis hecho
-				//El bucle itera fila por fila, NO COLUMNA POR COLUMNA
-				//Las columnas las tendreis que poner vosotros
-				//El bucle finalizara solo cuando ya no hayan mas resultados
-				while (rs.next()) {
-					//Aqui es donde tendreis que escribir que columnas quereis seleccionar y que quereis hacer con ellas
-					//En el siguiente ejemplo vamos a seleccionar las columnas NACTOR | NOMBRE | FECHAN
-					//Y simplemente las guardamos en unas variables, descomenta el codigo para que funcione
-					
-					
-                    int nactor = rs.getInt("NACTOR");
-                    String nombre = rs.getString("NOMBRE");
-                    String fechan = rs.getString("FECHAN");
-                    
-				}
-			} else {
-				System.out.println("No se ha encontrado nada");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        System.out.println("Antes del insert:");
+        bbdd.print(con, "SELECT * FROM JUGADOR", columnas);
 
+        // Bucle para insertar jugadores
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\n¿Cuántos jugadores quieres insertar?: ");
+        int cantidad = scanner.nextInt();
+        scanner.nextLine(); // limpiar buffer
+
+        for (int i = 0; i < cantidad; i++) {
+            System.out.println("\nJugador " + (i + 1));
+
+            System.out.print("Nickname: ");
+            String nickname = scanner.nextLine();
+
+            System.out.print("Contraseña: ");
+            String contrasenya = scanner.nextLine();
+
+            String sql = "INSERT INTO JUGADOR (NICKNAME, CONTRASENYA) " +
+                         "VALUES ('" + nickname + "', '" + contrasenya + "')";
+            bbdd.insert(con, sql);
+        }
+
+        System.out.println("\nDespués del insert:");
+        bbdd.print(con, "SELECT * FROM JUGADOR", columnas);
+
+        // SELECT con filtro como ejemplo
+        System.out.println("\nSelect con condición:");
+        procesamientoSelect(con, "SELECT * FROM JUGADOR WHERE NUM_PARTIDAS_JUGADAS >= 5");
+
+        scanner.close();
+    }
+
+    public static void procesamientoSelect(Connection con, String sql) {
+        ResultSet rs = bbdd.select(con, sql);
+        try {
+            if (rs != null && rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    int idJugador = rs.getInt("ID_JUGADOR");
+                    String nickname = rs.getString("NICKNAME");
+                    String contrasenya = rs.getString("CONTRASENYA");
+                    int partidasJugadas = rs.getInt("NUM_PARTIDAS_JUGADAS");
+
+                    System.out.println("ID_JUGADOR: " + idJugador);
+                    System.out.println("NICKNAME: " + nickname);
+                    System.out.println("CONTRASENYA: " + contrasenya);
+                    System.out.println("PARTIDAS JUGADAS: " + partidasJugadas);
+                    System.out.println("------------------------------------");
+                }
+            } else {
+                System.out.println("No se ha encontrado nada");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
