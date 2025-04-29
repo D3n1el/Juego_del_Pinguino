@@ -33,20 +33,31 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.AmbientLight?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.pantallaPrincipalController">
+<VBox alignment="CENTER" prefHeight="474.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.pantallaPrincipalController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -64,27 +75,90 @@
     </MenuBar>
       <StackPane>
          <children>
-            <VBox alignment="CENTER" spacing="30.0">
+            <VBox alignment="CENTER" prefHeight="209.0" prefWidth="584.0" spacing="30.0">
                <children>
-                  <Text fill="#ffb400" strokeType="OUTSIDE" strokeWidth="0.0" text="EL JUEGO DEL PINGÜINO" textAlignment="CENTER">
+                  <Text stroke="#d36b6b" strokeType="OUTSIDE" strokeWidth="0.0" text="EL JUEGO DEL PINGÜINO" textAlignment="CENTER">
                      <font>
-                        <Font size="40.0" />
+                        <Font name="DejaVu Sans Bold" size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
+                     <effect>
+                        <Bloom />
+                     </effect>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.2037914691943128" startX="1.0" startY="0.3033175355450237">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.7105262875556946" green="0.5023026466369629" blue="0.016447369009256363" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
                   </Text>
-                  <TextField fx:id="userField" maxWidth="200.0" prefWidth="200.0" promptText="Usuario..." />
-                  <PasswordField fx:id="passField" maxWidth="200.0" prefWidth="200.0" promptText="Contraseña..." />
-                  <HBox alignment="CENTER" spacing="50.0">
-                     <children>
-                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
-                        <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegister" text="Registro" />
-                     </children>
-                  </HBox>
+                  <TextField fx:id="userField" maxWidth="200.0" prefWidth="200.0" promptText="Usuario...">
+                     <effect>
+                        <DropShadow />
+                     </effect></TextField>
+                  <PasswordField fx:id="passField" maxWidth="200.0" prefHeight="0.0" prefWidth="200.0" promptText="Contraseña...">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </PasswordField>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" />
                </children>
             </VBox>
          </children>
       </StackPane>
+      <HBox alignment="CENTER" prefHeight="49.0" prefWidth="568.0" spacing="50.0">
+         <children>
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin" text="Login" textFill="#419446">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegister" text="Registro" textFill="#3973d7">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="registerButton1" mnemonicParsing="false" onAction="#handleRegister" text="Salir del juego" textFill="#eb2222">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <SplitPane prefHeight="30.0" prefWidth="568.0">
+         <items>
+            <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                  <Separator prefHeight="0.0" prefWidth="566.0" />
+              </items>
+            </SplitPane>
+         </items>
+      </SplitPane>
+      <StackPane alignment="TOP_LEFT" prefHeight="98.0" prefWidth="568.0" />
+      <StackPane alignment="TOP_LEFT" prefHeight="150.0" prefWidth="200.0" />
+      <AmbientLight lightOn="true">
+         <color>
+            <Color red="0.7106481194496155" green="1.0" blue="0.42129629850387573" />
+         </color>
+      </AmbientLight>
+      <ImageView fitHeight="304.0" fitWidth="305.0">
+         <image>
+            <Image url="@../../../../IMG/descarga%20(4).png" />
+         </image>
+      </ImageView>
   </children>
 </VBox>
