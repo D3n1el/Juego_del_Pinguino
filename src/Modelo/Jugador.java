@@ -155,25 +155,6 @@ public class Jugador extends ControladorJugador{
 		System.out.println("El Jugador: " + this.Nombre + " esta en la casilla " + this.PosicionActual);
 		
 	}
-	public void afectarPorCasilla (Casilla casilla) {
-		switch(casilla.getTipo()) {
-		case 0:
-			break;
-		case 1:
-			((CasillaAgujero)casilla).enviarJugadorAgujero(this, null);
-			break;
-		case 2:	
-			((CasillaTrineo)casilla).enviarJugadorTrineo(this, null);
-			break;
-		case 3:
-			((CasillaOso)casilla).regresarInicio(this);
-			break;
-		case 4:
-			((CasillaInterrogante)casilla).activarEventoAleatorio(this);
-			break;
-		}
-		this.PosicionActual = casilla.getPosicion();
-	}
 	
 }
 
