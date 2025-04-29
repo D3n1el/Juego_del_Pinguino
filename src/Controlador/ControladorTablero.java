@@ -65,7 +65,7 @@ public class ControladorTablero {
         for (Casilla[] fila : tablero.getCasillas()) {
             for (Casilla casilla : fila) {
                 if (casilla.getPosicion() == jugador.getPosicionActual()) {
-                    jugador.afectarPorCasilla(casilla); // Usa método existente
+                    casilla.activarCasilla(jugador, tablero); // Usa método existente
                     return;
                 }
             }
