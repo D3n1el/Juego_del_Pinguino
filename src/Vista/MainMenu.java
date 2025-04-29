@@ -1,8 +1,21 @@
 package Vista;
 
+////////////////////////////
+//BASE DE DATOS
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+////////////////////////////
+
 import java.util.Scanner;
 
+import Controlador.bbdd;
+
 public class MainMenu {
+	////////////////////////////
+	//BASE DE DATOS
+	public static Connection con;
+	////////////////////////////
 	
 	public static int mostrarMenu() {
 		Scanner s = new Scanner (System.in);
@@ -22,7 +35,15 @@ public class MainMenu {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	
+		//////////////////////////////////////////////////////////////////////
+		//BASE DE DATOS
+		con = bbdd.conectarBaseDatos();
+        
+        if (con == null) {
+            System.out.println("No se pudo establecer conexión con la base de datos. Finalizando programa.");
+            return;
+        }
+        //////////////////////////////////////////////////////////////////////
 		Scanner s = new Scanner (System.in);
 		int elecc = 0;
 		
@@ -34,8 +55,10 @@ public class MainMenu {
 				
 				break;
 			case 2:
+				
 				break;
 			case 3:
+				
 				break;
 			}
 			
