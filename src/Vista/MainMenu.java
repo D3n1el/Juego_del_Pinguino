@@ -13,7 +13,8 @@ public class MainMenu {
 			System.out.println("1. Jugar partida");
 			System.out.println("2. Ver tablero");
 			System.out.println("3. Ver jugadores");
-			System.out.println("4. Salir");
+			System.out.println("4. Guardar partida");
+			System.out.println("5. Salir");
 				opc = s.nextInt();
 			if (opc < 1 || opc > 4) {System.out.println("¡Numero incorrecto! Escribe uno de la lista");}
 		} while (opc < 1 || opc > 4);
@@ -34,8 +35,16 @@ public class MainMenu {
 				
 				break;
 			case 2:
+				
 				break;
 			case 3:
+				
+				break;
+			case 4:
+				
+				break;
+			case 5:
+				
 				break;
 			}
 			
