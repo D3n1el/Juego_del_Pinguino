@@ -41,11 +41,11 @@ public class bbdd {
 		
 		//System.out.println("¿Usuario?");
 		//String USER = scan.nextLine();
-		String USER = "DW2425_PIN_GRUP04";
+		String USER = "DW2425_PIN_GRUP03";
 		
 		//System.out.println("¿Contraseña?");
 		//String PWD = scan.nextLine();
-		String PWD = "AACVV04";
+		String PWD = "ACGMP03";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection(URL, USER, PWD);

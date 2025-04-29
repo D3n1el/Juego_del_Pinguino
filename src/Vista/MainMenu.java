@@ -1,5 +1,8 @@
 package Vista;
 
+import Controlador.menu;
+import Controlador.bbdd;
+
 ////////////////////////////
 //BASE DE DATOS
 import java.sql.Connection;
@@ -17,22 +20,6 @@ public class MainMenu {
 	public static Connection con;
 	////////////////////////////
 	
-	public static int mostrarMenu() {
-		Scanner s = new Scanner (System.in);
-		int opc = 0;
-		
-		do {
-			System.out.println("- ESCOGE UNA OPCIÓN -");
-			System.out.println("1. Jugar partida");
-			System.out.println("2. Ver tablero");
-			System.out.println("3. Ver jugadores");
-			System.out.println("4. Salir");
-				opc = s.nextInt();
-			if (opc < 1 || opc > 4) {System.out.println("¡Numero incorrecto! Escribe uno de la lista");}
-		} while (opc < 1 || opc > 4);
-			return opc;
-	}
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//////////////////////////////////////////////////////////////////////
@@ -44,26 +31,38 @@ public class MainMenu {
             return;
         }
         //////////////////////////////////////////////////////////////////////
+        
 		Scanner s = new Scanner (System.in);
-		int elecc = 0;
 		
-		do {
-			elecc = mostrarMenu();
+		boolean inicio = true;
+		
+		while(inicio) {
+			System.out.println("\n Bienvenido al Juego del Pingüino \n");
+			System.out.println("Iniciar Sesión (1)");
+			System.out.println("Crear Cuenta (2)");
+			System.out.print("Inserta: ");
+			int ini1 = s.nextInt();
 			
-			switch(elecc) {
-			case 1:
-				
-				break;
-			case 2:
-				
-				break;
-			case 3:
-				
-				break;
+			while(ini1 < 1 && ini1 > 2) {
+				System.out.println("Opcion inexistente...");
+				System.out.print("Inserta: ");
+				ini1 = s.nextInt();
 			}
 			
-		} while (elecc == 4);
-	
+			if(ini1 == 1) {
+				System.out.print("Nickname: ");
+				String nickname = s.nextLine();
+				s.nextLine();
+				System.out.print("Contraseña: ");
+				String contrasenya = s.nextLine();
+				menu.iniciarSesion(con, nickname, contrasenya);
+				
+			}else if(ini1 == 2) {
+				menu.crearCuenta();
+				
+			}
+			
+		}
 	
 	
 	}
