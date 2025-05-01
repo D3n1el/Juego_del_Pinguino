@@ -17,9 +17,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Controlador.saveCon;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+
+import javafx.event.ActionEvent;
 
 public class pantallaPrincipalController {
 
@@ -34,6 +37,7 @@ public class pantallaPrincipalController {
 
     @FXML private Button loginButton;
     @FXML private Button registerButton;
+    @FXML private Button quitButton;
 
     @FXML private ComboBox<String> colorBox;
     
@@ -64,10 +68,8 @@ public class pantallaPrincipalController {
     }
 
     @FXML
-    private void handleQuitGame() {
-        System.out.println("Quit Game clicked");
-        // TODO
-        System.exit(0);
+    private void handleQuitGame(ActionEvent event) {//Añade el parámetro
+        Platform.exit();  //Otra forma para que salga de la app
     }
     
     @FXML

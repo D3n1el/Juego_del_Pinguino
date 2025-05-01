@@ -135,7 +135,7 @@
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="registerButton1" mnemonicParsing="false" onAction="#handleRegister" text="Salir del juego" textFill="#eb2222">
+                              <Button fx:id="quitButton" mnemonicParsing="false" onAction="#handleQuitGame" text="Salir del juego" textFill="#eb2222">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
