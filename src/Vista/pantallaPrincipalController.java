@@ -42,7 +42,7 @@ public class pantallaPrincipalController {
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         System.out.println("pantallaPrincipalController initialized");
-        colorBox.getItems().addAll("Rojo", "Verde", "Azul");
+        colorBox.getItems().addAll("Rojo", "Verde", "Azul", "Amarillo");
     }
 
     @FXML

@@ -40,6 +40,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,6 +54,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -73,64 +81,209 @@
          <bottom>
             <HBox BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane minHeight="200.0" minWidth="300.0">
+                  <AnchorPane minHeight="0.0" minWidth="173.0" prefHeight="224.0" prefWidth="193.0">
                      <children>
-                        <Text fx:id="dadoResultText" strokeType="OUTSIDE" strokeWidth="0.0" text="Ha salido: " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
+                        <Text fx:id="dadoResultText" strokeType="OUTSIDE" strokeWidth="0.0" text="Ha salido: " wrappingWidth="157.421875" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
                            <font>
-                              <Font size="32.0" />
+                              <Font name="Century Gothic" size="32.0" />
                            </font>
+                           <fill>
+                              <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.49289099526066354">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.09106969088315964" green="0.8552631735801697" blue="0.1547524780035019" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="1.0" green="0.6166666746139526" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
                         </Text>
-                        <Button fx:id="dado" layoutY="58.0" mnemonicParsing="false" onAction="#handleDado" text="Dado" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="100.0">
+                        <Button fx:id="dado" layoutX="35.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleDado" text="Dado" textFill="RED" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="138.0">
                            <font>
-                              <Font size="25.0" />
+                              <Font name="Century" size="25.0" />
                            </font>
+                           <effect>
+                              <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
+                                 <input>
+                                    <SepiaTone />
+                                 </input>
+                              </ColorAdjust>
+                           </effect>
                         </Button>
+                        <ImageView fitHeight="69.0" fitWidth="76.0" layoutX="35.0" layoutY="196.0">
+                           <image>
+                              <Image url="@../../../../IMG/descarga%20(9).png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
-                  <ScrollPane minHeight="200.0" minWidth="680.0" vbarPolicy="NEVER">
+                  <ScrollPane minHeight="200.0" minWidth="680.0" prefWidth="829.0" vbarPolicy="NEVER">
                     <content>
-                      <AnchorPane>
+                      <AnchorPane prefHeight="260.0" prefWidth="835.0">
                            <children>
-                              <Text fx:id="rapido_t" strokeType="OUTSIDE" strokeWidth="0.0" text="Dado rápido: 0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
+                              <ImageView fitHeight="218.0" fitWidth="826.0" layoutX="-2.0" layoutY="27.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/Captura%20de%20pantalla%202025-04-29%20201639.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fx:id="rapido_t" layoutX="40.0" layoutY="23.1171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Dado rápido: 0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="3.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century Gothic" size="20.0" />
                                  </font>
+                                 <fill>
+                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.6161137440758294">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="1.0" green="0.018518518656492233" blue="0.7055555582046509" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="1.0" green="1.0" blue="1.0" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </fill>
                               </Text>
-                              <Text fx:id="lento_t" strokeType="OUTSIDE" strokeWidth="0.0" text="Dado lento: 0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="30.0">
+                              <Text fx:id="lento_t" layoutX="245.0" layoutY="23.1171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Dado lento: 0" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="3.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century Gothic" size="20.0" />
                                  </font>
+                                 <fill>
+                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.6161137440758294">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.38596490025520325" green="0.2631579041481018" blue="0.6315789222717285" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="1.0" green="1.0" blue="1.0" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </fill>
                               </Text>
-                              <Text fx:id="peces_t" strokeType="OUTSIDE" strokeWidth="0.0" text="Peces: 0" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="30.0">
+                              <Text fx:id="peces_t" layoutX="470.0" layoutY="23.1171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Peces: 0" AnchorPane.leftAnchor="470.0" AnchorPane.topAnchor="3.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century Gothic" size="20.0" />
                                  </font>
+                                 <fill>
+                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.6161137440758294">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.47999998927116394" green="0.800000011920929" blue="0.5043809413909912" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="0.47999998927116394" green="0.800000011920929" blue="0.5043809413909912" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </fill>
                               </Text>
-                              <Text fx:id="nieve_t" strokeType="OUTSIDE" strokeWidth="0.0" text="Bolas de nieve: 0" AnchorPane.leftAnchor="750.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+                              <Text fx:id="nieve_t" layoutX="629.0" layoutY="25.1171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Bolas de nieve: 0" wrappingWidth="190.7080078125" AnchorPane.leftAnchor="629.0" AnchorPane.rightAnchor="161.2919921875" AnchorPane.topAnchor="5.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century Gothic" size="20.0" />
                                  </font>
+                                 <fill>
+                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.6161137440758294">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.21279999613761902" green="0.6192914247512817" blue="0.7599999904632568" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="1.0" green="1.0" blue="1.0" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </fill>
                               </Text>
-                              <Button fx:id="rapido" mnemonicParsing="false" text="Usar" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="90.0">
+                              <Button fx:id="rapido" layoutX="73.0" layoutY="82.0" mnemonicParsing="false" text="Usar" textFill="RED" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="82.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century" size="25.0" />
                                  </font>
+                                 <effect>
+                                    <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
+                                       <input>
+                                          <SepiaTone />
+                                       </input>
+                                    </ColorAdjust>
+                                 </effect>
                               </Button>
-                              <Button fx:id="lento" layoutX="65.0" layoutY="100.0" mnemonicParsing="false" text="Usar" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="90.0">
+                              <Button fx:id="lento" layoutX="276.0" layoutY="81.0" mnemonicParsing="false" text="Usar" textFill="RED" AnchorPane.leftAnchor="276.0" AnchorPane.topAnchor="81.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century" size="25.0" />
                                  </font>
+                                 <effect>
+                                    <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
+                                       <input>
+                                          <SepiaTone />
+                                       </input>
+                                    </ColorAdjust>
+                                 </effect>
                               </Button>
-                              <Button fx:id="peces" layoutX="75.0" layoutY="110.0" mnemonicParsing="false" text="Usar" AnchorPane.leftAnchor="505.0" AnchorPane.topAnchor="90.0">
+                              <Button fx:id="peces" layoutX="474.0" layoutY="79.0" mnemonicParsing="false" text="Usar" textFill="RED" AnchorPane.leftAnchor="474.0" AnchorPane.topAnchor="79.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century" size="25.0" />
                                  </font>
+                                 <effect>
+                                    <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
+                                       <input>
+                                          <SepiaTone />
+                                       </input>
+                                    </ColorAdjust>
+                                 </effect>
                               </Button>
-                              <Button fx:id="nieve" layoutX="85.0" layoutY="120.0" mnemonicParsing="false" text="Usar" AnchorPane.leftAnchor="810.0" AnchorPane.topAnchor="90.0">
+                              <Button fx:id="nieve" layoutX="676.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Usar" textFill="RED" AnchorPane.leftAnchor="676.0" AnchorPane.topAnchor="77.0">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Century" size="25.0" />
                                  </font>
+                                 <effect>
+                                    <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
+                                       <input>
+                                          <SepiaTone />
+                                       </input>
+                                    </ColorAdjust>
+                                 </effect>
                               </Button>
+                              <ImageView fitHeight="72.0" fitWidth="81.0" layoutX="72.0" layoutY="141.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/descarga%20(7).png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="76.0" fitWidth="132.0" layoutX="248.0" layoutY="139.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/image%20(2).png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="82.0" fitWidth="86.0" layoutX="470.0" layoutY="136.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/image%20(1).png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="661.0" layoutY="114.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/image%20(4).png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                     </content>
@@ -138,15 +291,40 @@
                         <Insets />
                      </HBox.margin>
                   </ScrollPane>
-                  <AnchorPane minHeight="200.0" minWidth="300.0">
+                  <Group>
                      <children>
-                        <Text fx:id="eventos" strokeType="OUTSIDE" strokeWidth="0.0" text="Evento ocurrido" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
+                        <AnchorPane minHeight="200.0" minWidth="264.0" prefHeight="262.0" prefWidth="264.0">
+                           <children>
+                              <Text fx:id="eventos" strokeType="OUTSIDE" strokeWidth="0.0" text="Evento ocurrido" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
+                                 <font>
+                                    <Font name="Century Gothic" size="20.0" />
+                                 </font>
+                                 <fill>
+                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.3317535545023697">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="1.0" green="0.1666666716337204" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="0.8500000238418579" green="1.0" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </fill>
+                              </Text>
+                              <ImageView fitHeight="165.0" fitWidth="160.0" layoutX="52.0" layoutY="70.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/image.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
                      </children>
-                  </AnchorPane>
+                  </Group>
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -172,13 +350,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Group GridPane.rowIndex="2" />
-                  <Group GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="12" />
+                  <Group GridPane.rowIndex="4" />
                   <Circle fx:id="P1" fill="BLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE">
                      <GridPane.margin>
                         <Insets />
@@ -195,17 +369,1298 @@
                      <GridPane.margin>
                         <Insets left="120.0" />
                      </GridPane.margin></Circle>
-                  <ImageView fitHeight="47.0" fitWidth="84.0" GridPane.columnIndex="4" GridPane.rowIndex="12">
-                     <image>
-                        <Image url="@../../../../../img%20pinguino/goal.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="84.0" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../../../../../img%20pinguino/start.png" />
-                     </image>
-                  </ImageView>
+                  <Text fx:id="dadoResultText1" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="RIGHT" wrappingWidth="259.421875">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.4407582938388626">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.20370370149612427" green="0.25" blue="0.20679011940956116" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8815789222717285" green="0.8815789222717285" blue="0.8815789222717285" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Text>
+                  <Text fx:id="dadoResultText11" strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText111" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText12" strokeType="OUTSIDE" strokeWidth="0.0" text="16" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText13" strokeType="OUTSIDE" strokeWidth="0.0" text="20" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText14" strokeType="OUTSIDE" strokeWidth="0.0" text="15" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText15" strokeType="OUTSIDE" strokeWidth="0.0" text="10" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText16" strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText131" strokeType="OUTSIDE" strokeWidth="0.0" text="11" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText132" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.4407582938388626">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.20370370149612427" green="0.25" blue="0.20679011940956116" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8815789222717285" green="0.8815789222717285" blue="0.8815789222717285" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Text>
+                  <Text fx:id="dadoResultText133" strokeType="OUTSIDE" strokeWidth="0.0" text="45" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText134" strokeType="OUTSIDE" strokeWidth="0.0" text="40" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText135" strokeType="OUTSIDE" strokeWidth="0.0" text="35" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.2511848341232228">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.07456140220165253" green="0.730701744556427" blue="0.8947368264198303" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText136" strokeType="OUTSIDE" strokeWidth="0.0" text="30" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText137" strokeType="OUTSIDE" strokeWidth="0.0" text="25" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText121" strokeType="OUTSIDE" strokeWidth="0.0" text="31" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText122" strokeType="OUTSIDE" strokeWidth="0.0" text="26" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText123" strokeType="OUTSIDE" strokeWidth="0.0" text="21" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText17" strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText18" strokeType="OUTSIDE" strokeWidth="0.0" text="47" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText19" strokeType="OUTSIDE" strokeWidth="0.0" text="46" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText110" strokeType="OUTSIDE" strokeWidth="0.0" text="41" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText112" strokeType="OUTSIDE" strokeWidth="0.0" text="42" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText113" strokeType="OUTSIDE" strokeWidth="0.0" text="37" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.2511848341232228">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.07456140220165253" green="0.730701744556427" blue="0.8947368264198303" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText114" strokeType="OUTSIDE" strokeWidth="0.0" text="32" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText115" strokeType="OUTSIDE" strokeWidth="0.0" text="27" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText116" strokeType="OUTSIDE" strokeWidth="0.0" text="22" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText117" strokeType="OUTSIDE" strokeWidth="0.0" text="17" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText118" strokeType="OUTSIDE" strokeWidth="0.0" text="12" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText119" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText120" strokeType="OUTSIDE" strokeWidth="0.0" text="36" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.2511848341232228">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.07456140220165253" green="0.730701744556427" blue="0.8947368264198303" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText124" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="RIGHT" wrappingWidth="259.421875">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.4407582938388626">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.20370370149612427" green="0.25" blue="0.20679011940956116" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8815789222717285" green="0.8815789222717285" blue="0.8815789222717285" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Text>
+                  <Text fx:id="dadoResultText125" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="RIGHT" wrappingWidth="259.421875">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.4407582938388626">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.20370370149612427" green="0.25" blue="0.20679011940956116" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8815789222717285" green="0.8815789222717285" blue="0.8815789222717285" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Text>
+                  <Text fx:id="dadoResultText126" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="259.421875">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText127" strokeType="OUTSIDE" strokeWidth="0.0" text="6" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText128" strokeType="OUTSIDE" strokeWidth="0.0" text="49" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText129" strokeType="OUTSIDE" strokeWidth="0.0" text="44" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText130" strokeType="OUTSIDE" strokeWidth="0.0" text="39" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.2511848341232228">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.07456140220165253" green="0.730701744556427" blue="0.8947368264198303" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText138" strokeType="OUTSIDE" strokeWidth="0.0" text="34" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.2511848341232228">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.07456140220165253" green="0.730701744556427" blue="0.8947368264198303" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText139" strokeType="OUTSIDE" strokeWidth="0.0" text="48" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText140" strokeType="OUTSIDE" strokeWidth="0.0" text="43" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText141" strokeType="OUTSIDE" strokeWidth="0.0" text="38" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.2511848341232228">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.07456140220165253" green="0.730701744556427" blue="0.8947368264198303" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText142" strokeType="OUTSIDE" strokeWidth="0.0" text="33" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText143" strokeType="OUTSIDE" strokeWidth="0.0" text="29" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText144" strokeType="OUTSIDE" strokeWidth="0.0" text="24" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText145" strokeType="OUTSIDE" strokeWidth="0.0" text="19" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText146" strokeType="OUTSIDE" strokeWidth="0.0" text="14" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText147" strokeType="OUTSIDE" strokeWidth="0.0" text="9" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText148" strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="4">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText149" strokeType="OUTSIDE" strokeWidth="0.0" text="28" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText150" strokeType="OUTSIDE" strokeWidth="0.0" text="23" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText151" strokeType="OUTSIDE" strokeWidth="0.0" text="18" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText152" strokeType="OUTSIDE" strokeWidth="0.0" text="13" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.2511848341232228">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.07456140220165253" green="0.730701744556427" blue="0.8947368264198303" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="dadoResultText153" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="RIGHT" wrappingWidth="259.421875" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Bookshelf Symbol 7" size="53.0" />
+                     </font>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="0.6966824644549763" startX="1.0" startY="0.27014218009478674">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.26480263471603394" green="0.6597039699554443" blue="0.8289473652839661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.8799999952316284" green="0.8799999952316284" blue="0.8799999952316284" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <Bloom />
+                     </effect>
+                  </Text>
                </children>
+               <effect>
+                  <Blend>
+                     <topInput>
+                        <DropShadow />
+                     </topInput>
+                  </Blend>
+               </effect>
             </GridPane>
          </center>
       </BorderPane>
