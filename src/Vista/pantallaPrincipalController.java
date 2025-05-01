@@ -74,28 +74,33 @@ public class pantallaPrincipalController {
     
     @FXML
     private void handleLogin(ActionEvent event) {
-        String username = userField.getText();
-        String password = passField.getText();
+        String usuario = userField.getText();
+        String contraseña = passField.getText();
 
-        System.out.println("Login pressed: " + username + " / " + password);
-
-        // Basic check (just for demo, replace with real login logic)
-        if (!username.isEmpty() && !password.isEmpty()) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/pantallaJuego.fxml"));
-                Parent pantallaJuegoRoot = loader.load();
-
-                Scene pantallaJuegoScene = new Scene(pantallaJuegoRoot);
-
-                // Get the current stage using the event
+        try {
+            Connection con = saveCon.getConexion();
+            
+            // Consulta SQL para verificar usuario y contraseña
+            String sql = "SELECT * FROM JUGADOR WHERE NICKNAME = ? AND CONTRASENYA = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, usuario);
+            pstmt.setString(2, contraseña);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                // Usuario válido - abre pantalla de juego
+                Parent juego = FXMLLoader.load(getClass().getResource("/Resources/pantallaJuego.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(pantallaJuegoScene);
-                stage.setTitle("Pantalla de Juego");
-            } catch (Exception e) {
-                e.printStackTrace();
+                stage.setScene(new Scene(juego));
+            } else {
+                // Usuario no existe o contraseña incorrecta
+                mostrarAlerta("Error", "Usuario o contraseña incorrectos");
             }
-        } else {
-            System.out.println("Please. Enter user and password.");
+            
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Problema al conectar con la BD");
+            e.printStackTrace();
         }
     }
 
