@@ -50,6 +50,7 @@ public class menu {
     }
     
     public static void main(String[] args) {
+    	//saveCon.setConexion(con);
         con = bbdd.conectarBaseDatos();
         if (con == null) { //COMPOBAR LA CONEXION CON SQL 
             System.out.println("No se pudo establecer conexión con la base de datos. Finalizando programa.");
