@@ -2,6 +2,7 @@ package Vista;
 
 import java.util.Random;
 
+import Controlador.saveCon;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -13,6 +14,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+
+import java.sql.Connection;
 import java.util.Optional;
 
 public class pantallaJuegoController {
@@ -65,13 +68,35 @@ public class pantallaJuegoController {
 
     @FXML
     private void handleNewGame() {
-        System.out.println("New game.");
-        // TODO
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Nueva Partida");
+        alert.setHeaderText("¿Deseas guardar esta partida antes de crear una nueva?");
+        alert.setContentText("Elige una opcion");
+        
+        ButtonType buttonGuardar = new ButtonType("Nueva Partida/Guardar");
+        ButtonType buttonNoGuardar = new ButtonType("Nueva Partida/No Guardar");
+        ButtonType buttonCancelar = new ButtonType("Cancelar",  ButtonBar.ButtonData.CANCEL_CLOSE);
+        
+        alert.getButtonTypes().setAll(buttonGuardar, buttonNoGuardar);
+        Optional<ButtonType> Resultado = alert.showAndWait();
+        
+        if(Resultado.isPresent()) {
+        	if(Resultado.get() == buttonGuardar) {
+            	handleSaveGame();
+            	resetGame();
+            }else if(Resultado.get() == buttonNoGuardar) {
+            	resetGame();
+            }
+        }
+        
     }
 
     @FXML
     private void handleSaveGame() {
-        //SE TENDRA QUE HACER MAS AL FINAL...
+    	Connection con = saveCon.getConexion(); //No se si hace falta realmente en este apartado
+    	
+    	String sql = "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA) " +
+                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, TRUNC(SYSDATE), TO_CHAR(SYSDATE, 'HH24:MI:SS'))";
     }
 
     @FXML
@@ -91,6 +116,7 @@ public class pantallaJuegoController {
     	//BUTTONS QUE VAN A SALIR EN LA PANTALLA SI SELECCIONAMOS ESTA OPCION 
     	ButtonType buttonGuardar = new ButtonType("Guardar y salir");
     	ButtonType buttonSalir = new ButtonType("Salir sin Guardar");
+    	ButtonType buttonCancelar = new ButtonType("Cancelar",  ButtonBar.ButtonData.CANCEL_CLOSE);
     	
     	//DONDE SE VAN A MOSTRAR ESTOS BOTONES
     	alert.getButtonTypes().setAll(buttonGuardar, buttonSalir);
@@ -164,4 +190,18 @@ public class pantallaJuegoController {
     private void handleNieve() {
         cantidadNieve.set(cantidadNieve.get() + 1);
     }
+    
+    private void resetGame() {
+    	p1Position = 0;
+    	
+    	GridPane.setRowIndex(P1, 0);
+        GridPane.setColumnIndex(P1, 0);
+    	
+        cantidadPeces.set(0);
+        cantidadPeces.set(0);
+        
+        dadoResultText.setText("");
+        eventos.setText("Nueva Partida Iniciada");
+    }
+    
 }
