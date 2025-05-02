@@ -2,12 +2,15 @@ package Vista;
 
 import java.util.Random;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import java.util.Optional;
 
 public class pantallaJuegoController {
 
@@ -60,8 +63,7 @@ public class pantallaJuegoController {
 
     @FXML
     private void handleSaveGame() {
-        System.out.println("Saved game.");
-        // TODO
+        
     }
 
     @FXML
@@ -71,9 +73,29 @@ public class pantallaJuegoController {
     }
 
     @FXML
-    private void handleQuitGame() {
-        System.out.println("Exit...");
-        // TODO
+    private void handleQuitGame(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.CONFIRMATION); //TIPO DE ALERTA -- en este caso CONFIRMATION
+    	//COMPOSICION DE LA ALERTA
+    	alert.setTitle("Salir del Juego");
+    	alert.setHeaderText("¿Deseas guardar la partida antes de salir?");
+    	alert.setContentText("Elige una Opcion:");
+    	
+    	//BUTTONS QUE VAN A SALIR EN LA PANTALLA SI SELECCIONAMOS ESTA OPCION 
+    	ButtonType buttonGuardar = new ButtonType("Guardar y salir");
+    	ButtonType buttonSalir = new ButtonType("Salir sin Guardar");
+    	
+    	//DONDE SE VAN A MOSTRAR ESTOS BOTONES
+    	alert.getButtonTypes().setAll(buttonGuardar, buttonSalir);
+    	Optional<ButtonType> resultado = alert.showAndWait(); //HAY QUE IMPORTAR EL OPTIONAL
+    	
+    	if(resultado.isPresent()) { //ESTO ES YA QUE SOLO SE VA A ENTRAR EN ESTE IF EN CASO DE UNA ACCIÓN
+    		if(resultado.get() == buttonGuardar) {//GUARDAR Y SALIR
+    			handleLoadGame(); //GUARDAR
+    			Platform.exit(); //SALIR
+    		}else if(resultado.get() == buttonSalir) { //SALIR SIN GUARDAR
+    			Platform.exit(); //SALIR
+    		}
+    	}
     }
 
     @FXML
