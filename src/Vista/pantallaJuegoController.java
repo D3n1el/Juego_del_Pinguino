@@ -63,7 +63,7 @@ public class pantallaJuegoController {
 
     @FXML
     private void handleSaveGame() {
-        
+        //SE TENDRA QUE HACER MAS AL FINAL...
     }
 
     @FXML
@@ -129,14 +129,22 @@ public class pantallaJuegoController {
 
     @FXML
     private void handleRapido() {
-        System.out.println("Fast.");
-        // TODO
+        Random r = new Random();
+        int Result = r.nextInt(10) + 5; //DADO QUE NOS DA DEL 5 - 10
+        
+        dadoResultText.setText("Dado Rapido, Resultado: " + Result); //MOSTRAMOS MENSAGE
+        
+        moveP1(Result); //ACTUALIZAMOS LA POSICION
     }
 
     @FXML
     private void handleLento() {
-        System.out.println("Slow.");
-        // TODO
+        Random r = new Random();
+        int Result = r.nextInt(3)+1; //DADO QUE NOS DA DEL 1 -3
+        
+        dadoResultText.setText("Dado Lento, Resultado: " + Result); //MOSTRAR MENSAGE
+        
+        moveP1(Result); //ACTUALIZA LA POSICION
     }
 
     @FXML
