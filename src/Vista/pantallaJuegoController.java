@@ -3,6 +3,9 @@ package Vista;
 import java.util.Random;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -45,12 +48,17 @@ public class pantallaJuegoController {
     //ONLY FOR TESTING!!!
     private int p1Position = 0; // Tracks current position (from 0 to 49 in a 5x10 grid)
     private final int COLUMNS = 5;
-
+    
+    private IntegerProperty cantidadPeces = new SimpleIntegerProperty(0);
+    private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0);
+    
     @FXML
     private void initialize() {
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         eventos.setText("¡El juego ha comenzado!");
+        peces_t.textProperty().bind(Bindings.concat("Peces: ", cantidadPeces.asString()));
+        nieve_t.textProperty().bind(Bindings.concat("Bolas De Nieve: ", cantidadNieve.asString()));
     }
 
     // Button and menu actions
@@ -90,7 +98,7 @@ public class pantallaJuegoController {
     	
     	if(resultado.isPresent()) { //ESTO ES YA QUE SOLO SE VA A ENTRAR EN ESTE IF EN CASO DE UNA ACCIÓN
     		if(resultado.get() == buttonGuardar) {//GUARDAR Y SALIR
-    			handleLoadGame(); //GUARDAR
+    			handleSaveGame(); //GUARDAR
     			Platform.exit(); //SALIR
     		}else if(resultado.get() == buttonSalir) { //SALIR SIN GUARDAR
     			Platform.exit(); //SALIR
@@ -149,13 +157,11 @@ public class pantallaJuegoController {
 
     @FXML
     private void handlePeces() {
-        System.out.println("Fish.");
-        // TODO
+        cantidadPeces.set(cantidadPeces.get() + 1);
     }
 
     @FXML
     private void handleNieve() {
-        System.out.println("Snow.");
-        // TODO
+        cantidadNieve.set(cantidadNieve.get() + 1);
     }
 }
