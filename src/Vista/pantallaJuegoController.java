@@ -24,6 +24,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.Optional;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class pantallaJuegoController {
 
     // Menu items
@@ -53,6 +58,8 @@ public class pantallaJuegoController {
     @FXML private Circle P2;
     @FXML private Circle P3;
     @FXML private Circle P4;
+    
+    
     
     //ONLY FOR TESTING!!!
     private int p1Position = 0; // Tracks current position (from 0 to 49 in a 5x10 grid)
@@ -104,25 +111,49 @@ public class pantallaJuegoController {
     	String sql = "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA) " +
                 "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, TRUNC(SYSDATE), TO_CHAR(SYSDATE, 'HH24:MI:SS'))";
     }
-
+    
     @FXML
     private void handleLoadGame(ActionEvent event) {
-    	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/partidaGuardada.fxml"));
-            Parent partidaGuardadaRoot = loader.load();
+        try (Connection con = saveCon.getConexion();
+             Statement stmt = con.createStatement()) {
             
-            // Obtener el controlador de pantallaJuegoController y actualizar el estado si es necesario
-            pantallaJuegoController juegoController = loader.getController();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT * FROM PARTIDA ORDER BY NUM_PARTIDA DESC FETCH FIRST 1 ROWS ONLY");
             
-            // Cambiar la escena actual para mostrar la partida cargada
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(partidaGuardadaRoot));
-            
-            System.out.println("Partida cargada exitosamente.");
-        } catch (IOException e) {
-            System.err.println("Error al cargar la partida: " + e.getMessage());
+            if (rs.next()) {
+                // Restaurar estado principal
+                p1Position = rs.getInt("P1_POSITION");
+                cantidadPeces.set(rs.getInt("CANTIDAD_PECES"));
+                cantidadNieve.set(rs.getInt("CANTIDAD_NIEVE"));
+                
+                // Actualizar UI inmediatamente
+                Platform.runLater(() -> {
+                    // Mover jugadores
+                    GridPane.setColumnIndex(P1, p1Position % 10);
+                    GridPane.setRowIndex(P1, p1Position / 10);
+                    
+                    // Actualizar contadores
+                    peces_t.setText(String.valueOf(cantidadPeces.get()));
+                    nieve_t.setText(String.valueOf(cantidadNieve.get()));
+                    
+                    /* Forzar redibujado ¿NECESARIO?
+                     * 
+                    gameBoard.requestLayout();
+                    */
+                });
+                
+                eventos.setText("Partida cargada con éxito");
+            } else {
+                eventos.setText("No hay partidas guardadas");
+            }
+        } catch (SQLException e) {
+            eventos.setText("Error de base de datos");
             e.printStackTrace();
         }
+    }
+    
+    private void updateGameBoard() {
+    	
     }
 
     @FXML
