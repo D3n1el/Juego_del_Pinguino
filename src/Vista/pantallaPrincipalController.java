@@ -3,9 +3,12 @@ package Vista;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import Controlador.saveCon;
 import javafx.application.Platform;
@@ -25,7 +29,7 @@ import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
 
 public class pantallaPrincipalController {
-
+	private Vista.pantallaJuegoController pantallaJuegoController;
 	
     @FXML private MenuItem newGame;
     @FXML private MenuItem saveGame;
@@ -42,23 +46,52 @@ public class pantallaPrincipalController {
     @FXML private ComboBox<String> colorBox;
     
     @FXML
+    
+    /* 
+     * FUNCIONALIDAD INCOMPLETA. POSIBLEMENTE INNECESARIO EN ESTA CLASE
+    public void setPantallaJuegoController(Vista.pantallaJuegoController pantallaJuegoController) {
+        this.pantallaJuegoController = pantallaJuegoController;
+    }
+    */
+    
     private void initialize() {
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         System.out.println("pantallaPrincipalController initialized");
         colorBox.getItems().addAll("Rojo", "Verde", "Azul", "Amarillo");
     }
-
+    
+    /* 
+     * FUNCIONALIDAD INCOMPLETA. POSIBLEMENTE INNECESARIO EN ESTA CLASE
     @FXML
     private void handleNewGame() {
-        System.out.println("New Game clicked");
-        // TODO
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Nueva Partida");
+        alert.setHeaderText("¿Deseas guardar esta partida antes de crear una nueva?");
+        alert.setContentText("Elige una opcion");
+        
+        ButtonType buttonGuardar = new ButtonType("Nueva Partida/Guardar");
+        ButtonType buttonNoGuardar = new ButtonType("Nueva Partida/No Guardar");
+        ButtonType buttonCancelar = new ButtonType("Cancelar",  ButtonBar.ButtonData.CANCEL_CLOSE);
+        
+        alert.getButtonTypes().setAll(buttonGuardar, buttonNoGuardar);
+        Optional<ButtonType> Resultado = alert.showAndWait();
+        
+        if(Resultado.isPresent()) {
+        	if(Resultado.get() == buttonGuardar) {
+            	handleSaveGame();
+            	pantallaJuegoController.resetGame();
+            }else if(Resultado.get() == buttonNoGuardar) {
+            	pantallaJuegoController.resetGame();
+            }
+        }
+        
     }
-
+    
+    
     @FXML
     private void handleSaveGame() {
-        System.out.println("Save Game clicked");
-        // TODO
+    	System.out.println("Save Game clicked");
     }
 
     @FXML
@@ -66,7 +99,8 @@ public class pantallaPrincipalController {
         System.out.println("Load Game clicked");
         // TODO
     }
-
+	*/
+    
     @FXML
     private void handleQuitGame(ActionEvent event) {//Añade el parámetro
         Platform.exit();  //Otra forma para que salga de la app
