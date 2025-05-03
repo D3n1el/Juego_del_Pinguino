@@ -9,12 +9,18 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.Optional;
 
@@ -54,7 +60,7 @@ public class pantallaJuegoController {
     
     private IntegerProperty cantidadPeces = new SimpleIntegerProperty(0);
     private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0);
-    
+
     @FXML
     private void initialize() {
         // This method is called automatically after the FXML is loaded
@@ -100,9 +106,23 @@ public class pantallaJuegoController {
     }
 
     @FXML
-    private void handleLoadGame() {
-        System.out.println("Loaded game.");
-        // TODO
+    private void handleLoadGame(ActionEvent event) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/partidaGuardada.fxml"));
+            Parent partidaGuardadaRoot = loader.load();
+            
+            // Obtener el controlador de pantallaJuegoController y actualizar el estado si es necesario
+            pantallaJuegoController juegoController = loader.getController();
+            
+            // Cambiar la escena actual para mostrar la partida cargada
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(partidaGuardadaRoot));
+            
+            System.out.println("Partida cargada exitosamente.");
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -191,7 +211,7 @@ public class pantallaJuegoController {
         cantidadNieve.set(cantidadNieve.get() + 1);
     }
     
-    private void resetGame() {
+    public void resetGame() {
     	p1Position = 0;
     	
     	GridPane.setRowIndex(P1, 0);
