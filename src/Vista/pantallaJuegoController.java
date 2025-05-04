@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.util.Optional;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -106,10 +107,26 @@ public class pantallaJuegoController {
 
     @FXML
     private void handleSaveGame() {
-    	Connection con = saveCon.getConexion(); //No se si hace falta realmente en este apartado
-    	
-    	String sql = "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA) " +
-                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, TRUNC(SYSDATE), TO_CHAR(SYSDATE, 'HH24:MI:SS'))";
+        String sql = "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA, " +
+                     "P1_POSITION, CANTIDAD_PECES, CANTIDAD_NIEVE) " +
+                     "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, TRUNC(SYSDATE), " +
+                     "TO_CHAR(SYSDATE, 'HH24:MI:SS'), ?, ?, ?)";
+
+        try (Connection con = saveCon.getConexion();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            
+            // Asignar valores a los parámetros
+            pstmt.setInt(1, p1Position); // Posición jugador 1
+            pstmt.setInt(2, cantidadPeces.get()); // Cantidad de peces
+            pstmt.setInt(3, cantidadNieve.get()); // Cantidad de nieve
+            
+            pstmt.executeUpdate();
+            eventos.setText("Partida guardada correctamente");
+            
+        } catch (SQLException e) {
+            eventos.setText("Error al guardar la partida");
+            e.printStackTrace();
+        }
     }
     
     @FXML
@@ -150,10 +167,6 @@ public class pantallaJuegoController {
             eventos.setText("Error de base de datos");
             e.printStackTrace();
         }
-    }
-    
-    private void updateGameBoard() {
-    	
     }
 
     @FXML
