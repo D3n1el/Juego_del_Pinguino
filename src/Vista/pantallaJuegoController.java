@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.Arrays;
 import java.util.Optional;
 
 import java.sql.DriverManager;
@@ -32,6 +33,14 @@ import java.sql.Statement;
 
 public class pantallaJuegoController {
 
+	public enum TipoCasilla { //ES UN ENNUMERADOR DE VARIABLES ESTATICAS, ES COMO UN DESPLEGABLE DE OPCIONES
+		NORMAL,
+		AGUJERO,
+		INTERROGANTE,
+		OSO,
+		TRINEO
+	}
+	
     // Menu items
     @FXML private MenuItem newGame;
     @FXML private MenuItem saveGame;
@@ -65,7 +74,9 @@ public class pantallaJuegoController {
     //ONLY FOR TESTING!!!
     private int p1Position = 0; // Tracks current position (from 0 to 49 in a 5x10 grid)
     private final int COLUMNS = 5;
+    private Random rand = new Random(); //PARA LAS CASILLAS
     
+    private TipoCasilla[] tableroCasillas = new TipoCasilla[50]; //PARA LAS CASILLAS
     private IntegerProperty cantidadPeces = new SimpleIntegerProperty(0);
     private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0);
 
@@ -76,8 +87,106 @@ public class pantallaJuegoController {
         eventos.setText("¡El juego ha comenzado!");
         peces_t.textProperty().bind(Bindings.concat("Peces: ", cantidadPeces.asString()));
         nieve_t.textProperty().bind(Bindings.concat("Bolas De Nieve: ", cantidadNieve.asString()));
+        
+        inicializarTablero();//INICIALIZAR EL TABLERO
     }
 
+    private void inicializarTablero() {
+    	Arrays.fill(tableroCasillas, TipoCasilla.NORMAL);//ESTO HACE QUE TODAS LAS CASILLAS SEAN NORMALES POR DEFECTO
+    	
+    	//ESTO ES UNA DISTRIBUCION DE CASILLAS ESPECIALES (SE PUEDE AJUSTAR A MENOS CASILLAS O MAS)
+    	colocarCasillasEspeciales(TipoCasilla.AGUJERO, 8);
+    	colocarCasillasEspeciales(TipoCasilla.INTERROGANTE, 10);
+    	colocarCasillasEspeciales(TipoCasilla.OSO, 3);
+    	colocarCasillasEspeciales(TipoCasilla.TRINEO, 4);
+    	
+    	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
+    	tableroCasillas[0] = TipoCasilla.NORMAL;
+    	
+    	//actualizarEstilosCasillas();
+    }
+    
+    private void colocarCasillasEspeciales(TipoCasilla tipo, int cantidad) {
+    	for(int i = 0; i < cantidad; i++) {
+    		int posicion;
+    		do {
+    			posicion = rand.nextInt(tableroCasillas.length - 1) + 1; //NO PONER EN CASILLA 0
+    			
+    		}while(tableroCasillas[posicion] != TipoCasilla.NORMAL);
+    		
+    			tableroCasillas[posicion] = tipo;
+    		
+    	}
+    }
+    
+    private void aplicarEfectoCasilla(int posicion) {
+    	TipoCasilla casilla = tableroCasillas[posicion];
+    	
+    	switch(casilla) {
+    	case AGUJERO:
+    		eventos.setText("Caiste en un Agujero..." + " Retrocedes 1 Casilla");
+    		moveP1(-1);
+    		break;
+    	case INTERROGANTE:
+    		if(rand.nextBoolean()) {
+    			int nieve = rand.nextInt(3) + 1;
+    			cantidadNieve.set(cantidadNieve.get() + nieve);
+    			eventos.setText("Has conseguido " + nieve + " Bolas de Nieve!!!");
+    		}else {
+    			cantidadPeces.set(cantidadPeces.get() + 1);
+    			eventos.setText("Has conseguido 1 Pez!!!");
+    		}
+    		break;
+    	case OSO:
+    		if (cantidadPeces.get() > 0) {
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setTitle("¡Encontraste un oso polar!");
+                    alert.setHeaderText("¿Quieres darle 1 pez para que te deje pasar?");
+                    alert.setContentText("Peces disponibles: " + cantidadPeces.get());
+                    
+                    ButtonType siButton = new ButtonType("Sí", ButtonBar.ButtonData.YES);
+                    ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+                    alert.getButtonTypes().setAll(siButton, noButton);
+                    
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == siButton) {
+                        cantidadPeces.set(cantidadPeces.get() - 1);
+                        eventos.setText("Has sobornado al oso con 1 pez.");
+                    } else {
+                        volverAlInicio();
+                    }
+                });
+            } else {
+                volverAlInicio();
+            }
+            break;
+    	case TRINEO:
+    		int siguienteTrineo = encontrarSiguienteTrineo(posicion);
+    		int distancia = siguienteTrineo - posicion;
+    		eventos.setText("Avanzas " + distancia + " Casillas");
+    		moveP1(distancia);
+    		break;
+    	}
+    }
+    
+    private void volverAlInicio() {
+    	p1Position = 0;
+    	GridPane.setRowIndex(P1, 0);
+    	GridPane.setColumnIndex(P1, 0);
+    	eventos.setText("Un oso te ha atrapado, vuelves al INICIO");
+    }
+    
+    private int encontrarSiguienteTrineo(int posActual) {
+    	for (int i = posActual + 1; i < tableroCasillas.length; i++) {
+            if (tableroCasillas[i] == TipoCasilla.TRINEO) {
+                return i;
+            }
+        }
+    	return tableroCasillas.length - 1;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////
     // Button and menu actions
 
     @FXML
@@ -108,14 +217,19 @@ public class pantallaJuegoController {
     ///////////////////////////////////////////////////////////////////
     @FXML
     private void handleSaveGame() {
-    	try (Connection con = saveCon.getConexion()) {
+        try (Connection con = saveCon.getConexion()) {
             // 1. Guardar partida y obtener ID
             int idPartida;
             try (PreparedStatement pst = con.prepareStatement(
-                "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA) VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, CURRENT_TIMESTAMP)", 
+                "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA, P1_POSITION, CANTIDAD_PECES, CANTIDAD_NIEVE) " +
+                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, CURRENT_TIMESTAMP, ?, ?, ?)", 
                 Statement.RETURN_GENERATED_KEYS)) {
                 
+                pst.setInt(1, p1Position);
+                pst.setInt(2, cantidadPeces.get());
+                pst.setInt(3, cantidadNieve.get());
                 pst.executeUpdate();
+                
                 try (ResultSet rs = pst.getGeneratedKeys()) {
                     if (rs.next()) {
                         idPartida = rs.getInt(1);
@@ -125,25 +239,19 @@ public class pantallaJuegoController {
                 }
             }
 
-            // 2. Guardar posición actual como casilla
+            // 2. Guardar TODAS las casillas especiales
             try (PreparedStatement pst = con.prepareStatement(
                 "INSERT INTO CASILLA (NUM_CASILLA, TIPO, NUM_PARTIDA) VALUES (?, ?, ?)")) {
-                pst.setInt(1, p1Position); // Usamos la posición como ID de casilla
-                pst.setString(2, "NORMAL"); // Tipo de casilla
-                pst.setInt(3, idPartida); // ID de partida
-                pst.executeUpdate();
-            }
-
-            // 3. Guardar inventario (asumiendo que el jugador activo es P1)
-            try (PreparedStatement pst = con.prepareStatement(
-                "INSERT INTO INVENTARIO (ID_INVENTARIO, BOLAS_NIEVE, PECES, DADOS, ID_JUGADOR, NUM_PARTIDA) " +
-                "VALUES (ID_INVENTARIO_AUTO.NEXTVAL, ?, ?, ?, ?, ?)")) {
-                pst.setInt(1, cantidadNieve.get());
-                pst.setInt(2, cantidadPeces.get());
-                pst.setInt(3, 0); // Asumo que DADOS no se usa en tu código actual
-                pst.setInt(4, 1); // ID_JUGADOR asumido como 1 para P1
-                pst.setInt(5, idPartida);
-                pst.executeUpdate();
+                
+                for (int i = 0; i < tableroCasillas.length; i++) {
+                    if (tableroCasillas[i] != TipoCasilla.NORMAL) {
+                        pst.setInt(1, i); // Posición en el tablero
+                        pst.setString(2, tableroCasillas[i].toString()); // Tipo de casilla
+                        pst.setInt(3, idPartida); // ID de partida
+                        pst.addBatch();
+                    }
+                }
+                pst.executeBatch();
             }
 
             eventos.setText("Partida guardada correctamente!");
@@ -156,40 +264,59 @@ public class pantallaJuegoController {
     
     @FXML
     private void handleLoadGame(ActionEvent event) {
-        try (Connection con = saveCon.getConexion();
-             Statement stmt = con.createStatement()) {
-            
-            ResultSet rs = stmt.executeQuery(
-                "SELECT * FROM PARTIDA ORDER BY NUM_PARTIDA DESC FETCH FIRST 1 ROWS ONLY");
-            
-            if (rs.next()) {
-                // Restaurar estado principal
-                p1Position = rs.getInt("P1_POSITION");
-                cantidadPeces.set(rs.getInt("CANTIDAD_PECES"));
-                cantidadNieve.set(rs.getInt("CANTIDAD_NIEVE"));
+        try (Connection con = saveCon.getConexion()) {
+            // 1. Cargar datos principales de la partida
+            try (PreparedStatement pst = con.prepareStatement(
+                "SELECT * FROM PARTIDA ORDER BY NUM_PARTIDA DESC FETCH FIRST 1 ROWS ONLY")) {
                 
-                // Actualizar UI inmediatamente
-                Platform.runLater(() -> {
-                    // Mover jugadores
-                    GridPane.setColumnIndex(P1, p1Position % 10);
-                    GridPane.setRowIndex(P1, p1Position / 10);
-                    
-                    // Actualizar contadores
-                    peces_t.setText(String.valueOf(cantidadPeces.get()));
-                    nieve_t.setText(String.valueOf(cantidadNieve.get()));
-                    
-                    /* Forzar redibujado ¿NECESARIO?
-                     * 
-                    gameBoard.requestLayout();
-                    */
-                });
+                ResultSet rs = pst.executeQuery();
                 
-                eventos.setText("Partida cargada con éxito");
-            } else {
-                eventos.setText("No hay partidas guardadas");
+                if (rs.next()) {
+                    // Restaurar estado principal
+                    p1Position = rs.getInt("P1_POSITION");
+                    cantidadPeces.set(rs.getInt("CANTIDAD_PECES"));
+                    cantidadNieve.set(rs.getInt("CANTIDAD_NIEVE"));
+                    int idPartida = rs.getInt("NUM_PARTIDA");
+
+                    // 2. Cargar las casillas especiales
+                    try (PreparedStatement pstCasillas = con.prepareStatement(
+                        "SELECT NUM_CASILLA, TIPO FROM CASILLA WHERE NUM_PARTIDA = ?")) {
+                        
+                        pstCasillas.setInt(1, idPartida);
+                        ResultSet rsCasillas = pstCasillas.executeQuery();
+                        
+                        // Resetear todas las casillas a normales
+                        Arrays.fill(tableroCasillas, TipoCasilla.NORMAL);
+                        
+                        // Cargar casillas especiales guardadas
+                        while (rsCasillas.next()) {
+                            int posicion = rsCasillas.getInt("NUM_CASILLA");
+                            String tipo = rsCasillas.getString("TIPO");
+                            tableroCasillas[posicion] = TipoCasilla.valueOf(tipo);
+                        }
+                    }
+
+                    // Actualizar UI
+                    Platform.runLater(() -> {
+                        // Mover jugador
+                        int row = p1Position / COLUMNS;
+                        int col = p1Position % COLUMNS;
+                        GridPane.setRowIndex(P1, row);
+                        GridPane.setColumnIndex(P1, col);
+                        
+                        // Actualizar contadores
+                        peces_t.setText("Peces: " + cantidadPeces.get());
+                        nieve_t.setText("Bolas De Nieve: " + cantidadNieve.get());
+                        
+                    });
+                    
+                    eventos.setText("Partida cargada con éxito");
+                } else {
+                    eventos.setText("No hay partidas guardadas");
+                }
             }
         } catch (SQLException e) {
-            eventos.setText("Error de base de datos");
+            eventos.setText("Error al cargar: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -248,6 +375,8 @@ public class pantallaJuegoController {
         //Change P1 property to match row and column
         GridPane.setRowIndex(P1, row);
         GridPane.setColumnIndex(P1, col);
+        
+        aplicarEfectoCasilla(p1Position);
     }
 
     @FXML
@@ -292,5 +421,7 @@ public class pantallaJuegoController {
         dadoResultText.setText("");
         eventos.setText("Nueva Partida Iniciada");
     }
+    
+    
     
 }
