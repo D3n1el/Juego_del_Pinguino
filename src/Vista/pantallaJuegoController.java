@@ -105,29 +105,54 @@ public class pantallaJuegoController {
         
     }
 
+    ///////////////////////////////////////////////////////////////////
     @FXML
     private void handleSaveGame() {
-        String sql = "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA, " +
-                     "P1_POSITION, CANTIDAD_PECES, CANTIDAD_NIEVE) " +
-                     "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, TRUNC(SYSDATE), " +
-                     "TO_CHAR(SYSDATE, 'HH24:MI:SS'), ?, ?, ?)";
+    	try (Connection con = saveCon.getConexion()) {
+            // 1. Guardar partida y obtener ID
+            int idPartida;
+            try (PreparedStatement pst = con.prepareStatement(
+                "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA) VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, CURRENT_TIMESTAMP)", 
+                Statement.RETURN_GENERATED_KEYS)) {
+                
+                pst.executeUpdate();
+                try (ResultSet rs = pst.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        idPartida = rs.getInt(1);
+                    } else {
+                        throw new SQLException("No se pudo obtener el ID de partida generado");
+                    }
+                }
+            }
 
-        try (Connection con = saveCon.getConexion();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
-            
-            // Asignar valores a los parámetros
-            pstmt.setInt(1, p1Position); // Posición jugador 1
-            pstmt.setInt(2, cantidadPeces.get()); // Cantidad de peces
-            pstmt.setInt(3, cantidadNieve.get()); // Cantidad de nieve
-            
-            pstmt.executeUpdate();
-            eventos.setText("Partida guardada correctamente");
-            
+            // 2. Guardar posición actual como casilla
+            try (PreparedStatement pst = con.prepareStatement(
+                "INSERT INTO CASILLA (NUM_CASILLA, TIPO, NUM_PARTIDA) VALUES (?, ?, ?)")) {
+                pst.setInt(1, p1Position); // Usamos la posición como ID de casilla
+                pst.setString(2, "NORMAL"); // Tipo de casilla
+                pst.setInt(3, idPartida); // ID de partida
+                pst.executeUpdate();
+            }
+
+            // 3. Guardar inventario (asumiendo que el jugador activo es P1)
+            try (PreparedStatement pst = con.prepareStatement(
+                "INSERT INTO INVENTARIO (ID_INVENTARIO, BOLAS_NIEVE, PECES, DADOS, ID_JUGADOR, NUM_PARTIDA) " +
+                "VALUES (ID_INVENTARIO_AUTO.NEXTVAL, ?, ?, ?, ?, ?)")) {
+                pst.setInt(1, cantidadNieve.get());
+                pst.setInt(2, cantidadPeces.get());
+                pst.setInt(3, 0); // Asumo que DADOS no se usa en tu código actual
+                pst.setInt(4, 1); // ID_JUGADOR asumido como 1 para P1
+                pst.setInt(5, idPartida);
+                pst.executeUpdate();
+            }
+
+            eventos.setText("Partida guardada correctamente!");
         } catch (SQLException e) {
-            eventos.setText("Error al guardar la partida");
+            eventos.setText("Error al guardar: " + e.getMessage());
             e.printStackTrace();
         }
     }
+    ///////////////////////////////////////////////////////////////////
     
     @FXML
     private void handleLoadGame(ActionEvent event) {
