@@ -76,7 +76,8 @@ public class pantallaJuegoController {
     private final int COLUMNS = 5;
     private Random rand = new Random(); //PARA LAS CASILLAS
     
-    private TipoCasilla[] tableroCasillas = new TipoCasilla[50]; //PARA LAS CASILLAS
+    private static final int TOTAL_CASILLAS = 50; //ES UNA CADENA CONSTANTE
+    private TipoCasilla[] tableroCasillas = new TipoCasilla[TOTAL_CASILLAS]; //PARA LAS CASILLAS
     private IntegerProperty cantidadPeces = new SimpleIntegerProperty(0);
     private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0);
 
