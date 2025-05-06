@@ -105,6 +105,7 @@ public class pantallaJuegoController {
     	
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
+    	tableroCasillas[49] = TipoCasilla.NORMAL;
     	
     	//PARA MOSTRAR LAS IMAGENES EN EL TABLERO
     	mostrarImagenesAgujero();
@@ -465,7 +466,7 @@ public class pantallaJuegoController {
     			int row = i / COLUMNS;
     			int col = i % COLUMNS;
     			
-    			Image image = new Image(getClass().getResource("/Resources/oso.jpg").toExternalForm());
+    			Image image = new Image(getClass().getResource("/Resources/oso.png").toExternalForm());
     			ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
                 imageView.setFitHeight(40);
