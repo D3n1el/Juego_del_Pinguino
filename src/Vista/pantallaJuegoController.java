@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -126,16 +127,25 @@ public class pantallaJuegoController {
     	switch(casilla) {
     	case AGUJERO:
     		eventos.setText("Caiste en un Agujero..." + " Retrocedes 1 Casilla");
-    		moveP1(-1);
+    		moveP1(-1); //CANVIAR AL APLICAR MAS PERSONAS
     		break;
-    	case INTERROGANTE:
+    	case INTERROGANTE: 
     		if(rand.nextBoolean()) {
-    			int nieve = rand.nextInt(3) + 1;
-    			cantidadNieve.set(cantidadNieve.get() + nieve);
-    			eventos.setText("Has conseguido " + nieve + " Bolas de Nieve!!!");
+    			if(cantidadNieve.get() >= 6) { //COMPROBAR QUE NO SUPERE EL MAXIMO DE BOLAS DE NIEVE
+    				cantidadNieve.set(6);
+    				eventos.setText("Ya tienes el maximo de Nieve possible " + cantidadNieve.get());
+    			}else { //EN CASO DE QUE NO SUPERE EL LIMITE
+    				int nieve = rand.nextInt(3) + 1;
+        			cantidadNieve.set(cantidadNieve.get() + nieve);
+        			eventos.setText("Has conseguido " + nieve + " Bolas de Nieve!!!");
+    			}
     		}else {
-    			cantidadPeces.set(cantidadPeces.get() + 1);
-    			eventos.setText("Has conseguido 1 Pez!!!");
+    			if(cantidadPeces.get() >= 2 ) { //COMPROBAR QUE NO TENGA MAS DE 2 PECES
+    				eventos.setText("Ya tienes el maximo de peces " + cantidadPeces.get());
+    			}else { //EN CASO DE QUE TENGA MAS DE 2 PECES
+    				cantidadPeces.set(cantidadPeces.get() + 1);
+        			eventos.setText("Has conseguido 1 Pez!!!");
+    			}
     		}
     		break;
     	case OSO:
@@ -422,7 +432,4 @@ public class pantallaJuegoController {
         dadoResultText.setText("");
         eventos.setText("Nueva Partida Iniciada");
     }
-    
-    
-    
 }
