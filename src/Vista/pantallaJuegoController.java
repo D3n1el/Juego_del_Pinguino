@@ -180,10 +180,14 @@ public class pantallaJuegoController {
             break;
     	case TRINEO:
     		int siguienteTrineo = encontrarSiguienteTrineo(posicion);
-    		int distancia = siguienteTrineo - posicion;
-    		eventos.setText("Avanzas " + distancia + " Casillas");
-    		moveP1(distancia);
-    		break;
+    	    if (siguienteTrineo > posicion) {
+    	        int distancia = siguienteTrineo - posicion;
+    	        eventos.setText("Trineo mágico! Avanzas " + distancia + " casillas.");
+    	        moveP1(distancia);
+    	    } else {
+    	        eventos.setText("Este es el último trineo. Te quedas aquí.");
+    	    }
+    	    break;
     	}
     }
     
@@ -195,12 +199,20 @@ public class pantallaJuegoController {
     }
     
     private int encontrarSiguienteTrineo(int posActual) {
-    	for (int i = posActual + 1; i < tableroCasillas.length; i++) {
+        boolean encontradoActual = false;
+
+        for (int i = 0; i < tableroCasillas.length; i++) {
             if (tableroCasillas[i] == TipoCasilla.TRINEO) {
-                return i;
+                if (!encontradoActual && i == posActual) {
+                    encontradoActual = true; // hemos encontrado el trineo actual
+                } else if (encontradoActual) {
+                    return i; // este es el siguiente trineo, nos detenemos aquí
+                }
             }
         }
-    	return tableroCasillas.length - 1;
+
+        // Si no hay siguiente trineo, se queda donde está
+        return posActual;
     }
     
     ///////////////////////////////////////////////////////////////////////////
@@ -376,7 +388,8 @@ public class pantallaJuegoController {
         // Update the position
         moveP1(diceResult);
     }
-
+    
+    private boolean aplicandoEfecto = false;
     private void moveP1(int steps) {
         p1Position += steps;
 
@@ -392,6 +405,12 @@ public class pantallaJuegoController {
         //Change P1 property to match row and column
         GridPane.setRowIndex(P1, row);
         GridPane.setColumnIndex(P1, col);
+        
+        if (!aplicandoEfecto) {
+            aplicandoEfecto = true;
+            aplicarEfectoCasilla(p1Position);
+            aplicandoEfecto = false;
+        }
         
         aplicarEfectoCasilla(p1Position);
     }
