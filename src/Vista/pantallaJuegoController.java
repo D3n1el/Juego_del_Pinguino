@@ -210,7 +210,11 @@ public class pantallaJuegoController {
     	    }
     	    break;
     	case META:
-    		
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Final...");
+    		alert.setHeaderText("Felicidades...");
+    		alert.setContentText("Juego finalizado!!!");
+    		alert.showAndWait();
     	}
     }
     
