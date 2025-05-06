@@ -434,6 +434,10 @@ public class pantallaJuegoController {
         cantidadPeces.set(0);
         cantidadPeces.set(0);
         
+        //LIMPIAR EL TABLERO
+        tablero.getChildren().removeIf(node -> node instanceof ImageView); //NODE REPRESENTA (imagenes/botones...) node instanceof ImageView EVALUA SI EL nodo ES UNA IMAGEN 
+        inicializarTablero();//PONE OTRA VEZ LAS IMAGENES DEL TABLERO
+        
         dadoResultText.setText("");
         eventos.setText("Nueva Partida Iniciada");
     }
