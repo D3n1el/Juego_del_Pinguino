@@ -40,7 +40,8 @@ public class pantallaJuegoController {
 		AGUJERO,
 		INTERROGANTE,
 		OSO,
-		TRINEO
+		TRINEO,
+		META
 	}
 	
     // Menu items
@@ -98,20 +99,21 @@ public class pantallaJuegoController {
     	Arrays.fill(tableroCasillas, TipoCasilla.NORMAL);//ESTO HACE QUE TODAS LAS CASILLAS SEAN NORMALES POR DEFECTO
     	
     	//ESTO ES UNA DISTRIBUCION DE CASILLAS ESPECIALES (SE PUEDE AJUSTAR A MENOS CASILLAS O MAS)
-    	colocarCasillasEspeciales(TipoCasilla.AGUJERO, 10);
-    	colocarCasillasEspeciales(TipoCasilla.INTERROGANTE, 0);
-    	colocarCasillasEspeciales(TipoCasilla.OSO, 0);
-    	colocarCasillasEspeciales(TipoCasilla.TRINEO, 10);
+    	colocarCasillasEspeciales(TipoCasilla.AGUJERO, 4);
+    	colocarCasillasEspeciales(TipoCasilla.INTERROGANTE, 5);
+    	colocarCasillasEspeciales(TipoCasilla.OSO, 2);
+    	colocarCasillasEspeciales(TipoCasilla.TRINEO, 4);
     	
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
-    	tableroCasillas[49] = TipoCasilla.NORMAL;
+    	tableroCasillas[49] = TipoCasilla.META;
     	
     	//PARA MOSTRAR LAS IMAGENES EN EL TABLERO
     	mostrarImagenesAgujero();
     	mostrarImagenesOso();
     	mostrarImagenesInterrogante();
     	mostrarImagenesTrineo();
+    	mostrarImagenesMeta();
     }
     
     private void colocarCasillasEspeciales(TipoCasilla tipo, int cantidad) {
@@ -207,6 +209,8 @@ public class pantallaJuegoController {
     	        eventos.setText("Este es el último trineo. Te quedas aquí.");
     	    }
     	    break;
+    	case META:
+    		
     	}
     }
     
@@ -549,6 +553,22 @@ public class pantallaJuegoController {
     			int col = i % COLUMNS;
     			
     			Image image = new Image(getClass().getResource("/Resources/trineo.png").toExternalForm());
+    			ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+                
+                tablero.add(imageView, col, row);
+    		}
+    	}
+    }
+    private void mostrarImagenesMeta() {
+    	for(int i = 0; i  < tableroCasillas.length; i++) {
+    		if(tableroCasillas[i] == TipoCasilla.META) {
+    			int row = i / COLUMNS;
+    			int col = i % COLUMNS;
+    			
+    			Image image = new Image(getClass().getResource("/Resources/meta.png").toExternalForm());
     			ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
                 imageView.setFitHeight(40);
