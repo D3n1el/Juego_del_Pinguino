@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -105,7 +106,7 @@ public class pantallaJuegoController {
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
     	
-    	//actualizarEstilosCasillas();
+    	mostrarImagenesAgujero();
     }
     
     private void colocarCasillasEspeciales(TipoCasilla tipo, int cantidad) {
@@ -431,5 +432,23 @@ public class pantallaJuegoController {
         
         dadoResultText.setText("");
         eventos.setText("Nueva Partida Iniciada");
+    }
+    
+    ///////////////////PARA CARGAR IMAGENES///////////////////////////////
+    private void mostrarImagenesAgujero() {
+    	for(int i = 0; i < tableroCasillas.length; i++) {
+    		if(tableroCasillas[i] == TipoCasilla.AGUJERO) {
+    			int row = i / COLUMNS;
+                int col = i % COLUMNS;
+                
+                Image image = new Image(getClass().getResource("/Resources/agujero.png").toExternalForm());
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+
+                tablero.add(imageView, col, row);
+    		}
+    	}
     }
 }
