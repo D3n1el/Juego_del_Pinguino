@@ -106,7 +106,11 @@ public class pantallaJuegoController {
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
     	
+    	//PARA MOSTRAR LAS IMAGENES EN EL TABLERO
     	mostrarImagenesAgujero();
+    	mostrarImagenesOso();
+    	mostrarImagenesInterrogante();
+    	mostrarImagenesTrineo();
     }
     
     private void colocarCasillasEspeciales(TipoCasilla tipo, int cantidad) {
@@ -447,6 +451,54 @@ public class pantallaJuegoController {
                 imageView.setFitHeight(40);
                 imageView.setPreserveRatio(true);
 
+                tablero.add(imageView, col, row);
+    		}
+    	}
+    }
+    private void mostrarImagenesOso() {
+    	for(int i = 0; i < tableroCasillas.length; i++) {
+    		if(tableroCasillas[i] == TipoCasilla.OSO) {
+    			int row = i / COLUMNS;
+    			int col = i % COLUMNS;
+    			
+    			Image image = new Image(getClass().getResource("/Resources/oso.jpg").toExternalForm());
+    			ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+                
+                tablero.add(imageView, col, row);
+    		}
+    	}
+    }
+    private void mostrarImagenesInterrogante() {
+    	for(int i = 0; i < tableroCasillas.length; i++) {
+    		if(tableroCasillas[i] == TipoCasilla.INTERROGANTE) {
+    			int row = i / COLUMNS;
+    			int col = i % COLUMNS;
+    			
+    			Image image = new Image(getClass().getResource("/Resources/interrogante.png").toExternalForm());
+    			ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+                
+                tablero.add(imageView, col, row);
+    		}
+    	}
+    }
+    private void mostrarImagenesTrineo() {
+    	for(int i = 0; i < tableroCasillas.length; i++) {
+    		if(tableroCasillas[i] == TipoCasilla.TRINEO) {
+    			int row = i / COLUMNS;
+    			int col = i % COLUMNS;
+    			
+    			Image image = new Image(getClass().getResource("/Resources/trineo.png").toExternalForm());
+    			ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+                
                 tablero.add(imageView, col, row);
     		}
     	}
