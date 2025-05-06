@@ -98,10 +98,10 @@ public class pantallaJuegoController {
     	Arrays.fill(tableroCasillas, TipoCasilla.NORMAL);//ESTO HACE QUE TODAS LAS CASILLAS SEAN NORMALES POR DEFECTO
     	
     	//ESTO ES UNA DISTRIBUCION DE CASILLAS ESPECIALES (SE PUEDE AJUSTAR A MENOS CASILLAS O MAS)
-    	colocarCasillasEspeciales(TipoCasilla.AGUJERO, 8);
-    	colocarCasillasEspeciales(TipoCasilla.INTERROGANTE, 10);
-    	colocarCasillasEspeciales(TipoCasilla.OSO, 3);
-    	colocarCasillasEspeciales(TipoCasilla.TRINEO, 4);
+    	colocarCasillasEspeciales(TipoCasilla.AGUJERO, 10);
+    	colocarCasillasEspeciales(TipoCasilla.INTERROGANTE, 0);
+    	colocarCasillasEspeciales(TipoCasilla.OSO, 0);
+    	colocarCasillasEspeciales(TipoCasilla.TRINEO, 10);
     	
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
@@ -132,9 +132,28 @@ public class pantallaJuegoController {
     	
     	switch(casilla) {
     	case AGUJERO:
-    		eventos.setText("Caiste en un Agujero..." + " Retrocedes 1 Casilla");
-    		moveP1(-1); //CANVIAR AL APLICAR MAS PERSONAS
-    		break;
+    		aplicandoEfecto = true;
+    	    
+    	    int anteriorAgujero = encontrarAnteriorAgujero(posicion);
+    	    if (anteriorAgujero != posicion) {
+    	        // Calculamos nueva posición (retrocedemos al agujero anterior)
+    	        int nuevaPosicion = anteriorAgujero;
+    	        eventos.setText("¡Agujero! Retrocedes a la casilla " + nuevaPosicion);
+    	        
+    	        // Movemos directamente a la nueva posición
+    	        p1Position = nuevaPosicion;
+    	        int row = p1Position / COLUMNS;
+    	        int col = p1Position % COLUMNS;
+    	        GridPane.setRowIndex(P1, row);
+    	        GridPane.setColumnIndex(P1, col);
+    	        
+    	        // Volvemos a activar los efectos
+    	        aplicandoEfecto = false;
+    	    } else {
+    	        eventos.setText("¡Agujero! No hay agujeros anteriores, te quedas aquí.");
+    	        aplicandoEfecto = false;
+    	    }
+    	    break;
     	case INTERROGANTE: 
     		if(rand.nextBoolean()) {
     			if(cantidadNieve.get() >= 6) { //COMPROBAR QUE NO SUPERE EL MAXIMO DE BOLAS DE NIEVE
@@ -213,6 +232,17 @@ public class pantallaJuegoController {
 
         // Si no hay siguiente trineo, se queda donde está
         return posActual;
+    }
+    
+    
+    private int encontrarAnteriorAgujero(int posActual) {
+        // Buscamos desde la posición actual hacia atrás
+        for (int i = posActual - 1; i >= 0; i--) {
+            if (tableroCasillas[i] == TipoCasilla.AGUJERO) {
+                return i; // Retorna el agujero anterior más cercano
+            }
+        }
+        return posActual; // Si no hay agujeros anteriores, se queda donde está
     }
     
     ///////////////////////////////////////////////////////////////////////////
@@ -412,7 +442,8 @@ public class pantallaJuegoController {
             aplicandoEfecto = false;
         }
         
-        aplicarEfectoCasilla(p1Position);
+        
+        //aplicarEfectoCasilla(p1Position);
     }
 
     @FXML
