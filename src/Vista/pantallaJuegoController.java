@@ -288,7 +288,7 @@ public class pantallaJuegoController {
             int idPartida;
             try (PreparedStatement pst = con.prepareStatement(
                 "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA, P1_POSITION, CANTIDAD_PECES, CANTIDAD_NIEVE) " +
-                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, CURRENT_TIMESTAMP, ?, ?, ?)", 
+                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, TO_CHAR(SYSDATE, 'HH24:MI'), ?, ?, ?)", 
                 Statement.RETURN_GENERATED_KEYS)) {
                 
                 pst.setInt(1, p1Position);
