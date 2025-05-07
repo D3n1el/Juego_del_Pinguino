@@ -273,10 +273,9 @@ public class pantallaJuegoController {
         if(Resultado.isPresent()) {
         	if(Resultado.get() == buttonGuardar) {
             	handleSaveGame();
-            	resetGame();
-            }else if(Resultado.get() == buttonNoGuardar) {
-            	resetGame();
             }
+        resetGame();
+            
         }
         
     }
@@ -490,7 +489,7 @@ public class pantallaJuegoController {
     	GridPane.setRowIndex(P1, 0);
         GridPane.setColumnIndex(P1, 0);
     	
-        cantidadPeces.set(0);
+        cantidadNieve.set(0);
         cantidadPeces.set(0);
         
         //LIMPIAR EL TABLERO

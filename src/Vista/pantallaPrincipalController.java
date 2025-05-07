@@ -124,7 +124,7 @@ public class pantallaPrincipalController {
             
             if (rs.next()) {
                 // Usuario válido - abre pantalla de juego
-                Parent juego = FXMLLoader.load(getClass().getResource("/Resources/pantallaJuego.fxml"));
+                Parent juego = FXMLLoader.load(getClass().getResource("/Resources/pantallaMenu.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(juego));
             } else {
