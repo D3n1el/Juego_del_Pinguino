@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,15 +33,13 @@ import javafx.event.ActionEvent;
 
 public class pantallaMenuController {
 	@FXML private MenuItem newGame;
-    @FXML private MenuItem saveGame;
     @FXML private MenuItem loadGame;
     @FXML private MenuItem quitGame;
 
-    @FXML private TextField userField;
-    @FXML private PasswordField passField;
-
     @FXML private Button loginButton;
     @FXML private Button registerButton;
+    
+    @FXML private Text eventos;
 
     @FXML
     private void initialize() {
@@ -110,9 +109,39 @@ public class pantallaMenuController {
     }
 
     @FXML
-    private void handleLoadGame() {
-        System.out.println("Load Game clicked");
-        // TODO
+    private void handleLoadGame(ActionEvent event) {
+        try {
+            // 1. Cargar datos básicos de la última partida
+            Connection con = saveCon.getConexion();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT * FROM PARTIDA ORDER BY NUM_PARTIDA DESC FETCH FIRST 1 ROWS ONLY");
+
+            if (rs.next()) {
+                // 2. Obtener datos guardados
+                int posicion = rs.getInt("P1_POSITION");
+                int peces = rs.getInt("CANTIDAD_PECES");
+                int nieve = rs.getInt("CANTIDAD_NIEVE");
+
+                // 3. Cargar pantalla de juego
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("pantallaJuego.fxml"));
+                Parent root = loader.load();
+                
+                // 4. Pasar datos al controlador del juego
+                pantallaJuegoController juegoController = loader.getController();
+                juegoController.iniciarPartidaCargada(posicion, peces, nieve);
+                
+                // 5. Mostrar pantalla de juego
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } else {
+            	mostrarAlerta("Información", "No hay partidas guardadas");
+            }
+        } catch (Exception e) {
+        	mostrarAlerta("Error", "Error al cargar partida: " + e.getMessage()); 
+            e.printStackTrace();
+        }
     }
 
     @FXML

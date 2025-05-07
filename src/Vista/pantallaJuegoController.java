@@ -581,4 +581,25 @@ public class pantallaJuegoController {
     		}
     	}
     }
+    
+    /////////////////////////////PARA pantallaMenu handleLoadGame //////////////////////
+    
+    public void iniciarPartidaCargada(int posicion, int peces, int nieve) {
+        // 1. Posición y recursos
+        p1Position = posicion;
+        cantidadPeces.set(peces);
+        cantidadNieve.set(nieve);
+        
+        // 2. Posicionar jugador
+        int fila = posicion / COLUMNS;
+        int columna = posicion % COLUMNS;
+        GridPane.setRowIndex(P1, fila);
+        GridPane.setColumnIndex(P1, columna);
+        
+        // 3. Actualizar textos
+        peces_t.setText("Peces: " + peces);
+        nieve_t.setText("Nieve: " + nieve);
+        eventos.setText("Partida cargada!");
+    }
+    
 }
