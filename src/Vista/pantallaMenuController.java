@@ -117,6 +117,7 @@ public class pantallaMenuController {
             ResultSet rs = stmt.executeQuery(
                 "SELECT * FROM PARTIDA ORDER BY NUM_PARTIDA DESC FETCH FIRST 1 ROWS ONLY");
 
+            
             if (rs.next()) {
                 // 2. Obtener datos guardados
                 int posicion = rs.getInt("P1_POSITION");
