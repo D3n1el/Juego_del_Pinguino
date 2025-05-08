@@ -58,7 +58,7 @@ public class pantallaMenuController {
                      "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, CURRENT_TIMESTAMP)",
                      new String[]{"NUM_PARTIDA"})) {  // Especifica el nombre de la columna para el ID
                 
-                pst.executeUpdate();
+                pst.executeUpdate(); //Ejecuta la sentencia SQL seleccionada con preparedStatement.
                 
                 // Obtener el ID de la nueva partida
                 try (ResultSet rs = pst.getGeneratedKeys()) {
@@ -83,7 +83,11 @@ public class pantallaMenuController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/pantallaJuego.fxml"));
             Parent root = loader.load();
             
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //Esta línea obtiene el Stage (ventana principal) asociado al nodo que desencadenó el evento.
+            /* getSource Devuelve el objeto que desencadenó el evento, como un botón.
+             * getScene Devuelve la ventana que contiene la escena.
+             * getWindow Devuelve la ventana que contiene la escena.
+             */
             stage.setScene(new Scene(root));
             stage.show();
             
@@ -136,12 +140,15 @@ public class pantallaMenuController {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
+                
             } else {
+            	
             	mostrarAlerta("Información", "No hay partidas guardadas");
+            	
             }
         } catch (Exception e) {
         	mostrarAlerta("Error", "Error al cargar partida: " + e.getMessage()); 
-            e.printStackTrace();
+            e.printStackTrace(); //proporciona información detallada sobre la excepción que ocurrió, incluyendo el tipo de excepción y un mensaje descriptivo. Esto ayuda a identificar rápidamente qué salió mal.
         }
     }
 
