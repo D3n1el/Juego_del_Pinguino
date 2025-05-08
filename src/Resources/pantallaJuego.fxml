@@ -216,7 +216,7 @@
                                     </LinearGradient>
                                  </fill>
                               </Text>
-                              <Button fx:id="rapido" layoutX="73.0" layoutY="82.0" mnemonicParsing="false" text="Usar" textFill="RED" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="82.0">
+                              <Button fx:id="rapido" layoutX="73.0" layoutY="82.0" mnemonicParsing="false" onAction="#handleRapido" text="Usar" textFill="RED" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="82.0">
                                  <font>
                                     <Font name="Century" size="25.0" />
                                  </font>
@@ -228,7 +228,7 @@
                                     </ColorAdjust>
                                  </effect>
                               </Button>
-                              <Button fx:id="lento" layoutX="276.0" layoutY="81.0" mnemonicParsing="false" text="Usar" textFill="RED" AnchorPane.leftAnchor="276.0" AnchorPane.topAnchor="81.0">
+                              <Button fx:id="lento" layoutX="276.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleLento" text="Usar" textFill="RED" AnchorPane.leftAnchor="276.0" AnchorPane.topAnchor="81.0">
                                  <font>
                                     <Font name="Century" size="25.0" />
                                  </font>
@@ -356,15 +356,15 @@
               </rowConstraints>
                <children>
                   <Group GridPane.rowIndex="4" />
-                  <Circle fx:id="P1" fill="linear-gradient(#4fc3f7, #0288d1)" radius="18.0" stroke="white" strokeWidth="2.0" strokeType="INSIDE">
-   					<effect>
-      					<DropShadow color="#00000088" radius="5" offsetX="2" offsetY="2" />
-   					</effect>
-   					<GridPane.margin>
-      				<Insets />
-   				</GridPane.margin>
-					</Circle>
-                  
+                  <Circle fx:id="P1" fill="#0077FF" radius="15.0" stroke="WHITE" strokeWidth="2.5" strokeType="INSIDE">
+   <effect>
+      <DropShadow radius="5" color="BLACK" />
+   </effect>
+   <GridPane.margin>
+      <Insets />
+   </GridPane.margin>
+</Circle>
+
                   <Circle fx:id="P2" fill="RED" radius="15.0" stroke="BLACK" strokeType="INSIDE">
                      <GridPane.margin>
                         <Insets left="40.0" />

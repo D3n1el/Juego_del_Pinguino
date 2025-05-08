@@ -74,7 +74,6 @@ public class pantallaJuegoController {
     
     
     
-    
     //ONLY FOR TESTING!!!
     private int p1Position = 0; // Tracks current position (from 0 to 49 in a 5x10 grid)
     private final int COLUMNS = 5; //"final" significa que el valor no puede cambiar despues de su inicializaciÃ³n
