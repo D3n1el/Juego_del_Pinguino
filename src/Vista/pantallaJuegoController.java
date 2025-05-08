@@ -480,14 +480,14 @@ public class pantallaJuegoController {
     @FXML
     private void handleRapido() {
         if (cantidadDadosRapidos.get() <= 0) {
-        	 dadoResultText.setText("No tienes dados Rapidos");
+        	 eventos.setText("No tienes dados Rapidos");
             return;
         }
 
         Random r = new Random();
         int Result = r.nextInt(10) + 5; // 5-10
         
-        dadoResultText.setText("Dado Rápido, Resultado: " + Result);
+        dadoResultText.setText("Ha salido: " + Result);
         moveP1(Result);
         
         //RESTAR EL DADO CUANDO SE EJECUTE LA FUNCION 
@@ -497,14 +497,14 @@ public class pantallaJuegoController {
     @FXML
     private void handleLento() {
     	if (cantidadDadosLentos.get() <= 0) {
-            dadoResultText.setText("No tienes dados Lentos");
+            eventos.setText("No tienes dados Lentos");
             return;
         }
     	
         Random r = new Random();
         int Result = r.nextInt(3)+1; //DADO QUE NOS DA DEL 1 -3
         
-        dadoResultText.setText("Dado Lento, Resultado: " + Result); //MOSTRAR MENSAGE
+        dadoResultText.setText("Ha salido: " + Result); //MOSTRAR MENSAGE
         
         moveP1(Result); //ACTUALIZA LA POSICION
         cantidadDadosLentos.set(cantidadDadosLentos.get() -1);
