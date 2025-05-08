@@ -70,9 +70,9 @@ public class pantallaJuegoController {
     // Game board and player pieces
     @FXML private GridPane tablero;
     @FXML private Circle P1;
-    @FXML private Circle P2;
-    @FXML private Circle P3;
-    @FXML private Circle P4;
+    //@FXML private Circle P2;
+    //@FXML private Circle P3;
+    //@FXML private Circle P4;
     
     
     
@@ -308,45 +308,75 @@ public class pantallaJuegoController {
     @FXML
     private void handleSaveGame() {
         try (Connection con = saveCon.getConexion()) {
-            // 1. Guardar partida y obtener ID
-            int idPartida;
-            try (PreparedStatement pst = con.prepareStatement( //PreparedStatement se utiliza para ejecutar consultas SQL precompiladas
-                "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA, P1_POSITION, CANTIDAD_PECES, CANTIDAD_NIEVE) " +
-                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, TO_CHAR(SYSDATE, 'HH24:MI'), ?, ?, ?)", 
-                Statement.RETURN_GENERATED_KEYS)) {
-                
-                pst.setInt(1, p1Position); //Representa el primer "?"
-                pst.setInt(2, cantidadPeces.get());
-                pst.setInt(3, cantidadNieve.get());
-                pst.executeUpdate();
-                
-                try (ResultSet rs = pst.getGeneratedKeys()) { //Recupera claves generadas automÃ¡ticamente por la base de datos (en este caso, el valor de NUM_PARTIDA generado por NUM_PARTIDA_AUTO.NEXTVAL)
-                    if (rs.next()) { //Si consigue obtener una clave, se obtiene el ID con rs.getInt(1) y se almacena en idPartida.
-                        idPartida = rs.getInt(1);
-                    } else {
-                        throw new SQLException("No se pudo obtener el ID de partida generado");
+            // Desactivar autocommit para manejar la transacción manualmente
+            con.setAutoCommit(false);
+
+            try {
+                // 1. Guardar partida y obtener ID
+                int idPartida;
+                try (PreparedStatement pst = con.prepareStatement(
+                    "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA) " +
+                    "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, TO_CHAR(SYSDATE, 'HH24:MI'))",
+                    new String[] {"NUM_PARTIDA"})) {
+                    
+                    pst.executeUpdate();
+                    
+                    try (ResultSet rs = pst.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            idPartida = rs.getInt(1);
+                        } else {
+                            throw new SQLException("No se pudo obtener el ID de partida generado");
+                        }
                     }
                 }
-            }
 
-            // 2. Guardar TODAS las casillas especiales
-            try (PreparedStatement pst = con.prepareStatement(
-                "INSERT INTO CASILLA (NUM_CASILLA, TIPO, NUM_PARTIDA) VALUES (?, ?, ?)")) {
-                
-                for (int i = 0; i < tableroCasillas.length; i++) {
-                    if (tableroCasillas[i] != TipoCasilla.NORMAL) {
-                        pst.setInt(1, i); // Posición en el tablero
-                        pst.setString(2, tableroCasillas[i].toString()); // Tipo de casilla
-                        pst.setInt(3, idPartida); // ID de partida
-                        pst.addBatch();
-                    }
+                // 2. Guardar el inventario
+                try (PreparedStatement pst = con.prepareStatement(
+                    "INSERT INTO INVENTARIO (ID_INVENTARIO, BOLAS_NIEVE, PECES, DADOSTOT, DADOSR, DADOSL, ID_JUGADOR, NUM_PARTIDA) " +
+                    "VALUES (INVENTARIO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)")) {
+                    
+                    pst.setInt(1, cantidadNieve.get());
+                    pst.setInt(2, cantidadPeces.get());
+                    pst.setInt(3, cantidadDadosRapidos.get() + cantidadDadosLentos.get());
+                    pst.setInt(4, cantidadDadosRapidos.get());
+                    pst.setInt(5, cantidadDadosLentos.get());
+                    pst.setInt(6, 1); // Asumiendo ID_JUGADOR = 1 para el jugador actual
+                    pst.setInt(7, idPartida);
+                    pst.executeUpdate();
                 }
-                pst.executeBatch();
-            }
 
-            eventos.setText("Partida guardada correctamente!");
+                // 3. Guardar las casillas especiales
+                try (PreparedStatement pst = con.prepareStatement(
+                    "INSERT INTO CASILLA (NUM_CASILLA, TIPO, NUM_PARTIDA) VALUES (?, ?, ?)")) {
+                    
+                    for (int i = 0; i < tableroCasillas.length; i++) {
+                        if (tableroCasillas[i] != TipoCasilla.NORMAL) {
+                            pst.setInt(1, i);
+                            pst.setString(2, tableroCasillas[i].toString());
+                            pst.setInt(3, idPartida);
+                            pst.addBatch();
+                        }
+                    }
+                    pst.executeBatch();
+                }
+
+                // 4. Actualizar jugador (partidas jugadas)
+                try (PreparedStatement pst = con.prepareStatement(
+                    "UPDATE JUGADOR SET NUM_PARTIDAS_JUGADAS = NUM_PARTIDAS_JUGADAS + 1 WHERE ID_JUGADOR = 1")) {
+                    pst.executeUpdate();
+                }
+
+                con.commit();
+                eventos.setText("Partida guardada correctamente!");
+            } catch (SQLException e) {
+                con.rollback();
+                eventos.setText("Error al guardar: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                con.setAutoCommit(true);
+            }
         } catch (SQLException e) {
-            eventos.setText("Error al guardar: " + e.getMessage());
+            eventos.setText("Error de conexión: " + e.getMessage());
             e.printStackTrace();
         }
     }
