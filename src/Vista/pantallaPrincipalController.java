@@ -47,59 +47,12 @@ public class pantallaPrincipalController {
     
     @FXML
     
-    /* 
-     * FUNCIONALIDAD INCOMPLETA. POSIBLEMENTE INNECESARIO EN ESTA CLASE
-    public void setPantallaJuegoController(Vista.pantallaJuegoController pantallaJuegoController) {
-        this.pantallaJuegoController = pantallaJuegoController;
-    }
-    */
-    
     private void initialize() {
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         System.out.println("pantallaPrincipalController initialized");
         colorBox.getItems().addAll("Rojo", "Verde", "Azul", "Amarillo");
     }
-    
-    /* 
-     * FUNCIONALIDAD INCOMPLETA. POSIBLEMENTE INNECESARIO EN ESTA CLASE
-    @FXML
-    private void handleNewGame() {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Nueva Partida");
-        alert.setHeaderText("¿Deseas guardar esta partida antes de crear una nueva?");
-        alert.setContentText("Elige una opcion");
-        
-        ButtonType buttonGuardar = new ButtonType("Nueva Partida/Guardar");
-        ButtonType buttonNoGuardar = new ButtonType("Nueva Partida/No Guardar");
-        ButtonType buttonCancelar = new ButtonType("Cancelar",  ButtonBar.ButtonData.CANCEL_CLOSE);
-        
-        alert.getButtonTypes().setAll(buttonGuardar, buttonNoGuardar);
-        Optional<ButtonType> Resultado = alert.showAndWait();
-        
-        if(Resultado.isPresent()) {
-        	if(Resultado.get() == buttonGuardar) {
-            	handleSaveGame();
-            	pantallaJuegoController.resetGame();
-            }else if(Resultado.get() == buttonNoGuardar) {
-            	pantallaJuegoController.resetGame();
-            }
-        }
-        
-    }
-    
-    
-    @FXML
-    private void handleSaveGame() {
-    	System.out.println("Save Game clicked");
-    }
-
-    @FXML
-    private void handleLoadGame() {
-        System.out.println("Load Game clicked");
-        // TODO
-    }
-	*/
     
     @FXML
     private void handleQuitGame(ActionEvent event) {//Añade el parámetro
@@ -117,7 +70,7 @@ public class pantallaPrincipalController {
             // Consulta SQL para verificar usuario y contraseña
             String sql = "SELECT * FROM JUGADOR WHERE NICKNAME = ? AND CONTRASENYA = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, usuario);
+            pstmt.setString(1, usuario); //nomenclatura de PreparedStatement.
             pstmt.setString(2, contraseña);
             
             ResultSet rs = pstmt.executeQuery();
@@ -197,7 +150,7 @@ public class pantallaPrincipalController {
         String sql = "SELECT COUNT(*) FROM JUGADOR WHERE NICKNAME = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery(); //es un método de la interfaz PreparedStatement en Java, que se utiliza para ejecutar una consulta SQL que devuelve un conjunto de resultados.
             if (rs.next()) {
                 return rs.getInt(1) > 0;
             }
