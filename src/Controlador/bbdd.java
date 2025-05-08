@@ -27,8 +27,9 @@ public class bbdd {
 		
 		Scanner scan = new Scanner(System.in);
 		
-		String s = scan.nextLine();
+		//String s = scan.nextLine();
 		
+		String s = "fuera";
 		s = s.toLowerCase();
 		
 		String URL;

@@ -216,7 +216,7 @@
                                     </LinearGradient>
                                  </fill>
                               </Text>
-                              <Button fx:id="rapido" layoutX="73.0" layoutY="82.0" mnemonicParsing="false" text="Usar" textFill="RED" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="82.0">
+                              <Button fx:id="rapido" layoutX="73.0" layoutY="82.0" mnemonicParsing="false" onAction="#handleRapido" text="Usar" textFill="RED" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="82.0">
                                  <font>
                                     <Font name="Century" size="25.0" />
                                  </font>
@@ -228,7 +228,7 @@
                                     </ColorAdjust>
                                  </effect>
                               </Button>
-                              <Button fx:id="lento" layoutX="276.0" layoutY="81.0" mnemonicParsing="false" text="Usar" textFill="RED" AnchorPane.leftAnchor="276.0" AnchorPane.topAnchor="81.0">
+                              <Button fx:id="lento" layoutX="276.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleLento" text="Usar" textFill="RED" AnchorPane.leftAnchor="276.0" AnchorPane.topAnchor="81.0">
                                  <font>
                                     <Font name="Century" size="25.0" />
                                  </font>

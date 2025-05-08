@@ -1,7 +1,10 @@
 package Controlador;
 import java.sql.Connection;
-public class saveCon {
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
+public class saveCon {
+	
 	private static Connection Conexion;
 
 	public static Connection getConexion() {
@@ -11,7 +14,5 @@ public class saveCon {
 	public static void setConexion(Connection conexion) {
 		Conexion = conexion;
 	}
-	
-
 	
 }

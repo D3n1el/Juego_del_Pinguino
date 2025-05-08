@@ -76,27 +76,31 @@ public class pantallaJuegoController {
     
     //ONLY FOR TESTING!!!
     private int p1Position = 0; // Tracks current position (from 0 to 49 in a 5x10 grid)
-    private final int COLUMNS = 5;
+    private final int COLUMNS = 5; //"final" significa que el valor no puede cambiar despues de su inicializaciÃ³n
     private Random rand = new Random(); //PARA LAS CASILLAS
     
     private static final int TOTAL_CASILLAS = 50; //ES UNA CADENA CONSTANTE 
-    private TipoCasilla[] tableroCasillas = new TipoCasilla[TOTAL_CASILLAS]; //PARA LAS CASILLAS
-    private IntegerProperty cantidadPeces = new SimpleIntegerProperty(0);
-    private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0);
+    private TipoCasilla[] tableroCasillas = new TipoCasilla[TOTAL_CASILLAS]; //Array PARA LAS CASILLAS. El tamaño lo define la variable TOTAL_CASILLAS
+    private IntegerProperty cantidadPeces = new SimpleIntegerProperty(0); //Se usa IntegerProperty porque se trata de una propiedad observable que se usa en JavaFX. 
+    private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0); // " = new SimpleIntegerProperty(0);" Está creando una instancia de SimpleIntegerProperty, que es una implementación de IntegerProperty, y su valor inicial se establece en 0 la cantidad de bolas de nieve inicial.
+    private IntegerProperty cantidadDadosRapidos = new SimpleIntegerProperty(0); //
+    private IntegerProperty cantidadDadosLentos= new SimpleIntegerProperty(0); //
 
     @FXML
     private void initialize() {
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         eventos.setText("¡El juego ha comenzado!");
-        peces_t.textProperty().bind(Bindings.concat("Peces: ", cantidadPeces.asString()));
+        peces_t.textProperty().bind(Bindings.concat("Peces: ", cantidadPeces.asString())); //Muestra la cantidad disponible de peces. bind() hace que el texto actualiza cada vez que cambie el valor al que está enlazado. Bindings.concat permite concatenar valores.
         nieve_t.textProperty().bind(Bindings.concat("Bolas De Nieve: ", cantidadNieve.asString()));
+        lento_t.textProperty().bind(Bindings.concat("Dado Lento: ", cantidadDadosLentos.asString()));
+        rapido_t.textProperty().bind(Bindings.concat("Dado Rapido: ", cantidadDadosRapidos.asString()));
         
         inicializarTablero();//INICIALIZAR EL TABLERO
     }
 
     private void inicializarTablero() {
-    	Arrays.fill(tableroCasillas, TipoCasilla.NORMAL);//ESTO HACE QUE TODAS LAS CASILLAS SEAN NORMALES POR DEFECTO
+    	Arrays.fill(tableroCasillas, TipoCasilla.NORMAL); //ESTO HACE QUE TODAS LAS CASILLAS SEAN NORMALES POR DEFECTO
     	
     	//ESTO ES UNA DISTRIBUCION DE CASILLAS ESPECIALES (SE PUEDE AJUSTAR A MENOS CASILLAS O MAS)
     	colocarCasillasEspeciales(TipoCasilla.AGUJERO, 4);
@@ -116,16 +120,16 @@ public class pantallaJuegoController {
     	mostrarImagenesMeta();
     }
     
-    private void colocarCasillasEspeciales(TipoCasilla tipo, int cantidad) {
-    	for(int i = 0; i < cantidad; i++) {
-    		int posicion;
-    		do {
-    			posicion = rand.nextInt(tableroCasillas.length - 1) + 1; //NO PONER EN CASILLA 0
+    private void colocarCasillasEspeciales(TipoCasilla tipo, int cantidad) { //Garantiza que solo se modifiquen casillas que actualmente son de tipo NORMAL, preservando otros tipos de casillas especiales que ya pudieran estar en el tablero.
+    	for (int i = 0; i < cantidad; i++) {
+    		
+    			int posicion;
     			
-    		}while(tableroCasillas[posicion] != TipoCasilla.NORMAL);
-    		
+    		do {
+    			posicion = rand.nextInt(tableroCasillas.length - 1) + 1; //NO PONER EN CASILLA 0 rand.nextInt GENERA UNA POSICION aleatoria y la guarda en una variable.
+    			
+    		} while(tableroCasillas[posicion] != TipoCasilla.NORMAL); //Este do-while no parará hasta encontrar aleatoriamente una casilla tipo NORMAL.
     			tableroCasillas[posicion] = tipo;
-    		
     	}
     }
     
@@ -137,7 +141,7 @@ public class pantallaJuegoController {
     		aplicandoEfecto = true;
     	    
     	    int anteriorAgujero = encontrarAnteriorAgujero(posicion);
-    	    if (anteriorAgujero != posicion) {
+    	    if (anteriorAgujero != posicion) { //Si hay anteriormente un agujero...
     	        // Calculamos nueva posición (retrocedemos al agujero anterior)
     	        int nuevaPosicion = anteriorAgujero;
     	        eventos.setText("¡Agujero! Retrocedes a la casilla " + nuevaPosicion);
@@ -146,18 +150,19 @@ public class pantallaJuegoController {
     	        p1Position = nuevaPosicion;
     	        int row = p1Position / COLUMNS;
     	        int col = p1Position % COLUMNS;
-    	        GridPane.setRowIndex(P1, row);
+    	        GridPane.setRowIndex(P1, row); //GridPane es un contenedor. En este caso, asigna una posicion a un jugador en la posicion de la variable "row".
     	        GridPane.setColumnIndex(P1, col);
     	        
     	        // Volvemos a activar los efectos
     	        aplicandoEfecto = false;
-    	    } else {
+    	    } else { //Si no hay anteriormente ningún agujero...
     	        eventos.setText("¡Agujero! No hay agujeros anteriores, te quedas aquí.");
     	        aplicandoEfecto = false;
     	    }
     	    break;
     	case INTERROGANTE: 
-    		if(rand.nextBoolean()) {
+    		int probabilidad = rand.nextInt(4) + 1;
+    		if(probabilidad == 1) {
     			if(cantidadNieve.get() >= 6) { //COMPROBAR QUE NO SUPERE EL MAXIMO DE BOLAS DE NIEVE
     				cantidadNieve.set(6);
     				eventos.setText("Ya tienes el maximo de Nieve possible " + cantidadNieve.get());
@@ -166,18 +171,35 @@ public class pantallaJuegoController {
         			cantidadNieve.set(cantidadNieve.get() + nieve);
         			eventos.setText("Has conseguido " + nieve + " Bolas de Nieve!!!");
     			}
-    		}else {
+    		}else if (probabilidad == 2){
     			if(cantidadPeces.get() >= 2 ) { //COMPROBAR QUE NO TENGA MAS DE 2 PECES
     				eventos.setText("Ya tienes el maximo de peces " + cantidadPeces.get());
     			}else { //EN CASO DE QUE TENGA MAS DE 2 PECES
     				cantidadPeces.set(cantidadPeces.get() + 1);
         			eventos.setText("Has conseguido 1 Pez!!!");
     			}
+    		}else if(probabilidad == 3) {
+    			if(cantidadDadosRapidos.get()  >= 3) {
+    				cantidadDadosRapidos.set(3);
+    				eventos.setText("Ya tienes los dados maximos disponibles");
+    			}else {
+    				cantidadDadosRapidos.set(cantidadDadosRapidos.get() + 1);
+    				eventos.setText("Has conseguido 1 dado Rapido");
+    			}
+    		}else {
+    			if(cantidadDadosLentos.get() >= 3 ) {
+    				cantidadDadosLentos.set(3);
+    				eventos.setText("Ya tienes el maximo de dados Lentos");
+    			}else {
+    				cantidadDadosLentos.set(cantidadDadosLentos.get() + 1);
+    				eventos.setText("Has conseguido 1 dado Lento");
+    			}
     		}
     		break;
     	case OSO:
-    		if (cantidadPeces.get() > 0) {
-                Platform.runLater(() -> {
+    		if (cantidadPeces.get() > 0) { 
+    			//Platform.runLater() es un método en JavaFX que se utiliza para ejecutar un fragmento de código en el hilo de la interfaz de usuario (UI thread) de JavaFX. 
+                Platform.runLater(() -> { //-> es una expresion lambda. Esto se usa para definir un bloque de codigo que se utilizará en JavaFX.
                     Alert alert = new Alert(AlertType.CONFIRMATION);
                     alert.setTitle("¡Encontraste un oso polar!");
                     alert.setHeaderText("¿Quieres darle 1 pez para que te deje pasar?");
@@ -273,10 +295,9 @@ public class pantallaJuegoController {
         if(Resultado.isPresent()) {
         	if(Resultado.get() == buttonGuardar) {
             	handleSaveGame();
-            	resetGame();
-            }else if(Resultado.get() == buttonNoGuardar) {
-            	resetGame();
             }
+        resetGame();
+            
         }
         
     }
@@ -287,18 +308,18 @@ public class pantallaJuegoController {
         try (Connection con = saveCon.getConexion()) {
             // 1. Guardar partida y obtener ID
             int idPartida;
-            try (PreparedStatement pst = con.prepareStatement(
+            try (PreparedStatement pst = con.prepareStatement( //PreparedStatement se utiliza para ejecutar consultas SQL precompiladas
                 "INSERT INTO PARTIDA (NUM_PARTIDA, DATA_PARTIDA, HORA, P1_POSITION, CANTIDAD_PECES, CANTIDAD_NIEVE) " +
-                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, CURRENT_TIMESTAMP, ?, ?, ?)", 
+                "VALUES (NUM_PARTIDA_AUTO.NEXTVAL, SYSDATE, TO_CHAR(SYSDATE, 'HH24:MI'), ?, ?, ?)", 
                 Statement.RETURN_GENERATED_KEYS)) {
                 
-                pst.setInt(1, p1Position);
+                pst.setInt(1, p1Position); //Representa el primer "?"
                 pst.setInt(2, cantidadPeces.get());
                 pst.setInt(3, cantidadNieve.get());
                 pst.executeUpdate();
                 
-                try (ResultSet rs = pst.getGeneratedKeys()) {
-                    if (rs.next()) {
+                try (ResultSet rs = pst.getGeneratedKeys()) { //Recupera claves generadas automÃ¡ticamente por la base de datos (en este caso, el valor de NUM_PARTIDA generado por NUM_PARTIDA_AUTO.NEXTVAL)
+                    if (rs.next()) { //Si consigue obtener una clave, se obtiene el ID con rs.getInt(1) y se almacena en idPartida.
                         idPartida = rs.getInt(1);
                     } else {
                         throw new SQLException("No se pudo obtener el ID de partida generado");
@@ -409,22 +430,10 @@ public class pantallaJuegoController {
     		if(resultado.get() == buttonGuardar) {//GUARDAR Y SALIR
     			handleSaveGame(); //GUARDAR
     			Platform.exit(); //SALIR
-    		}else if(resultado.get() == buttonSalir) { //SALIR SIN GUARDAR
+    		} else if (resultado.get() == buttonSalir) { //SALIR SIN GUARDAR
     			Platform.exit(); //SALIR
     		}
     	}
-    }
-
-    @FXML
-    private void handleDado(ActionEvent event) {
-        Random rand = new Random();
-        int diceResult = rand.nextInt(6) + 1;
-
-        // Update the Text 
-        dadoResultText.setText("Ha salido: " + diceResult);
-
-        // Update the position
-        moveP1(diceResult);
     }
     
     private boolean aplicandoEfecto = false;
@@ -454,26 +463,55 @@ public class pantallaJuegoController {
         //aplicarEfectoCasilla(p1Position);
     }
 
+    /////////////////////////////////DADOS//////////////////////////////////////////
+    
+    @FXML
+    private void handleDado(ActionEvent event) {
+        Random rand = new Random();
+        int diceResult = rand.nextInt(6) + 1;
+
+        // Update the Text 
+        dadoResultText.setText("Ha salido: " + diceResult);
+
+        // Update the position
+        moveP1(diceResult);
+    }
+    
     @FXML
     private void handleRapido() {
+        if (cantidadDadosRapidos.get() <= 0) {
+        	 dadoResultText.setText("No tienes dados Rapidos");
+            return;
+        }
+
         Random r = new Random();
-        int Result = r.nextInt(10) + 5; //DADO QUE NOS DA DEL 5 - 10
+        int Result = r.nextInt(10) + 5; // 5-10
         
-        dadoResultText.setText("Dado Rapido, Resultado: " + Result); //MOSTRAMOS MENSAGE
+        dadoResultText.setText("Dado Rápido, Resultado: " + Result);
+        moveP1(Result);
         
-        moveP1(Result); //ACTUALIZAMOS LA POSICION
+        //RESTAR EL DADO CUANDO SE EJECUTE LA FUNCION 
+        cantidadDadosRapidos.set(cantidadDadosRapidos.get() - 1);
     }
 
     @FXML
     private void handleLento() {
+    	if (cantidadDadosLentos.get() <= 0) {
+            dadoResultText.setText("No tienes dados Lentos");
+            return;
+        }
+    	
         Random r = new Random();
         int Result = r.nextInt(3)+1; //DADO QUE NOS DA DEL 1 -3
         
         dadoResultText.setText("Dado Lento, Resultado: " + Result); //MOSTRAR MENSAGE
         
         moveP1(Result); //ACTUALIZA LA POSICION
+        cantidadDadosLentos.set(cantidadDadosLentos.get() -1);
     }
 
+    ///////////////////////////////////FIN DADOS///////////////////////////////////
+    
     @FXML
     private void handlePeces() {
         cantidadPeces.set(cantidadPeces.get() + 1);
@@ -490,8 +528,10 @@ public class pantallaJuegoController {
     	GridPane.setRowIndex(P1, 0);
         GridPane.setColumnIndex(P1, 0);
     	
+        cantidadNieve.set(0);
         cantidadPeces.set(0);
-        cantidadPeces.set(0);
+        cantidadDadosLentos.set(0);
+        cantidadDadosRapidos.set(0);
         
         //LIMPIAR EL TABLERO
         tablero.getChildren().removeIf(node -> node instanceof ImageView); //NODE REPRESENTA (imagenes/botones...) node instanceof ImageView EVALUA SI EL nodo ES UNA IMAGEN 
@@ -582,4 +622,25 @@ public class pantallaJuegoController {
     		}
     	}
     }
+    
+    /////////////////////////////PARA pantallaMenu handleLoadGame //////////////////////
+    
+    public void iniciarPartidaCargada(int posicion, int peces, int nieve) {
+        // 1. Posición y recursos
+        p1Position = posicion;
+        cantidadPeces.set(peces);
+        cantidadNieve.set(nieve);
+        
+        // 2. Posicionar jugador
+        int fila = posicion / COLUMNS;
+        int columna = posicion % COLUMNS;
+        GridPane.setRowIndex(P1, fila);
+        GridPane.setColumnIndex(P1, columna);
+        
+        // 3. Actualizar textos
+        peces_t.setText("Peces: " + peces);
+        nieve_t.setText("Nieve: " + nieve);
+        eventos.setText("Partida cargada!");
+    }
+    
 }
