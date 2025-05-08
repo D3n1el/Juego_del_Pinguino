@@ -46,7 +46,6 @@ public class pantallaPrincipalController {
     @FXML private ComboBox<String> colorBox;
     
     @FXML
-    
     private void initialize() {
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here

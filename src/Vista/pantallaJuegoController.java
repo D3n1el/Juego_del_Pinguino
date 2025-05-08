@@ -60,6 +60,7 @@ public class pantallaJuegoController {
 
     // Texts
     @FXML private Text dadoResultText;
+    @FXML private Text inventario_t;
     @FXML private Text rapido_t;
     @FXML private Text lento_t;
     @FXML private Text peces_t;
@@ -516,8 +517,16 @@ public class pantallaJuegoController {
     @FXML
     private void handleInventario() {
     	Alert inventario = new Alert(AlertType.INFORMATION);
-    	inventario.setHeaderText("Inventario");
-    	inventario.setContentText(null);
+    	inventario.setTitle("Inventario");
+    	inventario.setHeaderText("Inventario Actual:");
+    	String contenido = String.format(
+    			"Dados Rapidos: " + cantidadDadosRapidos.get(),
+    			"Dados Lentos: " + cantidadDadosLentos.get(),
+    			"Peces: " + cantidadPeces.get(),
+    			"Bolas de Nieve: " + cantidadNieve.get()
+    			);
+    	inventario.setContentText(contenido);
+    	inventario.showAndWait();
     }
     
     @FXML

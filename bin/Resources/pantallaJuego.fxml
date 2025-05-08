@@ -216,7 +216,28 @@
                                     </LinearGradient>
                                  </fill>
                               </Text>
-                              <Button fx:id="inventario" layoutX="73.0" layoutY="82.0" mnemonicParsing="false" onAction="#handleInventario" text="Usar" textFill="RED" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="82.0">
+                              <Text fx:id="inventario_t" layoutX="800.0" layoutY="25.1171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventario" wrappingWidth="190.7080078125" AnchorPane.leftAnchor="800.0" AnchorPane.topAnchor="5.0">
+                                 <font>
+                                    <Font name="Century Gothic" size="20.0" />
+                                 </font>
+                                 <fill>
+                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.6161137440758294">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="0.21279999613761902" green="0.6192914247512817" blue="0.7599999904632568" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="1.0" green="1.0" blue="1.0" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </LinearGradient>
+                                 </fill>
+                              </Text>
+                              <Button fx:id="inventario" layoutX="850.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleInventario" text="Usar" textFill="RED" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="77.0">
                                  <font>
                                     <Font name="Century" size="25.0" />
                                  </font>
