@@ -83,6 +83,8 @@ public class pantallaJuegoController {
     private TipoCasilla[] tableroCasillas = new TipoCasilla[TOTAL_CASILLAS]; //PARA LAS CASILLAS
     private IntegerProperty cantidadPeces = new SimpleIntegerProperty(0);
     private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0);
+    private IntegerProperty cantidadDadosRapidos = new SimpleIntegerProperty(0);
+    private IntegerProperty cantidadDadosLentos= new SimpleIntegerProperty(0);
 
     @FXML
     private void initialize() {
@@ -91,6 +93,8 @@ public class pantallaJuegoController {
         eventos.setText("¡El juego ha comenzado!");
         peces_t.textProperty().bind(Bindings.concat("Peces: ", cantidadPeces.asString()));
         nieve_t.textProperty().bind(Bindings.concat("Bolas De Nieve: ", cantidadNieve.asString()));
+        lento_t.textProperty().bind(Bindings.concat("Dado Lento: ", cantidadDadosLentos.asString()));
+        rapido_t.textProperty().bind(Bindings.concat("Dado Rapido: ", cantidadDadosRapidos.asString()));
         
         inicializarTablero();//INICIALIZAR EL TABLERO
     }
@@ -157,7 +161,8 @@ public class pantallaJuegoController {
     	    }
     	    break;
     	case INTERROGANTE: 
-    		if(rand.nextBoolean()) {
+    		int probabilidad = rand.nextInt(4) + 1;
+    		if(probabilidad == 1) {
     			if(cantidadNieve.get() >= 6) { //COMPROBAR QUE NO SUPERE EL MAXIMO DE BOLAS DE NIEVE
     				cantidadNieve.set(6);
     				eventos.setText("Ya tienes el maximo de Nieve possible " + cantidadNieve.get());
@@ -166,12 +171,28 @@ public class pantallaJuegoController {
         			cantidadNieve.set(cantidadNieve.get() + nieve);
         			eventos.setText("Has conseguido " + nieve + " Bolas de Nieve!!!");
     			}
-    		}else {
+    		}else if (probabilidad == 2){
     			if(cantidadPeces.get() >= 2 ) { //COMPROBAR QUE NO TENGA MAS DE 2 PECES
     				eventos.setText("Ya tienes el maximo de peces " + cantidadPeces.get());
     			}else { //EN CASO DE QUE TENGA MAS DE 2 PECES
     				cantidadPeces.set(cantidadPeces.get() + 1);
         			eventos.setText("Has conseguido 1 Pez!!!");
+    			}
+    		}else if(probabilidad == 3) {
+    			if(cantidadDadosRapidos.get()  >= 3) {
+    				cantidadDadosRapidos.set(3);
+    				eventos.setText("Ya tienes los dados maximos disponibles");
+    			}else {
+    				cantidadDadosRapidos.set(cantidadDadosRapidos.get() + 1);
+    				eventos.setText("Has conseguido 1 dado Rapido");
+    			}
+    		}else {
+    			if(cantidadDadosLentos.get() >= 3 ) {
+    				cantidadDadosLentos.set(3);
+    				eventos.setText("Ya tienes el maximo de dados Lentos");
+    			}else {
+    				cantidadDadosLentos.set(cantidadDadosLentos.get() + 1);
+    				eventos.setText("Has conseguido 1 dado Lento");
     			}
     		}
     		break;
@@ -413,18 +434,6 @@ public class pantallaJuegoController {
     		}
     	}
     }
-
-    @FXML
-    private void handleDado(ActionEvent event) {
-        Random rand = new Random();
-        int diceResult = rand.nextInt(6) + 1;
-
-        // Update the Text 
-        dadoResultText.setText("Ha salido: " + diceResult);
-
-        // Update the position
-        moveP1(diceResult);
-    }
     
     private boolean aplicandoEfecto = false;
     private void moveP1(int steps) {
@@ -453,26 +462,55 @@ public class pantallaJuegoController {
         //aplicarEfectoCasilla(p1Position);
     }
 
+    /////////////////////////////////DADOS//////////////////////////////////////////
+    
+    @FXML
+    private void handleDado(ActionEvent event) {
+        Random rand = new Random();
+        int diceResult = rand.nextInt(6) + 1;
+
+        // Update the Text 
+        dadoResultText.setText("Ha salido: " + diceResult);
+
+        // Update the position
+        moveP1(diceResult);
+    }
+    
     @FXML
     private void handleRapido() {
+        if (cantidadDadosRapidos.get() <= 0) {
+        	 dadoResultText.setText("No tienes dados Rapidos");
+            return;
+        }
+
         Random r = new Random();
-        int Result = r.nextInt(10) + 5; //DADO QUE NOS DA DEL 5 - 10
+        int Result = r.nextInt(10) + 5; // 5-10
         
-        dadoResultText.setText("Dado Rapido, Resultado: " + Result); //MOSTRAMOS MENSAGE
+        dadoResultText.setText("Dado Rápido, Resultado: " + Result);
+        moveP1(Result);
         
-        moveP1(Result); //ACTUALIZAMOS LA POSICION
+        //RESTAR EL DADO CUANDO SE EJECUTE LA FUNCION 
+        cantidadDadosRapidos.set(cantidadDadosRapidos.get() - 1);
     }
 
     @FXML
     private void handleLento() {
+    	if (cantidadDadosLentos.get() <= 0) {
+            dadoResultText.setText("No tienes dados Lentos");
+            return;
+        }
+    	
         Random r = new Random();
         int Result = r.nextInt(3)+1; //DADO QUE NOS DA DEL 1 -3
         
         dadoResultText.setText("Dado Lento, Resultado: " + Result); //MOSTRAR MENSAGE
         
         moveP1(Result); //ACTUALIZA LA POSICION
+        cantidadDadosLentos.set(cantidadDadosLentos.get() -1);
     }
 
+    ///////////////////////////////////FIN DADOS///////////////////////////////////
+    
     @FXML
     private void handlePeces() {
         cantidadPeces.set(cantidadPeces.get() + 1);
@@ -491,6 +529,8 @@ public class pantallaJuegoController {
     	
         cantidadNieve.set(0);
         cantidadPeces.set(0);
+        cantidadDadosLentos.set(0);
+        cantidadDadosRapidos.set(0);
         
         //LIMPIAR EL TABLERO
         tablero.getChildren().removeIf(node -> node instanceof ImageView); //NODE REPRESENTA (imagenes/botones...) node instanceof ImageView EVALUA SI EL nodo ES UNA IMAGEN 
