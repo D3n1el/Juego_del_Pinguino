@@ -295,7 +295,7 @@
                      <children>
                         <AnchorPane minHeight="200.0" minWidth="264.0" prefHeight="262.0" prefWidth="264.0">
                            <children>
-                              <Text fx:id="eventos" strokeType="OUTSIDE" strokeWidth="0.0" text="Evento ocurrido" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
+                              <Text fx:id="eventos" strokeType="OUTSIDE" strokeWidth="0.0" text="Evento ocurrido" wrappingWidth="243.4375" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
                                  <font>
                                     <Font name="Century Gothic" size="20.0" />
                                  </font>
@@ -316,10 +316,13 @@
                                     </LinearGradient>
                                  </fill>
                               </Text>
-                              <ImageView fitHeight="165.0" fitWidth="160.0" layoutX="52.0" layoutY="70.0">
+                              <ImageView fitHeight="159.0" fitWidth="151.0" layoutX="41.0" layoutY="89.0">
                                  <image>
-                                    <Image url="@../../../../IMG/image.png" />
+                                    <Image url="@../../../../IMG/LOGO%20DAVO_SIN_FONDO.png" />
                                  </image>
+                                 <effect>
+                                    <Bloom />
+                                 </effect>
                               </ImageView>
                            </children>
                         </AnchorPane>
@@ -353,10 +356,15 @@
               </rowConstraints>
                <children>
                   <Group GridPane.rowIndex="4" />
-                  <Circle fx:id="P1" fill="BLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin></Circle>
+                  <Circle fx:id="P1" fill="#0077FF" radius="15.0" stroke="WHITE" strokeWidth="2.5" strokeType="INSIDE">
+   <effect>
+      <DropShadow radius="5" color="BLACK" />
+   </effect>
+   <GridPane.margin>
+      <Insets />
+   </GridPane.margin>
+</Circle>
+
                   <Circle fx:id="P2" fill="RED" radius="15.0" stroke="BLACK" strokeType="INSIDE">
                      <GridPane.margin>
                         <Insets left="40.0" />
