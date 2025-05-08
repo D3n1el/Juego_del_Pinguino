@@ -518,14 +518,20 @@ public class pantallaJuegoController {
     private void handleInventario() {
     	Alert inventario = new Alert(AlertType.INFORMATION);
     	inventario.setTitle("Inventario");
-    	inventario.setHeaderText("Inventario Actual:");
-    	String contenido = String.format(
-    			"Dados Rapidos: " + cantidadDadosRapidos.get(),
-    			"Dados Lentos: " + cantidadDadosLentos.get(),
-    			"Peces: " + cantidadPeces.get(),
-    			"Bolas de Nieve: " + cantidadNieve.get()
-    			);
-    	inventario.setContentText(contenido);
+    	inventario.setHeaderText(null);
+    	String contenido = 
+    			"Dado Rapido: " + cantidadDadosRapidos.get() + 
+    			"\nDados Lentos: " + cantidadDadosLentos.get() + 
+    			"\nPeces " + cantidadPeces.get() + 
+    			"\nBolas De Nieve " + cantidadNieve.get();
+    	TextArea area = new TextArea(contenido);
+    	area.setWrapText(true);
+    	area.setEditable(false);
+    	
+    	inventario.getDialogPane().setContent(area);
+    	inventario.getDialogPane().setContent(area);
+    	inventario.setResizable(true);
+    	inventario.setHeaderText(null);
     	inventario.showAndWait();
     }
     
