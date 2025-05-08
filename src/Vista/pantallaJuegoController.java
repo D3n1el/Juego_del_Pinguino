@@ -56,6 +56,7 @@ public class pantallaJuegoController {
     @FXML private Button lento;
     @FXML private Button peces;
     @FXML private Button nieve;
+    @FXML private Button inventario;
 
     // Texts
     @FXML private Text dadoResultText;
@@ -511,6 +512,13 @@ public class pantallaJuegoController {
     }
 
     ///////////////////////////////////FIN DADOS///////////////////////////////////
+    
+    @FXML
+    private void handleInventario() {
+    	Alert inventario = new Alert(AlertType.INFORMATION);
+    	inventario.setHeaderText("Inventario");
+    	inventario.setContentText(null);
+    }
     
     @FXML
     private void handlePeces() {
