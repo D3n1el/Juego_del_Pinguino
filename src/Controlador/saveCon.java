@@ -7,8 +7,16 @@ public class saveCon {
 	
 	private static Connection Conexion;
 	private static String user;
+	private static int numPartida;
 	
-	
+	public static int getNumPartida() {
+		return numPartida;
+	}
+
+	public static void setNumPartida(int numPartida) {
+		saveCon.numPartida = numPartida;
+	}
+
 	public static String getUser() {
 		return user;
 	}

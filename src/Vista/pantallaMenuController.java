@@ -80,7 +80,7 @@ public class pantallaMenuController {
                             // Si es String, intenta convertirlo
                             idPartida = Integer.parseInt(idObj.toString());
                         }
-                        
+                        saveCon.setNumPartida(idPartida);
                         System.out.println("Nueva partida creada con ID: " + idPartida);
                     }
                 }
