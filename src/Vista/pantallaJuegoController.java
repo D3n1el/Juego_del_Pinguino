@@ -361,12 +361,6 @@ public class pantallaJuegoController {
                     pst.executeBatch();
                 }
 
-                // 4. Actualizar jugador (partidas jugadas)
-                try (PreparedStatement pst = con.prepareStatement(
-                    "UPDATE JUGADOR SET NUM_PARTIDAS_JUGADAS = NUM_PARTIDAS_JUGADAS + 1 WHERE ID_JUGADOR = 1")) {
-                    pst.executeUpdate();
-                }
-
                 con.commit();
                 eventos.setText("Partida guardada correctamente!");
             } catch (SQLException e) {
