@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import Controlador.bbdd;
 import Controlador.saveCon;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -45,8 +46,11 @@ public class pantallaPrincipalController {
 
     @FXML private ComboBox<String> colorBox;
     
+    private Connection con;
+    
     @FXML
     private void initialize() {
+    	con = bbdd.conectarBaseDatos();
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         System.out.println("pantallaPrincipalController initialized");

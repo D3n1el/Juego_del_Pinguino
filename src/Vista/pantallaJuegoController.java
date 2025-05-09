@@ -90,6 +90,7 @@ public class pantallaJuegoController {
 
     @FXML
     private void initialize() {
+    	
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         eventos.setText("¡El juego ha comenzado!");

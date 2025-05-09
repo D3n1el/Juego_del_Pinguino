@@ -104,7 +104,7 @@
                               </LinearGradient>
                            </fill>
                         </Text>
-                        <Button fx:id="dado" layoutX="35.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleDado" text="Dado" textFill="RED" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="138.0">
+                        <Button fx:id="dado" layoutX="41.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleDado" text="Dado" textFill="RED" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="137.0">
                            <font>
                               <Font name="Century" size="25.0" />
                            </font>
@@ -121,6 +121,18 @@
                               <Image url="@../../../../IMG/descarga%20(9).png" />
                            </image>
                         </ImageView>
+                        <Button fx:id="inventario" layoutX="17.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleInventario" text="Inventario" textFill="RED" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="196.0">
+                           <font>
+                              <Font name="Century" size="25.0" />
+                           </font>
+                           <effect>
+                              <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
+                                 <input>
+                                    <SepiaTone />
+                                 </input>
+                              </ColorAdjust>
+                           </effect>
+                        </Button>
                      </children>
                   </AnchorPane>
                   <ScrollPane minHeight="200.0" minWidth="680.0" prefWidth="829.0" vbarPolicy="NEVER">
@@ -216,39 +228,6 @@
                                     </LinearGradient>
                                  </fill>
                               </Text>
-                              <Text fx:id="inventario_t" layoutX="800.0" layoutY="25.1171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventario" wrappingWidth="190.7080078125" AnchorPane.leftAnchor="800.0" AnchorPane.topAnchor="5.0">
-                                 <font>
-                                    <Font name="Century Gothic" size="20.0" />
-                                 </font>
-                                 <fill>
-                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.6161137440758294">
-                                       <stops>
-                                          <Stop>
-                                             <color>
-                                                <Color red="0.21279999613761902" green="0.6192914247512817" blue="0.7599999904632568" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="1.0">
-                                             <color>
-                                                <Color red="1.0" green="1.0" blue="1.0" />
-                                             </color>
-                                          </Stop>
-                                       </stops>
-                                    </LinearGradient>
-                                 </fill>
-                              </Text>
-                              <Button fx:id="inventario" layoutX="850.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleInventario" text="Usar" textFill="RED" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="77.0">
-                                 <font>
-                                    <Font name="Century" size="25.0" />
-                                 </font>
-                                 <effect>
-                                    <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
-                                       <input>
-                                          <SepiaTone />
-                                       </input>
-                                    </ColorAdjust>
-                                 </effect>
-                              </Button>
                               <Button fx:id="rapido" layoutX="73.0" layoutY="82.0" mnemonicParsing="false" onAction="#handleRapido" text="Usar" textFill="RED" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="82.0">
                                  <font>
                                     <Font name="Century" size="25.0" />
@@ -389,9 +368,9 @@
               </rowConstraints>
                <children>
                   <Group GridPane.rowIndex="4" />
-                  <Circle fx:id="P1" fill="#0077FF" radius="15.0" stroke="WHITE" strokeWidth="2.5" strokeType="INSIDE">
+                  <Circle fx:id="P1" fill="#0077FF" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.5">
    <effect>
-      <DropShadow radius="5" color="BLACK" />
+      <DropShadow color="BLACK" radius="5" />
    </effect>
    <GridPane.margin>
       <Insets />
