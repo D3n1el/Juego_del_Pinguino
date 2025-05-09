@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 
+import Controlador.bbdd;
 import Controlador.saveCon;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -50,6 +51,7 @@ public class pantallaMenuController {
 
     @FXML
     private void handleNewGame(ActionEvent event) {
+    	String usuario = saveCon.getUser();
         try {
             // 1. Crear nueva partida en la base de datos
             try (Connection con = saveCon.getConexion();
@@ -59,6 +61,11 @@ public class pantallaMenuController {
                      new String[]{"NUM_PARTIDA"})) {  // Especifica el nombre de la columna para el ID
                 
                 pst.executeUpdate(); //Ejecuta la sentencia SQL seleccionada con preparedStatement.
+                
+                String sqlUpdatePJugadas = "UPDATE JUGADOR SET NUM_PARTIDAS_JUGADAS = NUM_PARTIDAS_JUGADAS + 1 WHERE nickname = '" + usuario + "'";
+                bbdd.update(con, sqlUpdatePJugadas);
+                
+                
                 
                 // Obtener el ID de la nueva partida
                 try (ResultSet rs = pst.getGeneratedKeys()) {

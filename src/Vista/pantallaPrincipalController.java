@@ -66,7 +66,8 @@ public class pantallaPrincipalController {
     private void handleLogin(ActionEvent event) {
         String usuario = userField.getText();
         String contraseña = passField.getText();
-
+        
+        saveCon.setUser(usuario);
         try {
             Connection con = saveCon.getConexion();
             

@@ -6,6 +6,16 @@ import java.sql.SQLException;
 public class saveCon {
 	
 	private static Connection Conexion;
+	private static String user;
+	
+	
+	public static String getUser() {
+		return user;
+	}
+
+	public static void setUser(String user) {
+		saveCon.user = user;
+	}
 
 	public static Connection getConexion() {
 		return Conexion;
