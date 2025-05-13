@@ -121,18 +121,6 @@
                               <Image url="@../../../../IMG/descarga%20(9).png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="inventario" layoutX="17.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleInventario" text="Inventario" textFill="RED" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="196.0">
-                           <font>
-                              <Font name="Century" size="25.0" />
-                           </font>
-                           <effect>
-                              <ColorAdjust brightness="0.26" contrast="1.0" hue="-0.92" saturation="0.24">
-                                 <input>
-                                    <SepiaTone />
-                                 </input>
-                              </ColorAdjust>
-                           </effect>
-                        </Button>
                      </children>
                   </AnchorPane>
                   <ScrollPane minHeight="200.0" minWidth="680.0" prefWidth="829.0" vbarPolicy="NEVER">
@@ -328,14 +316,6 @@
                                     </LinearGradient>
                                  </fill>
                               </Text>
-                              <ImageView fitHeight="159.0" fitWidth="151.0" layoutX="41.0" layoutY="89.0">
-                                 <image>
-                                    <Image url="@../../../../IMG/LOGO%20DAVO_SIN_FONDO.png" />
-                                 </image>
-                                 <effect>
-                                    <Bloom />
-                                 </effect>
-                              </ImageView>
                            </children>
                         </AnchorPane>
                      </children>

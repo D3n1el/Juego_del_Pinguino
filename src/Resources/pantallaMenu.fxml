@@ -68,31 +68,52 @@
     </MenuBar>
       <StackPane prefHeight="221.0" prefWidth="573.0">
          <children>
-            <ImageView fitHeight="239.0" fitWidth="571.0">
+            <ImageView fitHeight="239.0" fitWidth="607.0">
                <image>
                   <Image url="@../../../../IMG/133154074-vista-del-paisaje-de-la-escena-del-bosque-azul-de-la-noche-de-nieve-con-ilustración-de-vector-de.jpg" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" prefHeight="70.0" prefWidth="522.0" spacing="30.0">
+            <VBox alignment="CENTER" prefHeight="239.0" prefWidth="543.0" spacing="30.0">
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="49.0" prefWidth="568.0" spacing="50.0">
                            <children>
-                              <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#handleNewGame" text="Nueva Partida" textFill="#419446">
+                              <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="39.0" prefWidth="159.0" text="Nueva Partida" textFill="#419446">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="29.0" fitWidth="32.0">
+                                       <image>
+                                          <Image url="@../../../../IMG/descarga%20(17).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
-                              <Button fx:id="loadGameButton" mnemonicParsing="false" onAction="#handleLoadGame" text="Cargar Juego" textFill="#3973d7">
+                              <Button fx:id="loadGameButton" mnemonicParsing="false" onAction="#handleLoadGame" prefHeight="43.0" prefWidth="161.0" text="Cargar Juego" textFill="#3973d7">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="33.0" fitWidth="39.0">
+                                       <image>
+                                          <Image url="@../../../../IMG/descarga%20(19).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
                               <Button fx:id="quitButton" mnemonicParsing="false" onAction="#handleQuitGame" text="Salir del juego" textFill="#eb2222">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="31.0">
+                                       <image>
+                                          <Image url="@../../../../IMG/descarga%20(18).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
                            </children>
                         </HBox>
@@ -119,6 +140,49 @@
             <Color red="0.7106481194496155" green="1.0" blue="0.42129629850387573" />
          </color>
       </AmbientLight>
-      <Group />
+      <Group>
+         <children>
+            <ImageView fitHeight="259.0" fitWidth="603.0">
+               <image>
+                  <Image url="@../../../../IMG/Captura%20de%20pantalla%202025-04-30%20173403.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="247.0" fitWidth="263.0" layoutX="153.0" layoutY="3.0">
+               <image>
+                  <Image url="@LOGO%20DAVO_SIN_FONDO.png" />
+               </image>
+            </ImageView>
+            <Group />
+            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="387.0" layoutY="32.0">
+               <image>
+                  <Image url="@../../../../IMG/descarga%20(7).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="79.0" fitWidth="158.0" layoutX="17.0" layoutY="158.0">
+               <image>
+                  <Image url="@../../../../IMG/agujero.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="174.0" fitWidth="157.0" layoutX="12.0" layoutY="36.0" nodeOrientation="RIGHT_TO_LEFT">
+               <image>
+                  <Image url="@../../../../IMG/descarga%20(4).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="79.0" fitWidth="158.0" layoutX="414.0" layoutY="152.0">
+               <image>
+                  <Image url="@../../../../IMG/agujero.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="174.0" fitWidth="157.0" layoutX="401.0" layoutY="38.0">
+               <image>
+                  <Image url="@../../../../IMG/descarga%20(4).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="29.0" fitWidth="32.0" layoutX="150.0" layoutY="40.0">
+               <image>
+                  <Image url="@../../../../IMG/WQWQWQWQWW.png" />
+               </image>
+            </ImageView>
+         </children></Group>
   </children>
 </VBox>
