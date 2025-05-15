@@ -118,6 +118,18 @@
                            </children>
                         </HBox>
                      </children></StackPane>
+                  <Button fx:id="Reglas" mnemonicParsing="false" onAction="#handleReglas" text="Reglas del juego" textFill="#f600ff">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../../IMG/reglas%20del%20juego%20.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </VBox>
          </children>
@@ -153,9 +165,9 @@
                </image>
             </ImageView>
             <Group />
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="387.0" layoutY="32.0">
+            <ImageView fitHeight="38.0" fitWidth="64.0" layoutX="387.0" layoutY="32.0">
                <image>
-                  <Image url="@../../../../IMG/descarga%20(7).png" />
+                  <Image url="@../../../../IMG/image%20(2).png" />
                </image>
             </ImageView>
             <ImageView fitHeight="79.0" fitWidth="158.0" layoutX="17.0" layoutY="158.0">

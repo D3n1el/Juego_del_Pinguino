@@ -264,11 +264,6 @@
                                     </ColorAdjust>
                                  </effect>
                               </Button>
-                              <ImageView fitHeight="72.0" fitWidth="81.0" layoutX="72.0" layoutY="141.0">
-                                 <image>
-                                    <Image url="@../../../../IMG/descarga%20(7).png" />
-                                 </image>
-                              </ImageView>
                               <ImageView fitHeight="76.0" fitWidth="132.0" layoutX="248.0" layoutY="139.0">
                                  <image>
                                     <Image url="@../../../../IMG/image%20(2).png" />
@@ -284,6 +279,11 @@
                                     <Image url="@../../../../IMG/image%20(4).png" />
                                  </image>
                               </ImageView>
+                              <ImageView fitHeight="75.0" fitWidth="87.0" layoutX="75.0" layoutY="139.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/dado%20rapido.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                     </content>
@@ -295,27 +295,16 @@
                      <children>
                         <AnchorPane minHeight="200.0" minWidth="264.0" prefHeight="262.0" prefWidth="264.0">
                            <children>
-                              <Text fx:id="eventos" strokeType="OUTSIDE" strokeWidth="0.0" text="Evento ocurrido" wrappingWidth="243.4375" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
-                                 <font>
-                                    <Font name="Century Gothic" size="20.0" />
-                                 </font>
-                                 <fill>
-                                    <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.3317535545023697">
-                                       <stops>
-                                          <Stop>
-                                             <color>
-                                                <Color red="1.0" green="0.1666666716337204" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="1.0">
-                                             <color>
-                                                <Color red="0.8500000238418579" green="1.0" />
-                                             </color>
-                                          </Stop>
-                                       </stops>
-                                    </LinearGradient>
-                                 </fill>
-                              </Text>
+                              <ImageView fitHeight="264.0" fitWidth="268.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/fdddfs.jpg" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="233.0" fitWidth="230.0" layoutX="17.0" layoutY="14.0">
+                                 <image>
+                                    <Image url="@../../../../IMG/rteeeeteretetert.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                      </children>
@@ -1664,5 +1653,26 @@
             </GridPane>
          </center>
       </BorderPane>
+      <Text fx:id="eventos" strokeType="OUTSIDE" strokeWidth="0.0" text="Evento ocurrido" wrappingWidth="1047.4375">
+         <font>
+            <Font name="Century Gothic" size="48.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.3317535545023697">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.1666666716337204" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.8500000238418579" green="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
   </children>
 </VBox>

@@ -7,7 +7,10 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +42,7 @@ public class pantallaMenuController {
 
     @FXML private Button loginButton;
     @FXML private Button registerButton;
+    @FXML private Button Reglas;
     
     @FXML private Text eventos;
 
@@ -118,6 +122,67 @@ public class pantallaMenuController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+    
+    @FXML
+    public void handleReglas(ActionEvent event) {
+        Alert alerta = new Alert(AlertType.CONFIRMATION);
+        alerta.setTitle("Reglas del Juego");
+        alerta.setHeaderText(" Reglas del El Juego del Pingüino ");
+
+        String contenido = 
+        		" Objetivo del juego:\r\n"
+        		+ "        Ser el primer jugador en llegar a la casilla 50, avanzando por el tablero, superando obstáculos y usando tu inventario con estrategia.\r\n"
+        		+ "\r\n"
+        		+ "        Inventario de cada jugador:\r\n"
+        		+ "        - Hasta 3 dados normales o especiales (guardados en base de datos).\r\n"
+        		+ "        - Hasta 2 peces, que sirven para sobornar al oso y evitar volver al inicio.\r\n"
+        		+ "        - Hasta 6 bolas de nieve, que puedes usar para hacer retroceder a otros jugadores.\r\n"
+        		+ "\r\n"
+        		+ "        Mecánica de turnos:\r\n"
+        		+ "        En cada turno, puedes:\r\n"
+        		+ "        - Lanzar un dado normal o uno especial.\r\n"
+        		+ "        - Usar una bola de nieve para atacar a otro jugador.\r\n"
+        		+ "\r\n"
+        		+ "        Tipos de casillas en el tablero:\r\n"
+        		+ "        - Pingüino: Representa la ficha del jugador (color, nombre...).\r\n"
+        		+ "        - Oso polar: Si te atrapa, vuelves al inicio del juego.\r\n"
+        		+ "          → Puedes sobornarlo con un pez para evitarlo.\r\n"
+        		+ "        - Agujero en el hielo: Te hace retroceder al agujero anterior.\r\n"
+        		+ "        - Trineo: Te permite avanzar al siguiente trineo del tablero.\r\n"
+        		+ "        - Casilla de interrogación: Activa un evento aleatorio.\r\n"
+        		+ "\r\n"
+        		+ "        Eventos aleatorios:\r\n"
+        		+ "        - Ganar 1 pez.\r\n"
+        		+ "        - Ganar 1 a 3 bolas de nieve.\r\n"
+        		+ "        - Ganar un dado rápido (avanza entre 5 y 10 casillas, baja probabilidad).\r\n"
+        		+ "        - Ganar un dado lento (avanza entre 1 y 3 casillas, alta probabilidad).\r\n"
+        		+ "\r\n"
+        		+ "        Guardado y carga de la partida:\r\n"
+        		+ "        Puedes guardar y cargar la partida desde el menú.\r\n"
+        		+ "        La información se guarda en una base de datos encriptada e incluye:\r\n"
+        		+ "        - Posición de los jugadores.\r\n"
+        		+ "        - Estado del tablero.\r\n"
+        		+ "        - Inventario de cada jugador.";
+            
+            
+
+        TextArea textArea = new TextArea(contenido);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane content = new GridPane();
+        content.setMaxWidth(Double.MAX_VALUE);
+        content.add(textArea, 0, 0);
+
+        alerta.getDialogPane().setContent(content);
+        alerta.showAndWait();
+    }
+
 
     @FXML
     private void handleLoadGame(ActionEvent event) {
