@@ -33,8 +33,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * En esta clase se define el código que permite el funcionamiento del tablero y los elementos presentes en la misma ventana.
+ * @author DAVO
+ * @version 16/05/2025
+ */
 public class pantallaJuegoController {
-
+	
+	/**
+	 * Define cada tipo posible de casilla
+	 * @param NORMAL define el tipo de casilla normal
+	 */
 	public enum TipoCasilla { //ES UN ENNUMERADOR DE VARIABLES ESTATICAS, ES COMO UN DESPLEGABLE DE OPCIONES
 		NORMAL,
 		AGUJERO,
@@ -43,13 +52,13 @@ public class pantallaJuegoController {
 		TRINEO,
 		META
 	}
-	
+
     // Menu items
     @FXML private MenuItem newGame;
     @FXML private MenuItem saveGame;
     @FXML private MenuItem loadGame;
     @FXML private MenuItem quitGame;
-
+    
     // Buttons
     @FXML private Button dado;
     @FXML private Button rapido;
@@ -70,10 +79,6 @@ public class pantallaJuegoController {
     // Game board and player pieces
     @FXML private GridPane tablero;
     @FXML private Circle P1;
-    //@FXML private Circle P2;
-    //@FXML private Circle P3;
-    //@FXML private Circle P4;
-    
     
     
     //ONLY FOR TESTING!!!
@@ -87,7 +92,18 @@ public class pantallaJuegoController {
     private IntegerProperty cantidadNieve = new SimpleIntegerProperty(0); // " = new SimpleIntegerProperty(0);" Está creando una instancia de SimpleIntegerProperty, que es una implementación de IntegerProperty, y su valor inicial se establece en 0 la cantidad de bolas de nieve inicial.
     private IntegerProperty cantidadDadosRapidos = new SimpleIntegerProperty(0); //
     private IntegerProperty cantidadDadosLentos= new SimpleIntegerProperty(0); //
-
+    
+    /**
+     * Inicializa la interfaz gráfica y los valores del juego.
+     * Este método es llamado automáticamente después de cargar el archivo FXML.
+     * <p>
+     * Realiza las siguientes acciones:
+     * <ul>
+     *   <li>Establece el mensaje inicial indicando que el juego ha comenzado.</li>
+     *   <li>Enlaza las propiedades de texto de los elementos gráficos con los valores dinámicos de los recursos.</li>
+     *   <li>Llama al método {@code inicializarTablero()} para configurar el tablero de juego.</li>
+     * </ul>
+     */
     @FXML
     private void initialize() {
     	
@@ -123,6 +139,17 @@ public class pantallaJuegoController {
     	mostrarImagenesMeta();
     }
     
+    /**
+     * Inicializa el tablero de juego con casillas normales por defecto y distribuye 
+     * casillas especiales según la configuración establecida.
+     * <p>
+     * Realiza las siguientes acciones:
+     * <ul>
+     *   <li>Coloca casillas especiales de tipo agujero, interrogante, oso y trineo.</li>
+     *   <li>Establece la casilla inicial como normal y la última como meta.</li>
+     *   <li>Invoca métodos para mostrar imágenes en el tablero.</li>
+     * </ul>
+     */
     private void colocarCasillasEspeciales(TipoCasilla tipo, int cantidad) { //Garantiza que solo se modifiquen casillas que actualmente son de tipo NORMAL, preservando otros tipos de casillas especiales que ya pudieran estar en el tablero.
     	for (int i = 0; i < cantidad; i++) {
     		
@@ -136,6 +163,25 @@ public class pantallaJuegoController {
     	}
     }
     
+    /**
+     * Aplica el efecto correspondiente según el tipo de casilla en la que se encuentra el jugador.
+     * <p>
+     * Dependiendo de la casilla en la posición indicada, se ejecutan diferentes acciones:
+     * <ul>
+     *   <li><b>Agujero:</b> Si hay un agujero anterior, el jugador retrocede hasta él. 
+     *       Si no hay agujero anterior, se queda en la misma casilla.</li>
+     *   <li><b>Interrogante:</b> Se genera un evento aleatorio en el que el jugador 
+     *       puede obtener bolas de nieve, peces o dados rápidos/lentos.</li>
+     *   <li><b>Oso:</b> Si el jugador tiene peces, puede sobornar al oso para seguir 
+     *       avanzando. De lo contrario, vuelve al inicio.</li>
+     *   <li><b>Trineo:</b> Si hay otro trineo adelante, el jugador avanza a la siguiente 
+     *       casilla especial de este tipo. Si no hay más trineos, permanece en su posición.</li>
+     *   <li><b>Meta:</b> Se muestra un mensaje de felicitación, indicando que el juego 
+     *       ha finalizado.</li>
+     * </ul>
+     * 
+     * @param posicion Define la posición actual del jugador en el tablero.
+     */
     private void aplicarEfectoCasilla(int posicion) {
     	TipoCasilla casilla = tableroCasillas[posicion];
     	
@@ -243,6 +289,16 @@ public class pantallaJuegoController {
     	}
     }
     
+    /**
+     * Reinicia la posición del jugador al inicio del tablero.
+     * <p>
+     * Este método se ejecuta cuando el jugador es atrapado por un oso y debe volver a la casilla inicial.
+     * <ul>
+     *   <li>Establece la posición del jugador en la casilla 0.</li>
+     *   <li>Actualiza la ubicación del jugador en el {@code GridPane} de la interfaz gráfica.</li>
+     *   <li>Muestra un mensaje indicando que el jugador ha sido atrapado por un oso y ha regresado al inicio.</li>
+     * </ul>
+     */
     private void volverAlInicio() {
     	p1Position = 0;
     	GridPane.setRowIndex(P1, 0);
@@ -250,6 +306,21 @@ public class pantallaJuegoController {
     	eventos.setText("Un oso te ha atrapado, vuelves al INICIO");
     }
     
+    /**
+     * Encuentra la posición del siguiente trineo en el tablero a partir de la posición actual.
+     * <p>
+     * Recorre el tablero en busca de la próxima casilla de tipo {@code TRINEO}, después de la posición
+     * dada. Si no encuentra otro trineo, retorna la misma posición actual.
+     * <ul>
+     *   <li>Identifica el trineo en la posición actual.</li>
+     *   <li>Continúa buscando el siguiente trineo en el tablero.</li>
+     *   <li>Si encuentra uno, devuelve su posición.</li>
+     *   <li>Si no hay más trineos disponibles, mantiene la posición actual.</li>
+     * </ul>
+     * 
+     * @param posActual La posición actual del jugador en el tablero.
+     * @return La posición del siguiente trineo, o la misma posición si no hay más trineos.
+     */
     private int encontrarSiguienteTrineo(int posActual) {
         boolean encontradoActual = false;
 
@@ -267,7 +338,19 @@ public class pantallaJuegoController {
         return posActual;
     }
     
-    
+    /**
+     * Busca el agujero más cercano antes de la posición actual en el tablero.
+     * <p>
+     * Recorre el tablero en dirección inversa desde la posición actual hasta la primera casilla, 
+     * identificando la última casilla de tipo {@code AGUJERO} antes de la posición dada.
+     * <ul>
+     *   <li>Si encuentra un agujero anterior, devuelve su posición.</li>
+     *   <li>Si no hay agujeros anteriores, mantiene la posición actual.</li>
+     * </ul>
+     * 
+     * @param posActual La posición actual del jugador en el tablero.
+     * @return La posición del agujero más cercano antes de la actual, o la misma posición si no hay agujeros anteriores.
+     */
     private int encontrarAnteriorAgujero(int posActual) {
         // Buscamos desde la posición actual hacia atrás
         for (int i = posActual - 1; i >= 0; i--) {
@@ -280,7 +363,19 @@ public class pantallaJuegoController {
     
     ///////////////////////////////////////////////////////////////////////////
     // Button and menu actions
-
+    
+    /**
+     * Maneja la creación de una nueva partida, ofreciendo al jugador la opción de guardar antes de reiniciar el juego.
+     * <p>
+     * Muestra una ventana de confirmación en la que el jugador puede elegir:
+     * <ul>
+     *   <li><b>Nueva Partida/Guardar:</b> Guarda la partida actual y luego reinicia el juego.</li>
+     *   <li><b>Nueva Partida/No Guardar:</b> Reinicia el juego sin guardar.</li>
+     *   <li><b>Cancelar:</b> Cierra la ventana sin realizar ningún cambio.</li>
+     * </ul>
+     * 
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleNewGame() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -304,8 +399,29 @@ public class pantallaJuegoController {
         }
         
     }
-
+    
     ///////////////////////////////////////////////////////////////////
+    
+    /**
+     * Guarda la partida actual en la base de datos, incluyendo inventario y casillas especiales.
+     * <p>
+     * Este método realiza las siguientes operaciones dentro de una transacción:
+     * <ul>
+     *   <li>Guarda la partida en la tabla {@code PARTIDA} y obtiene su ID generado.</li>
+     *   <li>Guarda el inventario del jugador en la tabla {@code INVENTARIO}.</li>
+     *   <li>Guarda las casillas especiales en la tabla {@code CASILLA}.</li>
+     *   <li>Si ocurre un error, revierte la transacción para evitar datos corruptos.</li>
+     * </ul>
+     * <p>
+     * Manejo de errores:
+     * <ul>
+     *   <li>Si hay un problema al obtener el ID de partida, lanza una excepción.</li>
+     *   <li>Si ocurre un error en cualquier paso, se realiza un {@code rollback} y 
+     *       se restablece {@code setAutoCommit(true)}.</li>
+     * </ul>
+     * 
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleSaveGame() {
         try (Connection con = saveCon.getConexion()) {
@@ -377,6 +493,26 @@ public class pantallaJuegoController {
     }
     ///////////////////////////////////////////////////////////////////
     
+    /**
+     * Carga la última partida guardada desde la base de datos y restaura el estado del juego.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Carga la partida más reciente desde la tabla {@code PARTIDA}.</li>
+     *   <li>Recupera la posición del jugador y sus recursos.</li>
+     *   <li>Carga las casillas especiales guardadas en la tabla {@code CASILLA}.</li>
+     *   <li>Actualiza la interfaz gráfica con los datos cargados.</li>
+     * </ul>
+     * <p>
+     * Manejo de errores:
+     * <ul>
+     *   <li>Si no hay partidas guardadas, muestra un mensaje indicando que no se encontraron datos.</li>
+     *   <li>Si ocurre un error en la consulta o conexión, muestra el mensaje de error correspondiente.</li>
+     * </ul>
+     * 
+     * @param event Evento de acción que desencadena la carga de la partida.
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleLoadGame(ActionEvent event) {
         try (Connection con = saveCon.getConexion()) {
@@ -435,7 +571,26 @@ public class pantallaJuegoController {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Maneja el proceso de salir del juego, permitiendo al jugador guardar la partida antes de cerrar la aplicación.
+     * <p>
+     * Este método muestra una ventana de confirmación con las siguientes opciones:
+     * <ul>
+     *   <li><b>Guardar y salir:</b> Guarda la partida actual y luego cierra la aplicación.</li>
+     *   <li><b>Salir sin guardar:</b> Cierra la aplicación sin guardar los datos.</li>
+     *   <li><b>Cancelar:</b> Cancela la acción de salida y mantiene el juego en ejecución.</li>
+     * </ul>
+     * <p>
+     * Manejo de errores:
+     * <ul>
+     *   <li>Si el jugador elige guardar antes de salir, se llama al método {@code handleSaveGame()}.</li>
+     *   <li>El cierre del juego se realiza con {@code Platform.exit()}.</li>
+     * </ul>
+     * 
+     * @param event Evento de acción que desencadena la salida del juego.
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleQuitGame(ActionEvent event) {
     	Alert alert = new Alert(AlertType.CONFIRMATION); //TIPO DE ALERTA -- en este caso CONFIRMATION
@@ -463,7 +618,25 @@ public class pantallaJuegoController {
     	}
     }
     
+    /**
+     * Esta variable evita la ejecución simultánea de múltiples efectos en una misma acción, asegurando que solo se procese un efecto a la vez.
+     */
     private boolean aplicandoEfecto = false;
+    
+    /**
+     * Mueve al jugador P1 una cantidad determinada de casillas y actualiza su posición en la interfaz gráfica.
+     * <p>
+     * Este método realiza los siguientes pasos:
+     * <ul>
+     *   <li>Incrementa la posición del jugador según los pasos dados.</li>
+     *   <li>Limita la posición máxima del jugador dentro del tablero.</li>
+     *   <li>Calcula la fila y columna correspondientes en la cuadrícula.</li>
+     *   <li>Actualiza la posición del jugador en la interfaz de usuario {@code GridPane}.</li>
+     *   <li>Si no hay un efecto en curso, activa y aplica el efecto de la casilla actual.</li>
+     * </ul>
+     * 
+     * @param steps Número de casillas que debe avanzar el jugador.
+     */
     private void moveP1(int steps) {
         p1Position += steps;
 
@@ -492,6 +665,19 @@ public class pantallaJuegoController {
 
     /////////////////////////////////DADOS//////////////////////////////////////////
     
+    /**
+     * Gestiona el lanzamiento de un dado y actualiza la posición del jugador según el resultado.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Genera un número aleatorio entre 1 y 6 simulando el lanzamiento de un dado.</li>
+     *   <li>Actualiza el texto de la interfaz para mostrar el resultado obtenido.</li>
+     *   <li>Desplaza al jugador en el tablero según el número obtenido en el dado.</li>
+     * </ul>
+     * 
+     * @param event Evento de acción que desencadena el lanzamiento del dado.
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleDado(ActionEvent event) {
         Random rand = new Random();
@@ -504,6 +690,22 @@ public class pantallaJuegoController {
         moveP1(diceResult);
     }
     
+    /**
+     * Maneja el lanzamiento de un dado rápido, generando un número aleatorio entre 5 y 10
+     * y actualizando la posición del jugador en el tablero.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Verifica si el jugador tiene dados rápidos disponibles.</li>
+     *   <li>Si no hay dados rápidos, muestra un mensaje de error y finaliza la ejecución.</li>
+     *   <li>Genera un número aleatorio entre 5 y 10 simulando el lanzamiento de un dado rápido.</li>
+     *   <li>Actualiza el texto de la interfaz con el resultado obtenido.</li>
+     *   <li>Desplaza al jugador en el tablero según el número obtenido.</li>
+     *   <li>Reduce en uno la cantidad de dados rápidos disponibles.</li>
+     * </ul>
+     * 
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleRapido() {
         if (cantidadDadosRapidos.get() <= 0) {
@@ -520,7 +722,23 @@ public class pantallaJuegoController {
         //RESTAR EL DADO CUANDO SE EJECUTE LA FUNCION 
         cantidadDadosRapidos.set(cantidadDadosRapidos.get() - 1);
     }
-
+    
+    /**
+     * Maneja el lanzamiento de un dado lento, generando un número aleatorio entre 1 y 3
+     * y actualizando la posición del jugador en el tablero.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Verifica si el jugador tiene dados lentos disponibles.</li>
+     *   <li>Si no hay dados lentos, muestra un mensaje y finaliza la ejecución.</li>
+     *   <li>Genera un número aleatorio entre 1 y 3 simulando el lanzamiento de un dado lento.</li>
+     *   <li>Actualiza el texto de la interfaz con el resultado obtenido.</li>
+     *   <li>Desplaza al jugador en el tablero según el número obtenido.</li>
+     *   <li>Reduce en uno la cantidad de dados lentos disponibles.</li>
+     * </ul>
+     * 
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleLento() {
     	if (cantidadDadosLentos.get() <= 0) {
@@ -539,6 +757,22 @@ public class pantallaJuegoController {
 
     ///////////////////////////////////FIN DADOS///////////////////////////////////
     
+    /**
+     * Muestra el inventario actual del jugador en una ventana de información.
+     * <p>
+     * Este método presenta los siguientes datos en un cuadro de diálogo:
+     * <ul>
+     *   <li>Cantidad de dados rápidos.</li>
+     *   <li>Cantidad de dados lentos.</li>
+     *   <li>Cantidad de peces.</li>
+     *   <li>Cantidad de bolas de nieve.</li>
+     * </ul>
+     * <p>
+     * El inventario se muestra en un {@code TextArea} dentro de un cuadro de diálogo {@code Alert}.
+     * Se configura para ser solo de lectura y ajustable en tamaño.
+     * 
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleInventario() {
     	Alert inventario = new Alert(AlertType.INFORMATION);
@@ -560,16 +794,40 @@ public class pantallaJuegoController {
     	inventario.showAndWait();
     }
     
+    /**
+     * Incrementa en uno la cantidad de peces disponibles en el inventario del jugador.
+     * <p>
+     * Este método se utiliza para actualizar la cantidad de peces, reflejando el aumento en la interfaz.
+     * 
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handlePeces() {
         cantidadPeces.set(cantidadPeces.get() + 1);
     }
-
+    
+    /**
+     * Incrementa en uno la cantidad de bolas de nieve disponibles en el inventario del jugador.
+     * <p>
+     * Este método se utiliza para actualizar la cantidad de bolas de nieve, reflejando el aumento en la interfaz.
+     */
     @FXML
     private void handleNieve() {
         cantidadNieve.set(cantidadNieve.get() + 1);
     }
     
+    /**
+     * Reinicia el estado del juego, restaurando los valores iniciales del jugador y el tablero.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Restablece la posición del jugador a la casilla inicial.</li>
+     *   <li>Resetea los recursos del inventario del jugador (bolas de nieve, peces, dados rápidos y lentos).</li>
+     *   <li>Elimina todas las imágenes del tablero para limpiarlo visualmente.</li>
+     *   <li>Inicializa nuevamente el tablero con sus configuraciones predeterminadas.</li>
+     *   <li>Actualiza la interfaz gráfica con un mensaje indicando que una nueva partida ha comenzado.</li>
+     * </ul>
+     */
     public void resetGame() {
     	p1Position = 0;
     	
@@ -590,6 +848,18 @@ public class pantallaJuegoController {
     }
     
     ///////////////////PARA CARGAR IMAGENES///////////////////////////////
+    
+    /**
+     * Muestra las imágenes de los agujeros en el tablero, colocando una representación visual en cada casilla de tipo {@code AGUJERO}.
+     * <p>
+     * Este método recorre el tablero buscando casillas de tipo {@code AGUJERO} y, por cada una encontrada:
+     * <ul>
+     *   <li>Calcula su posición en la cuadrícula.</li>
+     *   <li>Carga la imagen correspondiente desde los recursos.</li>
+     *   <li>Configura el tamaño de la imagen para ajustarse correctamente.</li>
+     *   <li>Agrega la imagen al tablero en la posición calculada.</li>
+     * </ul>
+     */
     private void mostrarImagenesAgujero() {
     	for(int i = 0; i < tableroCasillas.length; i++) {
     		if(tableroCasillas[i] == TipoCasilla.AGUJERO) {
@@ -606,6 +876,18 @@ public class pantallaJuegoController {
     		}
     	}
     }
+    
+    /**
+     * Muestra las imágenes de los osos en el tablero, colocando una representación visual en cada casilla de tipo {@code OSO}.
+     * <p>
+     * Este método recorre el tablero buscando casillas de tipo {@code OSO} y, por cada una encontrada:
+     * <ul>
+     *   <li>Calcula su posición en la cuadrícula.</li>
+     *   <li>Carga la imagen correspondiente desde los recursos.</li>
+     *   <li>Configura el tamaño de la imagen para ajustarse correctamente.</li>
+     *   <li>Agrega la imagen al tablero en la posición calculada.</li>
+     * </ul>
+     */
     private void mostrarImagenesOso() {
     	for(int i = 0; i < tableroCasillas.length; i++) {
     		if(tableroCasillas[i] == TipoCasilla.OSO) {
@@ -622,6 +904,18 @@ public class pantallaJuegoController {
     		}
     	}
     }
+    
+    /**
+     * Muestra las imágenes de las casillas de interrogante en el tablero, colocando una representación visual en cada casilla de tipo {@code INTERROGANTE}.
+     * <p>
+     * Este método recorre el tablero buscando casillas de tipo {@code INTERROGANTE} y, por cada una encontrada:
+     * <ul>
+     *   <li>Calcula su posición en la cuadrícula.</li>
+     *   <li>Carga la imagen correspondiente desde los recursos.</li>
+     *   <li>Configura el tamaño de la imagen para ajustarse correctamente.</li>
+     *   <li>Agrega la imagen al tablero en la posición calculada.</li>
+     * </ul>
+     */
     private void mostrarImagenesInterrogante() {
     	for(int i = 0; i < tableroCasillas.length; i++) {
     		if(tableroCasillas[i] == TipoCasilla.INTERROGANTE) {
@@ -638,6 +932,18 @@ public class pantallaJuegoController {
     		}
     	}
     }
+    
+    /**
+     * Muestra las imágenes de los trineos en el tablero, colocando una representación visual en cada casilla de tipo {@code TRINEO}.
+     * <p>
+     * Este método recorre el tablero buscando casillas de tipo {@code TRINEO} y, por cada una encontrada:
+     * <ul>
+     *   <li>Calcula su posición en la cuadrícula.</li>
+     *   <li>Carga la imagen correspondiente desde los recursos.</li>
+     *   <li>Configura el tamaño de la imagen para ajustarse correctamente.</li>
+     *   <li>Agrega la imagen al tablero en la posición calculada.</li>
+     * </ul>
+     */
     private void mostrarImagenesTrineo() {
     	for(int i = 0; i < tableroCasillas.length; i++) {
     		if(tableroCasillas[i] == TipoCasilla.TRINEO) {
@@ -654,6 +960,12 @@ public class pantallaJuegoController {
     		}
     	}
     }
+    
+    /**
+     * Muestra la imagen de la meta en el tablero, colocando una representación visual en cada casilla de tipo {@code META}.
+     * <p>
+     * Este método recorre el tablero buscando casillas de tipo {@code META} y, por cada una encontrada:
+     */
     private void mostrarImagenesMeta() {
     	for(int i = 0; i  < tableroCasillas.length; i++) {
     		if(tableroCasillas[i] == TipoCasilla.META) {
@@ -673,6 +985,22 @@ public class pantallaJuegoController {
     
     /////////////////////////////PARA pantallaMenu handleLoadGame //////////////////////
     
+    /**
+     * Carga una partida previamente guardada, estableciendo la posición del jugador y sus recursos.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Establece la posición del jugador en el tablero.</li>
+     *   <li>Actualiza la cantidad de peces y bolas de nieve en el inventario.</li>
+     *   <li>Posiciona gráficamente al jugador en la cuadrícula correspondiente.</li>
+     *   <li>Actualiza los textos de la interfaz para reflejar los valores restaurados.</li>
+     *   <li>Muestra un mensaje indicando que la partida ha sido cargada correctamente.</li>
+     * </ul>
+     * 
+     * @param posicion La posición del jugador en el tablero.
+     * @param peces La cantidad de peces disponibles en el inventario del jugador.
+     * @param nieve La cantidad de bolas de nieve disponibles en el inventario del jugador.
+     */
     public void iniciarPartidaCargada(int posicion, int peces, int nieve) {
         // 1. Posición y recursos
         p1Position = posicion;

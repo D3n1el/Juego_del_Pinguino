@@ -1,5 +1,14 @@
 package Vista;
 
+/**
+ * Clase que define el código para el funcionamiento de la ventana donde salen los botones de cargar, guardar y nueva partida en front end.
+ * 
+ * @author DAVO
+ * @version 16/05/2025
+ * 
+ * @see javafx.fxml.FXML; importa la anotación "@FXML" de JavaFX.
+ * @see import javafx.scene.control.Button; Importa la clase Button de JavaFX, que permite crear y usar botones en front end.
+ */
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -45,14 +54,49 @@ public class pantallaMenuController {
     @FXML private Button Reglas;
     
     @FXML private Text eventos;
-
+    
+    /**
+     * Método de inicialización que se ejecuta automáticamente después de que el archivo FXML ha sido cargado.
+     * <p>
+     * Este método se usa para establecer valores iniciales, agregar listeners o realizar configuraciones necesarias antes
+     * de que la interfaz gráfica esté completamente interactiva.
+     * <ul>
+     *   <li>Se ejecuta después de que los componentes de FXML han sido instanciados.</li>
+     *   <li>Ideal para inicializar datos y ajustar elementos de la interfaz.</li>
+     *   <li>Puede registrar eventos y configurar el estado inicial de la aplicación.</li>
+     * </ul>
+     * 
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML y es llamado automáticamente.
+     */
     @FXML
     private void initialize() {
         // This method is called automatically after the FXML is loaded
         // You can set initial values or add listeners here
         System.out.println("pantallaPrincipalController initialized");
     }
-
+    
+    /**
+     * Crea una nueva partida en la base de datos y carga la pantalla de juego.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Obtiene el usuario actual.</li>
+     *   <li>Inserta una nueva partida en la tabla {@code PARTIDA} y obtiene su ID.</li>
+     *   <li>Actualiza la cantidad de partidas jugadas del usuario en la tabla {@code JUGADOR}.</li>
+     *   <li>Carga la pantalla de juego desde el archivo FXML.</li>
+     *   <li>Maneja posibles excepciones de base de datos, entrada/salida y formato incorrecto.</li>
+     * </ul>
+     * <p>
+     * Manejo de errores:
+     * <ul>
+     *   <li>Si ocurre un error de SQL, se muestra un mensaje de alerta.</li>
+     *   <li>Si hay un fallo al cargar la pantalla, se lanza una alerta correspondiente.</li>
+     *   <li>Si el ID de partida tiene un formato incorrecto, se maneja con una excepción {@code NumberFormatException}.</li>
+     * </ul>
+     * 
+     * @param event Evento de acción que desencadena la creación de una nueva partida.
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleNewGame(ActionEvent event) {
     	String usuario = saveCon.getUser();
@@ -113,7 +157,22 @@ public class pantallaMenuController {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Muestra un cuadro de alerta con un mensaje de error en la interfaz gráfica.
+     * <p>
+     * Este método crea una alerta de tipo {@code ERROR}, establece su título y contenido,
+     * y la muestra al usuario hasta que la cierre.
+     * <ul>
+     *   <li>El título de la alerta se define con el parámetro {@code titulo}.</li>
+     *   <li>El contenido del mensaje se define con el parámetro {@code mensaje}.</li>
+     *   <li>La alerta se muestra con {@code showAndWait()}, lo que significa que la aplicación esperará 
+     *       hasta que el usuario la cierre antes de continuar.</li>
+     * </ul>
+     * 
+     * @param titulo El título de la ventana de alerta.
+     * @param mensaje El mensaje que se mostrará en la alerta.
+     */
     // Método auxiliar para mostrar alertas
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(AlertType.ERROR);
@@ -123,6 +182,25 @@ public class pantallaMenuController {
         alert.showAndWait();
     }
     
+    /**
+     * Muestra las reglas del juego en un cuadro de diálogo emergente.
+     * <p>
+     * Este método presenta un mensaje detallado sobre la mecánica del juego, incluyendo:
+     * <ul>
+     *   <li>El objetivo del juego.</li>
+     *   <li>El inventario disponible para cada jugador.</li>
+     *   <li>La mecánica de turnos y acciones posibles.</li>
+     *   <li>Los distintos tipos de casillas en el tablero y sus efectos.</li>
+     *   <li>Los eventos aleatorios que pueden ocurrir durante la partida.</li>
+     *   <li>El proceso de guardado y carga de la partida desde la base de datos.</li>
+     * </ul>
+     * <p>
+     * La información se muestra dentro de un {@code Alert} de tipo {@code CONFIRMATION}, utilizando 
+     * un {@code TextArea} dentro de un {@code GridPane} para mejorar la legibilidad.
+     * 
+     * @param event Evento de acción que desencadena la visualización de las reglas.
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     public void handleReglas(ActionEvent event) {
         Alert alerta = new Alert(AlertType.CONFIRMATION);
@@ -183,7 +261,28 @@ public class pantallaMenuController {
         alerta.showAndWait();
     }
 
-
+    /**
+     * Carga la última partida guardada y restaura el estado del juego.
+     * <p>
+     * Este método realiza las siguientes acciones:
+     * <ul>
+     *   <li>Obtiene la conexión a la base de datos.</li>
+     *   <li>Consulta la partida más reciente en la tabla {@code PARTIDA}.</li>
+     *   <li>Si hay una partida guardada, recupera la posición del jugador y sus recursos.</li>
+     *   <li>Carga la pantalla de juego desde el archivo FXML.</li>
+     *   <li>Pasa los datos restaurados al controlador del juego.</li>
+     *   <li>Muestra la pantalla de juego con los valores cargados.</li>
+     * </ul>
+     * <p>
+     * Manejo de errores:
+     * <ul>
+     *   <li>Si no hay partidas guardadas, se muestra un mensaje informativo.</li>
+     *   <li>Si ocurre un error durante la carga de datos, se muestra un mensaje de alerta.</li>
+     * </ul>
+     * 
+     * @param event Evento de acción que desencadena la carga de la partida.
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleLoadGame(ActionEvent event) {
         try {
@@ -223,7 +322,16 @@ public class pantallaMenuController {
             e.printStackTrace(); //proporciona información detallada sobre la excepción que ocurrió, incluyendo el tipo de excepción y un mensaje descriptivo. Esto ayuda a identificar rápidamente qué salió mal.
         }
     }
-
+    
+    /**
+     * Cierra la aplicación de manera inmediata.
+     * <p>
+     * Este método utiliza {@code Platform.exit()} para cerrar la aplicación sin realizar acciones adicionales.
+     * Se recomienda asegurarse de que cualquier dato importante haya sido guardado antes de invocar este método.
+     * 
+     * @param event Evento de acción que desencadena la salida del juego.
+     * @FXML Este método está vinculado a la interfaz gráfica mediante FXML.
+     */
     @FXML
     private void handleQuitGame(ActionEvent event) {
         Platform.exit();

@@ -3,9 +3,10 @@ package Controlador;
 import java.sql.*;
 import java.util.Scanner;
 
-
 /**
  * Clase que proporciona métodos para interactuar con una base de datos Oracle.
+ * @author DAVO
+ * @version 16/05/2025
  */
 public class bbdd {
 
