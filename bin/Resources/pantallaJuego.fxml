@@ -295,7 +295,7 @@
                      <children>
                         <AnchorPane minHeight="200.0" minWidth="264.0" prefHeight="262.0" prefWidth="264.0">
                            <children>
-                              <ImageView fitHeight="263.0" fitWidth="265.0">
+                              <ImageView fitHeight="264.0" fitWidth="268.0">
                                  <image>
                                     <Image url="@../../../../IMG/fdddfs.jpg" />
                                  </image>

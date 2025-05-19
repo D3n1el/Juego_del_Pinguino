@@ -29,7 +29,7 @@ public class main extends Application {
 		//Carga la interfaz principal de los archivos FXML
 	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/pantallaPrincipal.fxml"));
 	    Parent root = loader.load();
-
+ 
 	    //Configura y muestra la pantalla primaria
 	    Scene scene = new Scene(root);
 	    primaryStage.setScene(scene);
