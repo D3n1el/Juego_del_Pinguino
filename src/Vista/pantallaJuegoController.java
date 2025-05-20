@@ -129,7 +129,7 @@ public class pantallaJuegoController {
     	colocarCasillasEspeciales(TipoCasilla.OSO, 2);
     	colocarCasillasEspeciales(TipoCasilla.TRINEO, 4);
     	colocarCasillasEspeciales(TipoCasilla.MOTO, 2);
-    	colocarCasillasEspeciales(TipoCasilla.SUELO_QUEBRADIZO, 25); // Puedes ajustar la cantidad
+    	colocarCasillasEspeciales(TipoCasilla.SUELO_QUEBRADIZO, 3); // Puedes ajustar la cantidad
 
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
@@ -142,6 +142,7 @@ public class pantallaJuegoController {
     	mostrarImagenesTrineo();
     	mostrarImagenesMoto();
     	mostrarImagenesMeta();
+    	mostrarImagenesSueloQ();
     }
     
     /**
@@ -1092,6 +1093,28 @@ public class pantallaJuegoController {
     			int col = i % COLUMNS;
     			
     			Image image = new Image(getClass().getResource("/Resources/meta.png").toExternalForm());
+    			ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+                
+                tablero.add(imageView, col, row);
+    		}
+    	}
+    }
+    
+    /**
+     * Muestra la imagen del suelo quebradizo en el tablero, colocando una representación visual en cada casilla de tipo {@code META}.
+     * <p>
+     * Este método recorre el tablero buscando casillas de tipo {@code META} y, por cada una encontrada:
+     */
+    private void mostrarImagenesSueloQ() {
+    	for(int i = 0; i  < tableroCasillas.length; i++) {
+    		if(tableroCasillas[i] == TipoCasilla.SUELO_QUEBRADIZO) {
+    			int row = i / COLUMNS;
+    			int col = i % COLUMNS;
+    			
+    			Image image = new Image(getClass().getResource("/Resources/sueloQ.png").toExternalForm());
     			ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
                 imageView.setFitHeight(40);
