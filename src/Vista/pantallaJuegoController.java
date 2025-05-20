@@ -287,10 +287,10 @@ public class pantallaJuegoController {
     		int siguienteMoto = encontrarSiguienteMoto(posicion);
     	    if (siguienteMoto > posicion) {
     	        int distanciaM = siguienteMoto - posicion;
-    	        eventos.setText("Trineo mágico! Avanzas " + distanciaM + " casillas.");
+    	        eventos.setText("Moto de Nieve! Avanzas " + distanciaM + " casillas.");
     	        moveP1(distanciaM);
     	    } else {
-    	        eventos.setText("Este es el último trineo. Te quedas aquí.");
+    	        eventos.setText("Esta es la ultima Moto de Nieve. Te quedas aquí.");
     	    }
     		break;
     	case META:
@@ -994,11 +994,11 @@ public class pantallaJuegoController {
     
     private void mostrarImagenesMoto() {
     	for(int i = 0; i < tableroCasillas.length; i++) {
-    		if(tableroCasillas[i] == TipoCasilla.TRINEO) {
+    		if(tableroCasillas[i] == TipoCasilla.MOTO) {
     			int row = i / COLUMNS;
     			int col = i % COLUMNS;
     			
-    			Image image = new Image(getClass().getResource("/Resources/trineo.png").toExternalForm());
+    			Image image = new Image(getClass().getResource("/Resources/moto.png").toExternalForm());
     			ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
                 imageView.setFitHeight(40);
