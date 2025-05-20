@@ -51,7 +51,8 @@ public class pantallaJuegoController {
 		OSO,
 		TRINEO,
 		MOTO,
-		META
+		SUELO_QUEBRADIZO,
+		META,
 	}
 
     // Menu items
@@ -127,8 +128,9 @@ public class pantallaJuegoController {
     	colocarCasillasEspeciales(TipoCasilla.INTERROGANTE, 5);
     	colocarCasillasEspeciales(TipoCasilla.OSO, 2);
     	colocarCasillasEspeciales(TipoCasilla.TRINEO, 4);
-    	colocarCasillasEspeciales(TipoCasilla.MOTO, 4);
-    	
+    	colocarCasillasEspeciales(TipoCasilla.MOTO, 2);
+    	colocarCasillasEspeciales(TipoCasilla.SUELO_QUEBRADIZO, 25); // Puedes ajustar la cantidad
+
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
     	tableroCasillas[49] = TipoCasilla.META;
@@ -299,7 +301,76 @@ public class pantallaJuegoController {
     		alert.setHeaderText("Felicidades...");
     		alert.setContentText("Juego finalizado!!!");
     		alert.showAndWait();
+    		break;
+    	case SUELO_QUEBRADIZO:
+    	    int totalObjetos = contarTotalObjetos();
+    	    
+    	    if (totalObjetos > 5) {
+    	        eventos.setText("¡Tienes demasiados objetos! El suelo quebradizo se rompe y vuelves al inicio.");
+    	        p1Position = 0;
+    	        GridPane.setRowIndex(P1, 0);
+    	        GridPane.setColumnIndex(P1, 0);
+    	    } else {
+    	        eventos.setText("¡Pasas por el suelo quebradizo sin problema!");
+    	    }
+
+    	    perderObjetoAleatorio(); // Aplica el evento adicional
+    	    break;
+
     	}
+    	
+    }
+    
+    private int contarTotalObjetos() {
+        return cantidadPeces.get() + cantidadNieve.get() + cantidadDadosRapidos.get() + cantidadDadosLentos.get();
+    }
+    
+    private void perderObjetoAleatorio() {
+        String[] objetos = new String[] {"pez", "nieve", "dadoRapido", "dadoLento"};
+        boolean objetoEliminado = false;
+
+        while (!objetoEliminado) {
+            int eleccion = rand.nextInt(objetos.length);
+            switch (objetos[eleccion]) {
+                case "pez":
+                    if (cantidadPeces.get() > 0) {
+                        cantidadPeces.set(cantidadPeces.get() - 1);
+                        eventos.setText("¡Has perdido un pez!");
+                        objetoEliminado = true;
+                    } else {
+                    	objetoEliminado = true;
+                    }
+                    break;
+                case "nieve":
+                    if (cantidadNieve.get() > 0) {
+                        cantidadNieve.set(cantidadNieve.get() - 1);
+                        eventos.setText("¡Has perdido una bola de nieve!");
+                        objetoEliminado = true;
+                    } else {
+                    	objetoEliminado = true;
+                    }
+                    break;
+                case "dadoRapido":
+                    if (cantidadDadosRapidos.get() > 0) {
+                        cantidadDadosRapidos.set(cantidadDadosRapidos.get() - 1);
+                        eventos.setText("¡Has perdido un dado rápido!");
+                        objetoEliminado = true;
+                    } else {
+                    	objetoEliminado = true;
+                    }
+                    break;
+                case "dadoLento":
+                    if (cantidadDadosLentos.get() > 0) {
+                        cantidadDadosLentos.set(cantidadDadosLentos.get() - 1);
+                        eventos.setText("¡Has perdido un dado lento!");
+                        objetoEliminado = true;
+                    } else {
+                    	objetoEliminado = true;
+                    }
+                    break;
+                
+            }
+        }
     }
     
     /**
