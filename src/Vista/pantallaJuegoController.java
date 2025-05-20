@@ -50,6 +50,7 @@ public class pantallaJuegoController {
 		INTERROGANTE,
 		OSO,
 		TRINEO,
+		MOTO,
 		META
 	}
 
@@ -126,6 +127,7 @@ public class pantallaJuegoController {
     	colocarCasillasEspeciales(TipoCasilla.INTERROGANTE, 5);
     	colocarCasillasEspeciales(TipoCasilla.OSO, 2);
     	colocarCasillasEspeciales(TipoCasilla.TRINEO, 4);
+    	colocarCasillasEspeciales(TipoCasilla.MOTO, 4);
     	
     	//LA CASILLA INICIAL SIEMPRE SERA UNA CASILLA NORMAL
     	tableroCasillas[0] = TipoCasilla.NORMAL;
@@ -136,6 +138,7 @@ public class pantallaJuegoController {
     	mostrarImagenesOso();
     	mostrarImagenesInterrogante();
     	mostrarImagenesTrineo();
+    	mostrarImagenesMoto();
     	mostrarImagenesMeta();
     }
     
@@ -280,6 +283,16 @@ public class pantallaJuegoController {
     	        eventos.setText("Este es el último trineo. Te quedas aquí.");
     	    }
     	    break;
+    	case MOTO:
+    		int siguienteMoto = encontrarSiguienteMoto(posicion);
+    	    if (siguienteMoto > posicion) {
+    	        int distanciaM = siguienteMoto - posicion;
+    	        eventos.setText("Trineo mágico! Avanzas " + distanciaM + " casillas.");
+    	        moveP1(distanciaM);
+    	    } else {
+    	        eventos.setText("Este es el último trineo. Te quedas aquí.");
+    	    }
+    		break;
     	case META:
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Final...");
@@ -326,6 +339,23 @@ public class pantallaJuegoController {
 
         for (int i = 0; i < tableroCasillas.length; i++) {
             if (tableroCasillas[i] == TipoCasilla.TRINEO) {
+                if (!encontradoActual && i == posActual) {
+                    encontradoActual = true; // hemos encontrado el trineo actual
+                } else if (encontradoActual) {
+                    return i; // este es el siguiente trineo, nos detenemos aquí
+                }
+            }
+        }
+
+        // Si no hay siguiente trineo, se queda donde está
+        return posActual;
+    }
+    
+    private int encontrarSiguienteMoto(int posActual) {
+        boolean encontradoActual = false;
+
+        for (int i = 0; i < tableroCasillas.length; i++) {
+            if (tableroCasillas[i] == TipoCasilla.MOTO) {
                 if (!encontradoActual && i == posActual) {
                     encontradoActual = true; // hemos encontrado el trineo actual
                 } else if (encontradoActual) {
@@ -945,6 +975,24 @@ public class pantallaJuegoController {
      * </ul>
      */
     private void mostrarImagenesTrineo() {
+    	for(int i = 0; i < tableroCasillas.length; i++) {
+    		if(tableroCasillas[i] == TipoCasilla.TRINEO) {
+    			int row = i / COLUMNS;
+    			int col = i % COLUMNS;
+    			
+    			Image image = new Image(getClass().getResource("/Resources/trineo.png").toExternalForm());
+    			ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(40); //PARA AJUSTAR EL TAMAÑO
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+                
+                tablero.add(imageView, col, row);
+    		}
+    	}
+    }
+    
+    
+    private void mostrarImagenesMoto() {
     	for(int i = 0; i < tableroCasillas.length; i++) {
     		if(tableroCasillas[i] == TipoCasilla.TRINEO) {
     			int row = i / COLUMNS;
