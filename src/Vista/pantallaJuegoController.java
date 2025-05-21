@@ -119,7 +119,36 @@ public class pantallaJuegoController {
         
         inicializarTablero();//INICIALIZAR EL TABLERO
     }
-
+    
+    /**
+     * Inicializa el tablero de juego con las casillas predeterminadas y especiales.
+     * 
+     * <p>Primero establece todas las casillas como NORMALES por defecto usando Arrays.fill(),
+     * luego coloca las casillas especiales en posiciones aleatorias según las cantidades especificadas.
+     * La casilla inicial (posición 0) siempre será NORMAL y la última casilla (posición 49) será la META.</p>
+     * 
+     * <p>Finalmente, llama a los métodos para mostrar las imágenes correspondientes a cada tipo de casilla especial.</p>
+     * 
+     * <p>Distribución de casillas especiales:</p>
+     * <ul>
+     *   <li>4 casillas de tipo AGUJERO</li>
+     *   <li>5 casillas de tipo INTERROGANTE</li>
+     *   <li>2 casillas de tipo OSO</li>
+     *   <li>4 casillas de tipo TRINEO</li>
+     *   <li>2 casillas de tipo MOTO</li>
+     *   <li>3 casillas de tipo SUELO_QUEBRADIZO (cantidad ajustable)</li>
+     * </ul>
+     * 
+     * @see TipoCasilla
+     * @see #colocarCasillasEspeciales(TipoCasilla, int)
+     * @see #mostrarImagenesAgujero()
+     * @see #mostrarImagenesOso()
+     * @see #mostrarImagenesInterrogante()
+     * @see #mostrarImagenesTrineo()
+     * @see #mostrarImagenesMoto()
+     * @see #mostrarImagenesMeta()
+     * @see #mostrarImagenesSueloQ()
+     */
     private void inicializarTablero() {
     	Arrays.fill(tableroCasillas, TipoCasilla.NORMAL); //ESTO HACE QUE TODAS LAS CASILLAS SEAN NORMALES POR DEFECTO
     	
@@ -184,6 +213,8 @@ public class pantallaJuegoController {
      *       casilla especial de este tipo. Si no hay más trineos, permanece en su posición.</li>
      *   <li><b>Meta:</b> Se muestra un mensaje de felicitación, indicando que el juego 
      *       ha finalizado.</li>
+     *   <li><b>Moto:</b> Avanza hasta la siguiente moto.</li>
+     *   <li><b>Suelo quebradizo:</b> Dependiendo de los objetos que tenga, vuelve al inicio o pierde algunos objetos</li>
      * </ul>
      * 
      * @param posicion Define la posición actual del jugador en el tablero.
@@ -322,10 +353,55 @@ public class pantallaJuegoController {
     	
     }
     
+    /**
+     * Calcula el número total de objetos recolectados en el juego sumando todos los tipos disponibles.
+     * 
+     * <p>Este método suma los valores actuales de todos los contadores de objetos:</p>
+     * <ul>
+     *   <li>Peces ({@code cantidadPeces})</li>
+     *   <li>Nieve ({@code cantidadNieve})</li>
+     *   <li>Dados rápidos ({@code cantidadDadosRapidos})</li>
+     *   <li>Dados lentos ({@code cantidadDadosLentos})</li>
+     * </ul>
+     * 
+     * @return La suma total de todos los objetos recolectados como un entero.
+     * 
+     * @see #cantidadPeces
+     * @see #cantidadNieve
+     * @see #cantidadDadosRapidos
+     * @see #cantidadDadosLentos
+     */
     private int contarTotalObjetos() {
         return cantidadPeces.get() + cantidadNieve.get() + cantidadDadosRapidos.get() + cantidadDadosLentos.get();
     }
     
+    /**
+     * Elimina un objeto aleatorio del inventario del jugador y muestra un mensaje indicando cuál se perdió.
+     * 
+     * <p>El método selecciona aleatoriamente entre los tipos de objetos disponibles ("pez", "nieve", "dadoRapido", "dadoLento")
+     * y verifica si el jugador tiene al menos una unidad de ese objeto. Si es así, lo elimina y muestra un mensaje
+     * en el componente {@code eventos}. Si no hay objetos de ese tipo, el bucle continúa hasta encontrar uno que sí exista.</p>
+     * 
+     * <p>El método garantiza que siempre se eliminará un objeto si hay al menos uno disponible en el inventario.</p>
+     * 
+     * <p><strong>Objetos posibles:</strong></p>
+     * <ul>
+     *   <li><b>pez</b> - Reduce {@code cantidadPeces} en 1 si hay disponibles.</li>
+     *   <li><b>nieve</b> - Reduce {@code cantidadNieve} en 1 si hay disponibles.</li>
+     *   <li><b>dadoRapido</b> - Reduce {@code cantidadDadosRapidos} en 1 si hay disponibles.</li>
+     *   <li><b>dadoLento</b> - Reduce {@code cantidadDadosLentos} en 1 si hay disponibles.</li>
+     * </ul>
+     * 
+     * @implNote Este método utiliza un bucle {@code while} para asegurarse de que se elimine un objeto válido.
+     * Si el objeto seleccionado aleatoriamente no está disponible, el bucle continúa hasta encontrar uno que sí lo esté.
+     * 
+     * @see java.util.Random
+     * @see #cantidadPeces
+     * @see #cantidadNieve
+     * @see #cantidadDadosRapidos
+     * @see #cantidadDadosLentos
+     * @see #eventos
+     */
     private void perderObjetoAleatorio() {
         String[] objetos = new String[] {"pez", "nieve", "dadoRapido", "dadoLento"};
         boolean objetoEliminado = false;
@@ -423,6 +499,31 @@ public class pantallaJuegoController {
         return posActual;
     }
     
+    /**
+     * Encuentra la siguiente casilla de tipo MOTO en el tablero después de la posición actual.
+     *
+     * <p>Este método recorre el arreglo {@code tableroCasillas} buscando la próxima
+     * casilla de tipo {@code TipoCasilla.MOTO} que aparezca después de la posición
+     * especificada. La búsqueda comienza desde el inicio del tablero y devuelve la
+     * primera casilla MOTO encontrada después de pasar la posición actual.</p>
+     *
+     * <p>Si no se encuentra ninguna casilla MOTO posterior, el método devuelve
+     * la posición original.</p>
+     *
+     * <p><strong>Lógica de búsqueda:</strong></p>
+     * <ol>
+     *   <li>Recorre todas las casillas del tablero comenzando desde el índice 0</li>
+     *   <li>Identifica la casilla MOTO en la posición actual (si existe)</li>
+     *   <li>Devuelve la siguiente casilla MOTO encontrada después de la posición actual</li>
+     *   <li>Si no existe otra casilla MOTO, devuelve la posición original</li>
+     * </ol>
+     *
+     * @param posActual La posición actual en el tablero (índice base 0)
+     * @return La posición de la siguiente casilla MOTO, o la posición actual si no se encuentra otra
+     *
+     * @see TipoCasilla
+     * @see #tableroCasillas
+     */
     private int encontrarSiguienteMoto(int posActual) {
         boolean encontradoActual = false;
 
@@ -1063,7 +1164,34 @@ public class pantallaJuegoController {
     	}
     }
     
-    
+    /**
+     * Muestra las imágenes de moto en las casillas correspondientes del tablero.
+     * 
+     * <p>Este método recorre todas las casillas del tablero ({@code tableroCasillas}) y para cada
+     * casilla de tipo {@code TipoCasilla.MOTO}, carga la imagen de una moto desde los recursos
+     * y la añade al componente gráfico del tablero en la posición correspondiente.</p>
+     * 
+     * <p><strong>Funcionamiento:</strong></p>
+     * <ul>
+     *   <li>Recorre todas las casillas del tablero mediante un bucle</li>
+     *   <li>Para cada casilla de tipo MOTO:
+     *     <ul>
+     *       <li>Calcula su posición (fila y columna) en el grid del tablero</li>
+     *       <li>Carga la imagen "moto.png" desde la carpeta de recursos</li>
+     *       <li>Crea un ImageView con la imagen y ajusta su tamaño (40x40 píxeles)</li>
+     *       <li>Añade la imagen al tablero en la posición calculada</li>
+     *     </ul>
+     *   </li>
+     * </ul>
+     * 
+     * <p>La imagen se redimensiona manteniendo su relación de aspecto original.</p>
+     * 
+     * @see TipoCasilla#MOTO
+     * @see #tableroCasillas
+     * @see #tablero
+     * @see javafx.scene.image.Image
+     * @see javafx.scene.image.ImageView
+     */
     private void mostrarImagenesMoto() {
     	for(int i = 0; i < tableroCasillas.length; i++) {
     		if(tableroCasillas[i] == TipoCasilla.MOTO) {
@@ -1104,9 +1232,34 @@ public class pantallaJuegoController {
     }
     
     /**
-     * Muestra la imagen del suelo quebradizo en el tablero, colocando una representación visual en cada casilla de tipo {@code META}.
-     * <p>
-     * Este método recorre el tablero buscando casillas de tipo {@code META} y, por cada una encontrada:
+     * Muestra las imágenes de suelo quebradizo en las casillas correspondientes del tablero.
+     * 
+     * <p>Este método recorre todas las casillas del tablero ({@code tableroCasillas}) buscando
+     * las de tipo {@code TipoCasilla.SUELO_QUEBRADIZO} para colocar la imagen representativa
+     * en cada una de ellas.</p>
+     * 
+     * <p><strong>Proceso detallado:</strong></p>
+     * <ul>
+     *   <li>Itera a través de todas las casillas del tablero</li>
+     *   <li>Para cada casilla de tipo SUELO_QUEBRADIZO:
+     *     <ul>
+     *       <li>Calcula su posición (fila y columna) en el grid del tablero</li>
+     *       <li>Carga la imagen "sueloQ.png" desde la carpeta de recursos (/Resources)</li>
+     *       <li>Crea un ImageView con la imagen cargada</li>
+     *       <li>Configura el tamaño de la imagen a 40x40 píxeles manteniendo la proporción</li>
+     *       <li>Añade la imagen al componente {@code tablero} en la posición calculada</li>
+     *     </ul>
+     *   </li>
+     * </ul>
+     * 
+     * <p>La imagen se ajusta al tamaño especificado conservando su relación de aspecto original.</p>
+     * 
+     * @see TipoCasilla#SUELO_QUEBRADIZO
+     * @see #tableroCasillas
+     * @see #tablero
+     * @see #COLUMNS
+     * @see javafx.scene.image.Image
+     * @see javafx.scene.image.ImageView
      */
     private void mostrarImagenesSueloQ() {
     	for(int i = 0; i  < tableroCasillas.length; i++) {
