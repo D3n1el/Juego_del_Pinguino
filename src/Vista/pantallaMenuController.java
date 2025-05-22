@@ -229,7 +229,7 @@ public class pantallaMenuController {
         		+ "        - Trineo: Te permite avanzar al siguiente trineo del tablero.\r\n"
         		+ "        - Casilla interrogante: Activa un evento aleatorio.\r\n"
         		+ "        - Casilla moto de nieve: Salta a la siguiente moto.\r\n"
-        		+ "        - Casilla suelo quebradizo: Si tienes más de 5 objetos vuelves a inicio. Si tienes menos, no pasa nada\r\n"
+        		+ "        - Casilla suelo quebradizo: Si tienes más de 5 objetos vuelves a inicio. Si tienes menos, te quedas donde estabas\r\n"
         		+ "          → Selecciona aleatoriamente un objeto a eliminar.\r\n"
         		+ "          → Si no tienes de ese objeto, no pasa nada.\r\n"
         		+ "\r\n"

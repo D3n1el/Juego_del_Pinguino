@@ -405,8 +405,12 @@ public class pantallaJuegoController {
     private void perderObjetoAleatorio() {
         String[] objetos = new String[] {"pez", "nieve", "dadoRapido", "dadoLento"};
         boolean objetoEliminado = false;
-
-        while (!objetoEliminado) {
+        boolean noPez = false;
+        boolean noNieve = false;
+        boolean noDadoRapido = false;
+        boolean noDadoLento = false;
+        
+        while (!objetoEliminado || (noPez && noNieve && noDadoRapido && noDadoLento)) {
             int eleccion = rand.nextInt(objetos.length);
             switch (objetos[eleccion]) {
                 case "pez":
@@ -415,7 +419,7 @@ public class pantallaJuegoController {
                         eventos.setText("¡Has perdido un pez!");
                         objetoEliminado = true;
                     } else {
-                    	objetoEliminado = true;
+                    	 noPez = true;
                     }
                     break;
                 case "nieve":
@@ -424,8 +428,9 @@ public class pantallaJuegoController {
                         eventos.setText("¡Has perdido una bola de nieve!");
                         objetoEliminado = true;
                     } else {
-                    	objetoEliminado = true;
+                    	noNieve = true;
                     }
+         
                     break;
                 case "dadoRapido":
                     if (cantidadDadosRapidos.get() > 0) {
@@ -433,7 +438,7 @@ public class pantallaJuegoController {
                         eventos.setText("¡Has perdido un dado rápido!");
                         objetoEliminado = true;
                     } else {
-                    	objetoEliminado = true;
+                    	noDadoRapido = true;
                     }
                     break;
                 case "dadoLento":
@@ -442,10 +447,9 @@ public class pantallaJuegoController {
                         eventos.setText("¡Has perdido un dado lento!");
                         objetoEliminado = true;
                     } else {
-                    	objetoEliminado = true;
+                    	noDadoLento = true;
                     }
                     break;
-                
             }
         }
     }
